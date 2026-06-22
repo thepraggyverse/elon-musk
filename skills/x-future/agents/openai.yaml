@@ -1,0 +1,4 @@
+interface:
+  display_name: "Future"
+  short_description: "Apply abundance, autonomy, energy, and AI lenses"
+  default_prompt: "Use $x-future to review this idea through abundance, energy, AI, and robotics lenses."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Manufacturing"
+  short_description: "Simplify production paths and attack constraints"
+  default_prompt: "Use $x-manufacturing to review this production, delivery, or operations path."

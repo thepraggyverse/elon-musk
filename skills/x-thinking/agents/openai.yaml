@@ -1,0 +1,4 @@
+interface:
+  display_name: "Thinking"
+  short_description: "Reason from truth, limits, and less-wrong thinking"
+  default_prompt: "Use $x-thinking to separate facts, assumptions, and better options."

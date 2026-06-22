@@ -1,0 +1,4 @@
+interface:
+  display_name: "Purpose"
+  short_description: "Review useful work and future-oriented purpose"
+  default_prompt: "Use $x-purpose to decide whether this work is useful and worth doing."

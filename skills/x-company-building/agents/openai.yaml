@@ -1,0 +1,4 @@
+interface:
+  display_name: "Company Building"
+  short_description: "Sequence mission, prototypes, survival, and scale"
+  default_prompt: "Use $x-company-building to turn this mission into a company-building sequence."

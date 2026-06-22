@@ -1,0 +1,4 @@
+interface:
+  display_name: "Reading"
+  short_description: "Recommend books by problem type and learning goal"
+  default_prompt: "Use $x-reading to pick relevant books for this problem or learning goal."

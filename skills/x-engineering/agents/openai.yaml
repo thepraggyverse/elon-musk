@@ -1,0 +1,4 @@
+interface:
+  display_name: "Engineering"
+  short_description: "Find engineering leverage and value creation"
+  default_prompt: "Use $x-engineering to review where engineering creates the most value."

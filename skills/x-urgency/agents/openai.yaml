@@ -1,0 +1,4 @@
+interface:
+  display_name: "Urgency"
+  short_description: "Shorten timelines and accelerate learning loops"
+  default_prompt: "Use $x-urgency to make this plan move faster without losing the plot."

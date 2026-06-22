@@ -1,0 +1,4 @@
+interface:
+  display_name: "Teams"
+  short_description: "Review talent density and builder culture"
+  default_prompt: "Use $x-teams to review this team, hiring plan, or culture problem."

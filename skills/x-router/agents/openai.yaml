@@ -1,0 +1,4 @@
+interface:
+  display_name: "Elon Musk Router"
+  short_description: "Route work to the right Elon Musk method"
+  default_prompt: "Use $x-router to choose the right Elon Musk method for this situation."

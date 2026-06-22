@@ -1,0 +1,4 @@
+interface:
+  display_name: "Risk"
+  short_description: "Review systemic and civilization-scale risks"
+  default_prompt: "Use $x-risk to examine systemic, safety, and civilization-scale risks."

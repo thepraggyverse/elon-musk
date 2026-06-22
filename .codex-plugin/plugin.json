@@ -1,0 +1,18 @@
+{
+  "name": "elon-musk",
+  "version": "0.1.0",
+  "description": "Book-derived Elon Musk methods packaged as searchable x-prefixed Codex skills.",
+  "author": {
+    "name": "Praggy"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Elon Musk",
+    "shortDescription": "Book-derived x-prefixed methods for Codex.",
+    "longDescription": "A local methods plugin that turns major ideas from The Book of Elon into merged, searchable Codex skills. Each top-level x- skill groups related book ideas as subsections so the plugin stays usable while preserving the full method catalog.",
+    "developerName": "Praggy",
+    "category": "Productivity",
+    "capabilities": [],
+    "defaultPrompt": "Use x-router to choose the right Elon Musk method for this task."
+  }
+}

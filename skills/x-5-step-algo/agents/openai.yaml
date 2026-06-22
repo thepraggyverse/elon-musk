@@ -1,0 +1,4 @@
+interface:
+  display_name: "5 Step Algo"
+  short_description: "Question, delete, simplify, accelerate, automate"
+  default_prompt: "Use $x-5-step-algo to question, delete, simplify, accelerate, and automate this plan."

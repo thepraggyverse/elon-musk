@@ -1,0 +1,4 @@
+interface:
+  display_name: "Organization"
+  short_description: "Remove org drag, handoffs, and unclear communication"
+  default_prompt: "Use $x-org to simplify this organization, process, or decision path."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Multiplanetary"
+  short_description: "Turn moonshot missions into staged milestones"
+  default_prompt: "Use $x-multiplanetary to turn this moonshot into staged milestones."

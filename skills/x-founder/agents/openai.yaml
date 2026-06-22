@@ -1,0 +1,4 @@
+interface:
+  display_name: "Founder"
+  short_description: "Test conviction, pain tolerance, and big bets"
+  default_prompt: "Use $x-founder to review this founder decision or difficult bet."
