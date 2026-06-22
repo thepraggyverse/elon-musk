@@ -129,10 +129,12 @@ def validate_references() -> None:
 def validate_docs() -> None:
     required = [
         "README.md",
+        "CONCEPTS.md",
         "LICENSE",
         "CONTRIBUTING.md",
         "docs/INSTALL.md",
         "docs/SYMLINKS.md",
+        "docs/USAGE.md",
         "docs/DEVELOPMENT.md",
         "docs/SOURCE_BOUNDARIES.md",
         ".github/workflows/validate.yml",
