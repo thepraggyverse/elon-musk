@@ -132,6 +132,7 @@ def validate_docs() -> None:
         "CONCEPTS.md",
         "LICENSE",
         "CONTRIBUTING.md",
+        "docs/COMPOUND_ENGINEERING.md",
         "docs/INSTALL.md",
         "docs/SYMLINKS.md",
         "docs/USAGE.md",

@@ -215,6 +215,7 @@ See `docs/INSTALL.md` and `docs/SYMLINKS.md`.
 | File | Purpose |
 |---|---|
 | `CONCEPTS.md` | Plugin philosophy, workflow, and method families. |
+| `docs/COMPOUND_ENGINEERING.md` | How Compound Engineering ideas shaped the plugin packaging. |
 | `docs/INSTALL.md` | Detailed install and update paths. |
 | `docs/SYMLINKS.md` | How plugin and skill symlinks work. |
 | `docs/USAGE.md` | More examples and prompt recipes. |
@@ -262,7 +263,9 @@ This repo follows the same broad plugin-as-product pattern as:
 - https://github.com/EveryInc/compound-knowledge-plugin
 - https://github.com/steipete/agent-scripts/tree/main/skills
 
-Compound Engineering is especially useful as a reference because it presents a clear philosophy, workflow, skill-purpose inventory, quick examples, and install paths across multiple agent hosts.
+Compound Engineering is especially useful as a reference because it presents a clear philosophy, workflow, skill-purpose inventory, quick examples, install paths across multiple agent hosts, and a "make the system learn" step after each cycle.
+
+See `docs/COMPOUND_ENGINEERING.md` for the exact ideas borrowed for this plugin's packaging.
 
 ## Source Boundaries
 
