@@ -135,6 +135,9 @@ For routine docs and skill updates, keep the semver version stable unless a user
 - Treat `VISION.md` as direction, not implementation permission.
 - Treat requirements as product intent and plans as implementation boundaries.
 - Do not implement vision-only ideas until they become requirements, then a plan, then receive user confirmation.
+- Classify agent automation as a goal, loop, or routine before running it.
+- Every loop must have a verifier, budget or iteration cap, no-progress stop, and owner-help condition.
+- Prefer independent verification over letting the worker grade its own work.
 - Treat lint failures, flaky tests, unrelated broken checks, visual regressions, layout overlap, and accessibility regressions as real signals. Report scope clearly instead of ignoring them.
 - Do not manually edit generated files, generated changelogs, lockfile output, or build artifacts unless this repo explicitly expects that edit.
 - Do not add coauthor trailers, attribution, or public-facing metadata unless the owner asks.
