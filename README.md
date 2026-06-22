@@ -341,4 +341,4 @@ This repo uses a docs-first agent contract:
 - `docs/qa/` stores feature, test case, defect, and regression ledgers.
 
 Vision ideas must become requirements, then a plan, then receive owner confirmation before implementation.
-<!-- END PRAGGY LOOP GUARDRAILS -->
+<!-- END PRAGGY PROJECT DOCS -->
