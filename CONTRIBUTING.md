@@ -9,6 +9,7 @@ Contributions are welcome if they preserve the purpose of the repository: compac
 - Put broader context in `references/`, not inside every skill.
 - Do not add full book text, long quotes, transcripts, or copyrighted source dumps.
 - Add or update tests when changing skill inventory, references, scripts, or install behavior.
+- Keep `README.md`, `docs/HARNESS_MATRIX.md`, and plugin manifests in sync with supported install paths.
 
 ## Validate Before Opening A PR
 
@@ -28,6 +29,7 @@ If you have Codex's local skill/plugin creator helpers installed, the public val
    - `README.md`
    - `references/book-map.md`
    - `references/method-catalog.md`
+   - `.claude-plugin/plugin.json`
    - `tests/test_plugin_structure.py`
 5. Run validation.
 

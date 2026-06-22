@@ -70,7 +70,7 @@ def remove_destination(path: Path) -> None:
 
 def ensure_plugin_link(dest: Path, force: bool, dry_run: bool) -> None:
     dest = dest.expanduser()
-    if dest.resolve() == ROOT.resolve() if dest.exists() or dest.is_symlink() else False:
+    if (dest.exists() or dest.is_symlink()) and dest.resolve() == ROOT.resolve():
         print(f"Plugin path already points to source: {dest}")
         return
 

@@ -1,0 +1,39 @@
+{
+  "name": "elon-musk",
+  "version": "0.1.0",
+  "description": "Elon Musk method skills for strategy, engineering, teams, risk, and execution.",
+  "author": {
+    "name": "Praggy",
+    "url": "https://github.com/thepraggyverse"
+  },
+  "homepage": "https://github.com/thepraggyverse/elon-musk",
+  "repository": "https://github.com/thepraggyverse/elon-musk",
+  "license": "MIT",
+  "keywords": [
+    "skills",
+    "agents",
+    "codex",
+    "claude-code",
+    "elon-musk",
+    "strategy",
+    "engineering",
+    "productivity"
+  ],
+  "skills": [
+    "./skills/x-router",
+    "./skills/x-purpose",
+    "./skills/x-thinking",
+    "./skills/x-engineering",
+    "./skills/x-5-step-algo",
+    "./skills/x-teams",
+    "./skills/x-org",
+    "./skills/x-urgency",
+    "./skills/x-manufacturing",
+    "./skills/x-founder",
+    "./skills/x-company-building",
+    "./skills/x-future",
+    "./skills/x-risk",
+    "./skills/x-multiplanetary",
+    "./skills/x-reading"
+  ]
+}

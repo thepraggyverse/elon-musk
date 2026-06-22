@@ -76,6 +76,49 @@ def validate_plugin_json() -> None:
     for key in ["displayName", "shortDescription", "longDescription", "defaultPrompt"]:
         if not interface.get(key):
             fail(f"plugin interface missing {key}")
+    if data.get("repository") != "https://github.com/thepraggyverse/elon-musk":
+        fail("plugin repository URL is missing or wrong")
+    prompts = interface.get("defaultPrompt")
+    if not isinstance(prompts, list) or len(prompts) < 3:
+        fail("plugin interface defaultPrompt must be a list of at least three prompts")
+
+
+def validate_auxiliary_manifests() -> None:
+    claude = ROOT / ".claude-plugin" / "plugin.json"
+    if not claude.exists():
+        fail("missing .claude-plugin/plugin.json")
+    data = json.loads(read_text(claude))
+    if data.get("name") != "elon-musk":
+        fail("claude plugin name must be elon-musk")
+    skills = data.get("skills")
+    if not isinstance(skills, list):
+        fail("claude plugin skills must be a list")
+    expected_paths = [f"./skills/{skill}" for skill in EXPECTED_SKILLS]
+    if sorted(skills) != sorted(expected_paths):
+        fail("claude plugin skills list does not match expected inventory")
+
+    claude_marketplace = ROOT / ".claude-plugin" / "marketplace.json"
+    if not claude_marketplace.exists():
+        fail("missing .claude-plugin/marketplace.json")
+    marketplace = json.loads(read_text(claude_marketplace))
+    plugins = marketplace.get("plugins")
+    if not isinstance(plugins, list) or not any(p.get("name") == "elon-musk" for p in plugins if isinstance(p, dict)):
+        fail("claude marketplace missing elon-musk entry")
+
+    codex_marketplace = ROOT / ".agents" / "plugins" / "marketplace.json"
+    if not codex_marketplace.exists():
+        fail("missing .agents/plugins/marketplace.json")
+    codex_data = json.loads(read_text(codex_marketplace))
+    entries = codex_data.get("plugins")
+    if not isinstance(entries, list) or not entries:
+        fail("repo-local codex marketplace has no plugins")
+    entry = entries[0]
+    if entry.get("name") != "elon-musk":
+        fail("repo-local codex marketplace first plugin must be elon-musk")
+    if entry.get("source", {}).get("path") != "./":
+        fail("repo-local codex marketplace should point at repo root")
+    if entry.get("policy", {}).get("installation") != "AVAILABLE":
+        fail("repo-local codex marketplace installation policy must be AVAILABLE")
 
 
 def validate_skills() -> int:
@@ -128,17 +171,24 @@ def validate_references() -> None:
 
 def validate_docs() -> None:
     required = [
+        "AGENTS.md",
+        "CLAUDE.md",
         "README.md",
         "CONCEPTS.md",
         "LICENSE",
         "CONTRIBUTING.md",
         "docs/COMPOUND_ENGINEERING.md",
+        "docs/HARNESS_MATRIX.md",
         "docs/INSTALL.md",
+        "docs/REFERENCE_AUDIT.md",
         "docs/SYMLINKS.md",
         "docs/USAGE.md",
         "docs/DEVELOPMENT.md",
         "docs/SOURCE_BOUNDARIES.md",
         ".github/workflows/validate.yml",
+        ".claude-plugin/plugin.json",
+        ".claude-plugin/marketplace.json",
+        ".agents/plugins/marketplace.json",
         "scripts/install_local.py",
         "scripts/validate_public.py",
     ]
@@ -172,6 +222,7 @@ def optional_codex_validators() -> None:
 
 def main() -> int:
     validate_plugin_json()
+    validate_auxiliary_manifests()
     skill_count = validate_skills()
     validate_references()
     validate_docs()

@@ -58,10 +58,32 @@ class PluginManifestTests(unittest.TestCase):
 
         self.assertEqual(data["name"], "elon-musk")
         self.assertEqual(data["skills"], "./skills/")
-        self.assertIn("Book-derived", data["description"])
-        self.assertEqual(data["interface"]["displayName"], "Elon Musk")
-        self.assertIn("x-router", data["interface"]["defaultPrompt"])
+        self.assertIn("strategy", data["description"])
+        self.assertEqual(data["repository"], "https://github.com/thepraggyverse/elon-musk")
+        self.assertEqual(data["interface"]["displayName"], "Elon Musk Methods")
+        self.assertTrue(any("x-router" in prompt for prompt in data["interface"]["defaultPrompt"]))
         self.assertFalse(any(token in json.dumps(data) for token in BANNED_PLACEHOLDERS))
+
+    def test_claude_manifest_lists_public_skills(self):
+        manifest_path = ROOT / ".claude-plugin" / "plugin.json"
+        data = json.loads(read_text(manifest_path))
+
+        self.assertEqual(data["name"], "elon-musk")
+        self.assertEqual(data["repository"], "https://github.com/thepraggyverse/elon-musk")
+        self.assertEqual(
+            sorted(data["skills"]),
+            sorted(f"./skills/{name}" for name in EXPECTED_SKILLS),
+        )
+
+    def test_repo_local_marketplace_points_to_plugin_root(self):
+        marketplace_path = ROOT / ".agents" / "plugins" / "marketplace.json"
+        data = json.loads(read_text(marketplace_path))
+        self.assertEqual(data["name"], "elon-musk-methods")
+        entries = {entry["name"]: entry for entry in data["plugins"]}
+        self.assertIn("elon-musk", entries)
+        self.assertEqual(entries["elon-musk"]["source"]["path"], "./")
+        self.assertEqual(entries["elon-musk"]["policy"]["installation"], "AVAILABLE")
+        self.assertEqual(entries["elon-musk"]["policy"]["authentication"], "ON_INSTALL")
 
     def test_personal_marketplace_entry_points_to_symlink_when_present(self):
         marketplace = Path.home() / ".agents" / "plugins" / "marketplace.json"
@@ -168,6 +190,20 @@ class DocumentationCoverageTests(unittest.TestCase):
         for name in ["x-router", "x-5-step-algo", "x-org", "x-teams", "x-manufacturing", "x-engineering"]:
             with self.subTest(skill=name):
                 self.assertIn(name, combined)
+
+    def test_harness_docs_cover_install_update_and_uninstall(self):
+        harness = read_text(ROOT / "docs" / "HARNESS_MATRIX.md")
+        for phrase in ["Codex app", "Codex CLI", "Claude Code", "OpenClaw", "Update Checklist", "Uninstall Checklist"]:
+            with self.subTest(phrase=phrase):
+                self.assertIn(phrase, harness)
+
+    def test_agents_and_readme_explain_repo_contract(self):
+        agents = read_text(ROOT / "AGENTS.md")
+        readme = read_text(ROOT / "README.md")
+        self.assertIn("canonical authoring contract", agents)
+        self.assertIn("Skill Inventory", readme)
+        self.assertIn("Harness Matrix", readme)
+        self.assertIn("Disclaimer", readme)
 
 
 class HygieneTests(unittest.TestCase):

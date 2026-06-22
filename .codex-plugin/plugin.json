@@ -1,18 +1,40 @@
 {
   "name": "elon-musk",
   "version": "0.1.0",
-  "description": "Book-derived Elon Musk methods packaged as searchable x-prefixed Codex skills.",
+  "description": "Elon Musk method skills for strategy, engineering, teams, risk, and execution.",
   "author": {
-    "name": "Praggy"
+    "name": "Praggy",
+    "url": "https://github.com/thepraggyverse"
   },
+  "homepage": "https://github.com/thepraggyverse/elon-musk",
+  "repository": "https://github.com/thepraggyverse/elon-musk",
+  "license": "MIT",
+  "keywords": [
+    "skills",
+    "agents",
+    "codex",
+    "claude-code",
+    "elon-musk",
+    "strategy",
+    "engineering",
+    "productivity"
+  ],
   "skills": "./skills/",
   "interface": {
-    "displayName": "Elon Musk",
-    "shortDescription": "Book-derived x-prefixed methods for Codex.",
-    "longDescription": "A local methods plugin that turns major ideas from The Book of Elon into merged, searchable Codex skills. Each top-level x- skill groups related book ideas as subsections so the plugin stays usable while preserving the full method catalog.",
+    "displayName": "Elon Musk Methods",
+    "shortDescription": "x-prefixed method skills for strategy, engineering, teams, risk, and execution.",
+    "longDescription": "A compact skill plugin with 15 searchable x-prefixed skills. Use it to route messy problems, question requirements, simplify plans, review teams and organizations, inspect risk, and turn ambitious missions into staged execution.",
     "developerName": "Praggy",
     "category": "Productivity",
-    "capabilities": [],
-    "defaultPrompt": "Use x-router to choose the right Elon Musk method for this task."
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Use $x-router on this project idea.",
+      "Use $x-5-step-algo on this feature plan.",
+      "Use $x-risk on this AI launch plan."
+    ]
   }
 }

@@ -1,6 +1,6 @@
 # Symlinks
 
-This repo supports two kinds of symlinks.
+This repo supports two kinds of symlinks: one for the local Codex plugin source, and one set for direct `SKILL.md` skill homes.
 
 ## Plugin Source Symlink
 
@@ -41,6 +41,8 @@ Default homes:
 ~/.openclaw/skills
 ~/.openclaw/acpx/codex-home/skills
 ```
+
+These homes cover common Codex, Claude Code, OpenClaw, and shared `.agents` setups. Other harnesses can use the same pattern if they expose a directory of `SKILL.md` folders.
 
 Example result:
 
@@ -85,3 +87,18 @@ find ~/.codex/skills -maxdepth 1 -type l -name 'x-*' -delete
 ```
 
 Check targets before deleting if you have other `x-*` skills.
+
+## Update Symlinks
+
+Symlinks point at this checkout. Updating is usually just:
+
+```bash
+cd ~/plugins/elon-musk
+git pull --ff-only
+```
+
+If you added a new skill home or want to repair missing links:
+
+```bash
+python3 scripts/install_local.py --symlink-skills
+```

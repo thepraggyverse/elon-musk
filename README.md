@@ -2,58 +2,37 @@
 
 [![Validate](https://github.com/thepraggyverse/elon-musk/actions/workflows/validate.yml/badge.svg)](https://github.com/thepraggyverse/elon-musk/actions/workflows/validate.yml)
 
-Book-derived `x-*` skills for applying Elon Musk-style operating methods to useful work, engineering, teams, company-building, risk, and moonshot execution.
+`elon-musk` is a skill plugin for applying book-derived Elon Musk method patterns to strategy, engineering, teams, risk, company building, and execution.
 
-This is an unofficial Codex plugin. It is not a quote dump and it does not include the full text of *The Book of Elon*. It packages paraphrased, reusable methods into small agent skills.
-
-## Philosophy
-
-The point is not to imitate a person. The point is to preserve reusable moves:
-
-- Choose work that is useful and future-oriented.
-- Reason from reality, not analogy.
-- Question requirements before accepting them.
-- Delete before optimizing.
-- Treat engineering and production as the value engine.
-- Build teams that can face bad news and still ship.
-- Move fast only after the direction is valid.
-- Make companies, systems, and missions resilient enough to survive hard phases.
-
-The plugin uses a merged structure: many book ideas are preserved, but only 15 top-level skills appear in search. Smaller ideas live as subsections and in `references/method-catalog.md`.
-
-## Workflow
-
-Start with the router when the situation is broad:
+It ships 15 searchable `x-*` skills. Use the router when you are unsure which method fits, or call a specific skill when you already know the lens.
 
 ```text
-Use $x-router on this startup idea and pick the right Elon Musk methods.
+Use $x-router on this project idea.
+Use $x-5-step-algo on this feature plan.
+Use $x-org and $x-teams on this blocked team workflow.
+Use $x-risk on this AI launch plan.
 ```
 
-Then apply one or two specific methods:
+The skills are paraphrased operating methods. They are not a quote archive and they do not include the book text.
+
+## Skill Loop
+
+For broad work, start here:
 
 ```text
-Use $x-purpose to decide whether this project is worth doing.
-Use $x-thinking to separate facts from assumptions.
-Use $x-5-step-algo to question, delete, simplify, accelerate, and automate.
+x-router -> selected method -> concrete review -> reusable lesson
 ```
 
-For product or engineering work, a typical loop is:
+Common routes:
 
-```text
-x-purpose -> x-thinking -> x-5-step-algo -> x-engineering -> x-urgency
-```
-
-For company-building:
-
-```text
-x-purpose -> x-founder -> x-company-building -> x-teams -> x-manufacturing
-```
-
-For high-risk or moonshot work:
-
-```text
-x-thinking -> x-risk -> x-multiplanetary -> x-company-building
-```
+| Situation | Useful sequence |
+|---|---|
+| New product or startup idea | `x-purpose -> x-thinking -> x-company-building` |
+| Feature or workflow before building | `x-5-step-algo -> x-engineering -> x-urgency` |
+| Slow organization or blocked project | `x-org -> x-teams -> x-urgency` |
+| Production or delivery bottleneck | `x-manufacturing -> x-engineering -> x-5-step-algo` |
+| Risky AI or infrastructure launch | `x-risk -> x-thinking -> x-company-building` |
+| Moonshot or long-horizon mission | `x-multiplanetary -> x-risk -> x-company-building` |
 
 ## Quick Examples
 
@@ -96,7 +75,7 @@ Use $x-org and $x-teams on this blocked project:
 Engineering waits for Product, Product waits for Legal, Legal waits for Security, and nobody can name the final owner.
 ```
 
-Expected output:
+Expected lens:
 
 | Area | What to inspect |
 |---|---|
@@ -105,29 +84,29 @@ Expected output:
 | Risk | Which approvals prevent real harm? |
 | Culture | Is the team building, waiting, hiding, or debating reality? |
 
-## Full Skill Inventory
+## Skill Inventory
 
-| Skill | Purpose | Use When |
+| Skill | What it does | Use when |
 |---|---|---|
-| `x-router` | Choose the right method lens. | The request is broad or messy. |
-| `x-purpose` | Decide if work is useful, ambitious, and worth sustained effort. | Project selection, product bets, career bets, mission checks. |
-| `x-thinking` | Improve reasoning quality. | Strategy, architecture, impossible claims, expensive claims. |
-| `x-engineering` | Find where engineering creates real value. | Technical strategy, product architecture, build-vs-buy. |
-| `x-5-step-algo` | Question, delete, simplify, accelerate, automate. | Feature specs, workflows, automations, migrations, refactors. |
-| `x-teams` | Review talent density and builder culture. | Hiring, founding teams, performance, team health. |
-| `x-org` | Remove organizational drag. | Meetings, approvals, cross-team work, unclear ownership. |
-| `x-urgency` | Shorten timelines and feedback loops. | Launches, blocked projects, roadmaps, crisis work. |
-| `x-manufacturing` | Treat production as the product. | Operations, CI/CD, support, fulfillment, physical production. |
-| `x-founder` | Test conviction, pain tolerance, and all-in decisions. | Startup commitment, pivots, runway, hard personal bets. |
-| `x-company-building` | Turn mission into prototype, survival, sequence, and scale. | Startup roadmaps, product strategy, capital allocation. |
-| `x-future` | Apply abundance, AI, robotics, autonomy, and energy lenses. | Long-term technology bets and future-state planning. |
-| `x-risk` | Review systemic and civilization-scale downside. | AI systems, safety, infrastructure, policy, broad downside. |
-| `x-multiplanetary` | Turn moonshots into staged milestones. | Deep-tech, resilience, infrastructure, long-horizon missions. |
-| `x-reading` | Recommend books by problem type. | Learning paths for engineering, history, AI, strategy, science. |
+| `x-router` | Chooses the best method lens. | The request is broad or messy. |
+| `x-purpose` | Tests usefulness, ambition, and sustained effort. | Choosing projects, missions, product bets, or career bets. |
+| `x-thinking` | Improves reasoning quality. | Strategy, architecture, impossible claims, expensive claims. |
+| `x-engineering` | Finds where engineering creates real value. | Technical strategy, build-vs-buy, product architecture. |
+| `x-5-step-algo` | Questions, deletes, simplifies, accelerates, then automates. | Feature specs, workflows, migrations, refactors, automations. |
+| `x-teams` | Reviews talent density, ownership, and builder culture. | Hiring, founding teams, performance, team health. |
+| `x-org` | Removes organizational drag. | Meetings, approvals, cross-team work, unclear ownership. |
+| `x-urgency` | Shortens timelines and feedback loops. | Launches, blocked projects, roadmaps, crisis work. |
+| `x-manufacturing` | Treats production and delivery as the product. | Operations, CI/CD, support, fulfillment, physical production. |
+| `x-founder` | Tests conviction, pain tolerance, and all-in decisions. | Startup commitment, pivots, runway, hard personal bets. |
+| `x-company-building` | Turns mission into prototype, survival, sequence, and scale. | Startup roadmaps, product strategy, capital allocation. |
+| `x-future` | Applies abundance, AI, robotics, autonomy, and energy lenses. | Long-term technology bets and future-state planning. |
+| `x-risk` | Reviews systemic and civilization-scale downside. | AI systems, safety, infrastructure, policy, broad downside. |
+| `x-multiplanetary` | Turns moonshots into staged milestones. | Deep-tech, resilience, infrastructure, long-horizon missions. |
+| `x-reading` | Recommends books by problem type. | Learning paths for engineering, history, AI, strategy, science. |
 
 ## Merged Method Map
 
-| Top-Level Skill | Merged Methods |
+| Top-level skill | Merged methods |
 |---|---|
 | `x-purpose` | be useful, fight for the future, start before ready, create more than consume, work like hell, fear |
 | `x-thinking` | truth calibration, first principles, thinking in limits, less wrong, direct source |
@@ -144,23 +123,9 @@ Expected output:
 | `x-multiplanetary` | Mars roadmap, civilization backup, gateway milestones, long-horizon execution |
 | `x-reading` | fiction, science, engineering, history, AI, business |
 
-## What You Get
-
-```text
-elon-musk/
-  .codex-plugin/plugin.json
-  skills/                     15 x-prefixed skills
-  references/                 book map, method catalog, source notes
-  examples/                   practical prompt examples
-  docs/                       install, symlinks, usage, development, source boundaries
-  scripts/install_local.py    marketplace and skill symlink installer
-  scripts/validate_public.py  public repository validator
-  tests/                      unit tests for structure and install assumptions
-```
-
 ## Install
 
-### Codex Plugin
+### Codex, Local Personal Plugin
 
 ```bash
 mkdir -p ~/plugins
@@ -170,25 +135,42 @@ python3 scripts/install_local.py --marketplace
 codex plugin add elon-musk@personal
 ```
 
-Verify:
+### Codex App, Custom Marketplace
 
-```bash
-codex plugin list | grep elon-musk
-```
+In the Codex app, add this repository as a plugin marketplace:
 
-Expected:
+| Field | Value |
+|---|---|
+| Source | `thepraggyverse/elon-musk` |
+| Git ref | `main` |
+| Sparse paths | leave blank |
+
+Install `elon-musk`, then restart Codex so the skills reload.
+
+### Claude Code
+
+Use the Claude-compatible plugin metadata:
 
 ```text
-elon-musk@personal   installed, enabled  0.1.0    /Users/<you>/plugins/elon-musk
+/plugin marketplace add thepraggyverse/elon-musk
+/plugin install elon-musk
 ```
 
-### Direct Skill Symlinks
+For local development from a checkout:
+
+```bash
+claude --plugin-dir "$PWD"
+```
+
+### Loose Skill Homes
+
+For harnesses that read `SKILL.md` folders directly:
 
 ```bash
 python3 scripts/install_local.py --symlink-skills
 ```
 
-Default skill homes:
+Default homes:
 
 ```text
 ~/.agents/skills
@@ -198,25 +180,48 @@ Default skill homes:
 ~/.openclaw/acpx/codex-home/skills
 ```
 
-See `docs/INSTALL.md` and `docs/SYMLINKS.md`.
+See `docs/HARNESS_MATRIX.md`, `docs/INSTALL.md`, and `docs/SYMLINKS.md`.
 
-## Install Matrix
+## Updating
 
-| Host | Path |
-|---|---|
-| Codex plugin | `python3 scripts/install_local.py --marketplace` then `codex plugin add elon-musk@personal` |
-| Codex loose skills | `python3 scripts/install_local.py --symlink-skills --skill-home ~/.codex/skills` |
-| Claude Code loose skills | `python3 scripts/install_local.py --symlink-skills --skill-home ~/.claude/skills` |
-| Shared `.agents` home | `python3 scripts/install_local.py --symlink-skills --skill-home ~/.agents/skills` |
-| OpenClaw skills | `python3 scripts/install_local.py --symlink-skills --skill-home ~/.openclaw/skills` |
+```bash
+cd ~/plugins/elon-musk
+git pull --ff-only
+python3 scripts/install_local.py --marketplace --symlink-skills
+codex plugin add elon-musk@personal
+python3 scripts/validate_public.py
+```
+
+Start a new Codex or Claude thread after reinstalling so the updated skills are loaded.
+
+## Repository Layout
+
+```text
+elon-musk/
+  AGENTS.md                   authoring rules for this repo
+  CLAUDE.md                   Claude-compatible pointer to AGENTS.md
+  .codex-plugin/plugin.json   native Codex plugin manifest
+  .claude-plugin/             Claude-compatible plugin metadata
+  .agents/plugins/            repo-local Codex marketplace metadata
+  skills/                     15 x-prefixed skills
+  references/                 book map, method catalog, source notes
+  examples/                   practical prompt examples
+  docs/                       install, harness, usage, audit, source boundaries
+  scripts/install_local.py    marketplace and skill symlink installer
+  scripts/validate_public.py  public repository validator
+  tests/                      unit tests for structure and install assumptions
+```
 
 ## Documentation
 
 | File | Purpose |
 |---|---|
+| `AGENTS.md` | Maintainer and agent instructions for this repo. |
 | `CONCEPTS.md` | Plugin philosophy, workflow, and method families. |
+| `docs/HARNESS_MATRIX.md` | Harness Matrix for install, update, uninstall, and compatibility notes. |
+| `docs/REFERENCE_AUDIT.md` | What was audited from the reference projects and what changed here. |
 | `docs/COMPOUND_ENGINEERING.md` | How Compound Engineering ideas shaped the plugin packaging. |
-| `docs/INSTALL.md` | Detailed install and update paths. |
+| `docs/INSTALL.md` | Detailed local install and update paths. |
 | `docs/SYMLINKS.md` | How plugin and skill symlinks work. |
 | `docs/USAGE.md` | More examples and prompt recipes. |
 | `docs/DEVELOPMENT.md` | Maintainer workflow. |
@@ -236,36 +241,23 @@ The public validator checks:
 
 | Area | Check |
 |---|---|
-| Plugin | Manifest exists, parses, and points to `./skills/`. |
+| Plugin manifests | Codex, Claude-compatible, and repo-local marketplace metadata exist and parse. |
 | Skills | Exactly 15 `x-*` skills with matching frontmatter and UI metadata. |
-| Docs | Required README, install, usage, symlink, source-boundary, and CI files exist. |
+| Docs | README, AGENTS, install, usage, harness, audit, symlink, source-boundary, and CI files exist. |
 | References | Catalog and book map cover every non-router skill. |
 | Hygiene | Placeholder text and non-ASCII drift are rejected. |
 
-## Updating
-
-```bash
-cd ~/plugins/elon-musk
-git pull --ff-only
-python3 scripts/install_local.py --marketplace --symlink-skills
-codex plugin add elon-musk@personal
-python3 scripts/validate_public.py
-```
-
-Start a new Codex thread after reinstalling so the updated skills are loaded.
-
 ## Design References
 
-This repo follows the same broad plugin-as-product pattern as:
+This repo follows the broad plugin-as-product pattern from:
 
-- https://github.com/mattpocock/skills
+- https://every.to/guides/compound-engineering
 - https://github.com/EveryInc/compound-engineering-plugin
 - https://github.com/EveryInc/compound-knowledge-plugin
+- https://github.com/mattpocock/skills
 - https://github.com/steipete/agent-scripts/tree/main/skills
 
-Compound Engineering is especially useful as a reference because it presents a clear philosophy, workflow, skill-purpose inventory, quick examples, install paths across multiple agent hosts, and a "make the system learn" step after each cycle.
-
-See `docs/COMPOUND_ENGINEERING.md` for the exact ideas borrowed for this plugin's packaging.
+See `docs/REFERENCE_AUDIT.md` for the detailed gap list and decisions.
 
 ## Source Boundaries
 
@@ -275,7 +267,7 @@ See `docs/SOURCE_BOUNDARIES.md`.
 
 ## Disclaimer
 
-This is an unofficial educational and productivity project. It is not affiliated with, endorsed by, sponsored by, or connected to Elon Musk, Eric Jorgenson, ElonMuskBook.org, Tesla, SpaceX, X, xAI, Neuralink, The Boring Company, or any publisher/rightsholder.
+This is an independent educational and productivity project. It is not affiliated with, endorsed by, sponsored by, or connected to Elon Musk, Eric Jorgenson, ElonMuskBook.org, Tesla, SpaceX, X, xAI, Neuralink, The Boring Company, or any publisher/rightsholder.
 
 "Elon Musk" is used descriptively to identify the inspiration for the operating patterns.
 

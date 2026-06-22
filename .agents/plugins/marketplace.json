@@ -1,0 +1,20 @@
+{
+  "name": "elon-musk-methods",
+  "interface": {
+    "displayName": "Elon Musk Methods"
+  },
+  "plugins": [
+    {
+      "name": "elon-musk",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

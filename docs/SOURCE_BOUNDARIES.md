@@ -38,4 +38,4 @@ If a future change needs exact source quotes, keep them short, cite the source, 
 
 ## Disclaimer
 
-This project is unofficial and educational. It is not affiliated with Elon Musk, Eric Jorgenson, ElonMuskBook.org, Tesla, SpaceX, X, xAI, Neuralink, The Boring Company, or any publisher/rightsholder.
+This project is independent and educational. It is not affiliated with Elon Musk, Eric Jorgenson, ElonMuskBook.org, Tesla, SpaceX, X, xAI, Neuralink, The Boring Company, or any publisher/rightsholder.

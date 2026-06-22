@@ -1,15 +1,16 @@
 # Install
 
-This document covers installing `elon-musk` as a local Codex plugin and optionally exposing every `x-*` skill through local skill homes.
+This document covers installing `elon-musk` as a Codex plugin, a Claude-compatible plugin, or a direct `SKILL.md` skill pack for other local harnesses.
 
 ## Requirements
 
 - macOS or Linux shell.
 - Python 3.10 or newer.
 - Codex CLI/Desktop if installing as a Codex plugin.
+- Claude Code if installing through `.claude-plugin/`.
 - Optional: any other agent that can load `SKILL.md` skill folders.
 
-## Option 1: Install As A Codex Plugin
+## Option 1: Codex Local Personal Plugin
 
 Clone into the conventional local plugin directory:
 
@@ -86,7 +87,47 @@ codex plugin add elon-musk@personal
 
 The installer will create `~/plugins/elon-musk` as a symlink to the current clone.
 
-## Option 3: Symlink Skills Directly
+## Option 3: Codex App Custom Marketplace
+
+In the Codex app, add this repo as a plugin marketplace:
+
+| Field | Value |
+|---|---|
+| Source | `thepraggyverse/elon-musk` |
+| Git ref | `main` |
+| Sparse paths | leave blank |
+
+Then install `elon-musk` from the marketplace UI and restart Codex.
+
+For local development against the current checkout, use the local folder path as the marketplace source instead of the GitHub repo:
+
+```text
+/Users/<you>/Developer/elon-musk
+```
+
+## Option 4: Claude Code Plugin
+
+Inside Claude Code:
+
+```text
+/plugin marketplace add thepraggyverse/elon-musk
+/plugin install elon-musk
+```
+
+For local development from this checkout:
+
+```bash
+claude --plugin-dir "$PWD"
+```
+
+Claude-compatible metadata lives in:
+
+```text
+.claude-plugin/plugin.json
+.claude-plugin/marketplace.json
+```
+
+## Option 5: Symlink Skills Directly
 
 ```bash
 python3 scripts/install_local.py --symlink-skills
@@ -104,7 +145,9 @@ Default targets:
 
 The script skips existing destinations unless `--force` is passed.
 
-## Option 4: Marketplace Plus Symlinks
+Use this path for OpenClaw, shared `.agents` homes, and any other harness that can read plain `SKILL.md` folders. Cursor, Gemini CLI, OpenCode, and Pi are not claimed as native integrations in this repo yet.
+
+## Option 6: Marketplace Plus Symlinks
 
 ```bash
 python3 scripts/install_local.py --marketplace --symlink-skills
@@ -151,6 +194,8 @@ codex plugin list | grep elon-musk
 
 ## Updating
 
+### Codex Local Personal Plugin
+
 ```bash
 cd ~/plugins/elon-musk
 git pull --ff-only
@@ -160,3 +205,48 @@ python3 scripts/validate_public.py
 ```
 
 Start a new Codex thread after reinstalling so updated skills load into the active context.
+
+### Claude Code
+
+```text
+/plugin marketplace update elon-musk-methods
+/plugin update elon-musk
+```
+
+Restart Claude Code after plugin updates so the skill loader reads the current copy.
+
+### Direct Skill Symlinks
+
+```bash
+cd ~/plugins/elon-musk
+git pull --ff-only
+python3 scripts/install_local.py --symlink-skills
+```
+
+Symlinked skill homes read the updated checkout once the harness starts a new session.
+
+## Uninstall
+
+Codex local personal plugin:
+
+```bash
+codex plugin remove elon-musk@personal
+```
+
+Remove local loose-skill symlinks from one skill home:
+
+```bash
+find ~/.codex/skills -maxdepth 1 -type l -name 'x-*' -delete
+```
+
+Claude Code:
+
+```text
+/plugin uninstall elon-musk
+```
+
+Then remove the checkout if you no longer need it:
+
+```bash
+rm -rf ~/plugins/elon-musk
+```

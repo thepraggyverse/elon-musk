@@ -1,0 +1,31 @@
+{
+  "name": "elon-musk-methods",
+  "owner": {
+    "name": "Praggy",
+    "url": "https://github.com/thepraggyverse"
+  },
+  "metadata": {
+    "description": "Marketplace metadata for the Elon Musk Methods skill plugin.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "elon-musk",
+      "description": "Elon Musk method skills for strategy, engineering, teams, risk, and execution.",
+      "author": {
+        "name": "Praggy",
+        "url": "https://github.com/thepraggyverse"
+      },
+      "homepage": "https://github.com/thepraggyverse/elon-musk",
+      "tags": [
+        "skills",
+        "agents",
+        "strategy",
+        "engineering",
+        "productivity",
+        "elon-musk"
+      ],
+      "source": "./"
+    }
+  ]
+}

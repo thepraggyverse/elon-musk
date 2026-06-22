@@ -1,6 +1,8 @@
 # Development
 
-Use this document when editing the plugin, adding skills, or preparing a release.
+Use this document when editing the plugin, adding skills, changing harness support, or preparing a release.
+
+Read `AGENTS.md` first. It is the canonical authoring contract for this repository.
 
 ## Local Checks
 
@@ -46,6 +48,7 @@ Rules:
 - Description should include when to use the skill.
 - `agents/openai.yaml` default prompt must mention `$<skill-name>`.
 - Keep the skill body procedural and compact.
+- Keep the README, catalog, and harness docs aligned with behavior users can actually run.
 
 ## Adding A New Skill
 
@@ -66,6 +69,15 @@ python3 scripts/install_local.py --marketplace --dry-run
 python3 scripts/install_local.py --symlink-skills --dry-run
 python3 scripts/validate_public.py
 ```
+
+If install support changes, also update:
+
+- `docs/HARNESS_MATRIX.md`
+- `docs/INSTALL.md`
+- `docs/SYMLINKS.md`
+- `.codex-plugin/plugin.json`
+- `.claude-plugin/plugin.json` when Claude-compatible behavior changes
+- `.agents/plugins/marketplace.json` when repo-local marketplace behavior changes
 
 ## Public Release Checklist
 
