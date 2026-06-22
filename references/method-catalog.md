@@ -123,3 +123,18 @@ Use this catalog when `x-router` needs a complete view or when deciding whether 
 - History: war, civilizations, leaders, mistakes.
 - AI and machine learning: capability, alignment, control, deep learning.
 - Business and economics: capitalism, startups, wealth creation, strategy.
+
+## x-compound
+
+- Capture 1-3 reusable lessons or reviews from a completed method session.
+- Save only user-approved local Markdown.
+- Search for duplicates before creating a new note.
+- Flag stale contradictions when a new lesson conflicts with older project memory.
+- Store retrieval triggers so future work knows when the note applies.
+
+## x-handoff
+
+- Compact long method work into a redacted continuation note.
+- Save to OS temp by default unless the user asks for repo-local handoffs.
+- Reference artifacts by path instead of copying them.
+- Include suggested next skills, verification, open risks, and exact next actions.

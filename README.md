@@ -2,15 +2,16 @@
 
 [![Validate](https://github.com/thepraggyverse/elon-musk/actions/workflows/validate.yml/badge.svg)](https://github.com/thepraggyverse/elon-musk/actions/workflows/validate.yml)
 
-`elon-musk` is a skill plugin for applying book-derived Elon Musk method patterns to strategy, engineering, teams, risk, company building, and execution.
+`elon-musk` is a skill plugin for applying book-derived Elon Musk method patterns to strategy, engineering, teams, risk, company building, execution, and reusable learning.
 
-It ships 15 searchable `x-*` skills. Use the router when you are unsure which method fits, or call a specific skill when you already know the lens.
+It ships 17 searchable `x-*` skills: 15 method lenses plus 2 workflow skills for compounding lessons and writing handoffs. Use the router when you are unsure which method fits, or call a specific skill when you already know the lens.
 
 ```text
 Use $x-router on this project idea.
 Use $x-5-step-algo on this feature plan.
 Use $x-org and $x-teams on this blocked team workflow.
 Use $x-risk on this AI launch plan.
+Use $x-compound to save the reusable lesson from this review.
 ```
 
 The skills are paraphrased operating methods. They are not a quote archive and they do not include the book text.
@@ -33,6 +34,8 @@ Common routes:
 | Production or delivery bottleneck | `x-manufacturing -> x-engineering -> x-5-step-algo` |
 | Risky AI or infrastructure launch | `x-risk -> x-thinking -> x-company-building` |
 | Moonshot or long-horizon mission | `x-multiplanetary -> x-risk -> x-company-building` |
+| Save what a review taught you | `x-compound` |
+| Continue a long review later | `x-handoff` |
 
 ## Quick Examples
 
@@ -103,6 +106,8 @@ Expected lens:
 | `x-risk` | Reviews systemic and civilization-scale downside. | AI systems, safety, infrastructure, policy, broad downside. |
 | `x-multiplanetary` | Turns moonshots into staged milestones. | Deep-tech, resilience, infrastructure, long-horizon missions. |
 | `x-reading` | Recommends books by problem type. | Learning paths for engineering, history, AI, strategy, science. |
+| `x-compound` | Saves approved lessons and reviews as local Markdown memory. | After a useful method session should guide future work. |
+| `x-handoff` | Writes a redacted continuation handoff. | Long reviews, context transitions, or next-session briefs. |
 
 ## Merged Method Map
 
@@ -122,6 +127,13 @@ Expected lens:
 | `x-risk` | AI risk, population, regulation drag, war, energy, asteroids |
 | `x-multiplanetary` | Mars roadmap, civilization backup, gateway milestones, long-horizon execution |
 | `x-reading` | fiction, science, engineering, history, AI, business |
+
+## Workflow Skill Map
+
+| Workflow skill | What it adds |
+|---|---|
+| `x-compound` | Turns a finished method session into 1-3 approved local Markdown notes under `docs/reviews/` or `docs/lessons/`. |
+| `x-handoff` | Writes a compact redacted handoff to OS temp by default, with suggested next skills and exact next actions. |
 
 ## Install
 
@@ -200,13 +212,15 @@ Start a new Codex or Claude thread after reinstalling so the updated skills are 
 elon-musk/
   AGENTS.md                   authoring rules for this repo
   CLAUDE.md                   Claude-compatible pointer to AGENTS.md
+  CHANGELOG.md                user-facing change history
   .codex-plugin/plugin.json   native Codex plugin manifest
   .claude-plugin/             Claude-compatible plugin metadata
   .agents/plugins/            repo-local Codex marketplace metadata
-  skills/                     15 x-prefixed skills
+  skills/                     17 x-prefixed skills
   references/                 book map, method catalog, source notes
   examples/                   practical prompt examples
   docs/                       install, harness, usage, audit, source boundaries
+  scripts/check_install.py    installed-state checker for cache and symlinks
   scripts/install_local.py    marketplace and skill symlink installer
   scripts/validate_public.py  public repository validator
   tests/                      unit tests for structure and install assumptions
@@ -217,15 +231,21 @@ elon-musk/
 | File | Purpose |
 |---|---|
 | `AGENTS.md` | Maintainer and agent instructions for this repo. |
+| `CHANGELOG.md` | User-facing change history and unreleased notes. |
 | `CONCEPTS.md` | Plugin philosophy, workflow, and method families. |
+| `docs/MEMORY_MODEL.md` | Local Markdown memory model for reviews, lessons, and handoffs. |
+| `docs/DOCUMENTATION_AUDIT.md` | Documentation-surface comparison against the reference repos. |
 | `docs/HARNESS_MATRIX.md` | Harness Matrix for install, update, uninstall, and compatibility notes. |
 | `docs/REFERENCE_AUDIT.md` | What was audited from the reference projects and what changed here. |
 | `docs/COMPOUND_ENGINEERING.md` | How Compound Engineering ideas shaped the plugin packaging. |
 | `docs/INSTALL.md` | Detailed local install and update paths. |
+| `docs/RELEASE.md` | Version, changelog, release, and no-push checklist. |
 | `docs/SYMLINKS.md` | How plugin and skill symlinks work. |
 | `docs/USAGE.md` | More examples and prompt recipes. |
 | `docs/DEVELOPMENT.md` | Maintainer workflow. |
 | `docs/SOURCE_BOUNDARIES.md` | Copyright and source-use boundaries. |
+| `SECURITY.md` | Private vulnerability reporting and security scope. |
+| `PRIVACY.md` | Local data-handling and memory boundaries. |
 | `references/book-map.md` | Maps book sections to skills. |
 | `references/method-catalog.md` | Full merged method catalog. |
 | `references/source-notes.md` | Source-use guardrails. |
@@ -242,10 +262,38 @@ The public validator checks:
 | Area | Check |
 |---|---|
 | Plugin manifests | Codex, Claude-compatible, and repo-local marketplace metadata exist and parse. |
-| Skills | Exactly 15 `x-*` skills with matching frontmatter and UI metadata. |
-| Docs | README, AGENTS, install, usage, harness, audit, symlink, source-boundary, and CI files exist. |
+| Skills | Exactly 17 `x-*` skills with matching frontmatter and UI metadata. |
+| Docs | README, changelog, security, privacy, AGENTS, install, usage, harness, audit, symlink, source-boundary, and CI files exist. |
 | References | Catalog and book map cover every non-router skill. |
 | Hygiene | Placeholder text and non-ASCII drift are rejected. |
+
+## Loaded Skill Check
+
+After install, a fresh Codex process should be able to see the plugin cache:
+
+```bash
+python3 scripts/check_install.py
+codex plugin list | grep 'elon-musk@personal'
+find ~/.codex/plugins/cache/personal/elon-musk/0.1.0/skills -maxdepth 2 -name SKILL.md | wc -l
+```
+
+To also check model-visible skill loading:
+
+```bash
+python3 scripts/check_install.py --prompt-input
+```
+
+If you also installed loose skill symlinks:
+
+```bash
+python3 scripts/check_install.py --plugin --skill-links
+```
+
+If the prompt-input check warns that `x-compound` and `x-handoff` are not
+visible, your global skill inventory may be over the Codex skill prompt budget.
+The installed cache can still be valid, but automatic `x-*` invocation is
+unreliable until unused plugins/skill roots are disabled or a slim Codex profile
+is used.
 
 ## Design References
 
@@ -274,3 +322,23 @@ This is an independent educational and productivity project. It is not affiliate
 ## License
 
 MIT. See `LICENSE`.
+
+<!-- BEGIN PRAGGY PROJECT DOCS -->
+## Project Docs
+
+This repo uses a docs-first agent contract:
+
+- `README.md` explains the current project, commands, and how to run it.
+- `AGENTS.md` defines the rules future agents must obey.
+- `VISION.md` captures long-term direction, not implementation permission.
+- `OPINIONS.md` captures durable project taste, vocabulary, and tradeoffs.
+- `MEMORY.md` captures stable project facts agents should not rediscover.
+- `DESIGN.md` guides UI and UX decisions when the project has user-facing surfaces.
+- `docs/handoffs/orchestrator.md` is the control-room state for continuation.
+- `docs/brainstorms/` stores requirements and product-shape decisions.
+- `docs/plans/` stores implementation plans.
+- `docs/loops/` stores repeatable agent procedures.
+- `docs/qa/` stores feature, test case, defect, and regression ledgers.
+
+Vision ideas must become requirements, then a plan, then receive owner confirmation before implementation.
+<!-- END PRAGGY LOOP GUARDRAILS -->

@@ -25,12 +25,25 @@ This audit records what was reviewed and what changed in this repository.
 | Source-boundary explanation was mixed into the lead. | The top should be useful; legal/source guardrails still matter but belong later. | Kept source boundary and disclaimer lower in README and dedicated docs. |
 | No explicit support-level table. | "Works with all harnesses" needs precision. | Added support levels by harness and "does not claim" section. |
 | Validation did not require new metadata/docs. | Docs drift silently without tests. | Expanded `scripts/validate_public.py` and tests. |
+| No implemented compound memory loop. | Reviews could mention reusable lessons, but no skill actually saved them. | Added `x-compound` and `docs/MEMORY_MODEL.md`. |
+| No continuation handoff skill. | Long method reviews need a clean way to resume without copying raw conversation. | Added `x-handoff`. |
+| No changelog. | Reference repos use changelogs or release notes so users can track public changes. | Added `CHANGELOG.md` and `docs/RELEASE.md`. |
+| No explicit security/privacy docs. | Public plugin repos should explain vulnerability reporting and data boundaries. | Added `SECURITY.md` and `PRIVACY.md`. |
+| No file-backed documentation surface audit. | "All docs exist" should be inspectable against the reference repos, not only implied by README. | Added `docs/DOCUMENTATION_AUDIT.md`. |
 
 ## Decisions
 
-### Keep 15 Top-Level Skills
+### Keep 15 Book-Derived Method Lenses
 
-The reference projects show different sizes, but this plugin should stay compact. More skills would make search noisier. Smaller ideas live as subsections in the existing `x-*` skills and in `references/method-catalog.md`.
+The reference projects show different sizes, but this plugin should stay compact. More method lenses would make search noisier. Smaller book-derived ideas live as subsections in the existing method skills and in `references/method-catalog.md`.
+
+### Add Only Two Workflow Skills
+
+`x-compound` and `x-handoff` are not additional book method families. They are operating-layer skills that close the loop: save approved lessons and write redacted continuation notes.
+
+### Do Not Add Default Log Mining
+
+Compound Engineering has powerful history extraction, but this plugin starts with local Markdown memory. Raw transcript or harness-history analysis should remain a later opt-in feature, not default behavior.
 
 ### Do Not Add Custom Subagents
 
@@ -52,8 +65,23 @@ The repo still needs to say it is independent and unaffiliated. It should not be
 
 | Idea | When to add |
 |---|---|
+| `x-memory-refresh` | After users have enough `docs/reviews/` and `docs/lessons/` files to make stale-note auditing valuable. |
 | Host-specific native manifests for Cursor/Gemini/OpenCode/Pi | Only after testing that each host loads the skills correctly. |
 | Setup skill | If users need a guided project setup flow for `AGENTS.md`, `docs/reviews/`, or `docs/lessons/`. |
 | More examples | When a repeated prompt pattern proves useful. |
 | Release automation | When public versioned releases matter more than source installs. |
 | Source audit fixture | If the method catalog changes frequently enough to need structured coverage data. |
+
+## Documentation Surfaces Now Covered
+
+| Surface | Status |
+|---|---|
+| README and skill inventory | present |
+| AGENTS and CLAUDE compatibility pointer | present |
+| Changelog and release checklist | present |
+| Security and privacy docs | present |
+| Install, update, uninstall, and symlink docs | present |
+| Harness matrix and support-level caveats | present |
+| Source-boundary and copyright guardrails | present |
+| Reference audit and documentation audit | present |
+| Validation and unit-test coverage for docs | present |

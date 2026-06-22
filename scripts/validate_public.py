@@ -27,8 +27,11 @@ EXPECTED_SKILLS = [
     "x-risk",
     "x-multiplanetary",
     "x-reading",
+    "x-compound",
+    "x-handoff",
 ]
 BANNED = ["TO" + "DO", "[TO" + "DO", "FIX" + "ME", "Complete and " + "informative"]
+TEXT_SUFFIXES = {".md", ".json", ".yaml", ".yml", ".py"}
 
 
 def fail(message: str) -> None:
@@ -41,6 +44,29 @@ def read_text(path: Path) -> str:
         return path.read_text(encoding="utf-8")
     except UnicodeDecodeError:
         fail(f"{path} is not UTF-8 text")
+
+
+def repository_files() -> list[Path]:
+    """Return tracked and untracked non-ignored files for public validation."""
+
+    try:
+        result = subprocess.run(
+            ["git", "ls-files", "--cached", "--others", "--exclude-standard"],
+            cwd=ROOT,
+            check=True,
+            text=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        )
+    except (FileNotFoundError, subprocess.CalledProcessError):
+        return [path for path in ROOT.rglob("*") if path.is_file()]
+
+    files = []
+    for rel in result.stdout.splitlines():
+        path = ROOT / rel
+        if path.is_file():
+            files.append(path)
+    return files
 
 
 def parse_frontmatter(text: str) -> dict[str, str]:
@@ -81,6 +107,8 @@ def validate_plugin_json() -> None:
     prompts = interface.get("defaultPrompt")
     if not isinstance(prompts, list) or len(prompts) < 3:
         fail("plugin interface defaultPrompt must be a list of at least three prompts")
+    if len(prompts) > 3:
+        fail("plugin interface defaultPrompt must not exceed Codex's three prompt limit")
 
 
 def validate_auxiliary_manifests() -> None:
@@ -174,21 +202,28 @@ def validate_docs() -> None:
         "AGENTS.md",
         "CLAUDE.md",
         "README.md",
+        "CHANGELOG.md",
         "CONCEPTS.md",
         "LICENSE",
         "CONTRIBUTING.md",
         "docs/COMPOUND_ENGINEERING.md",
+        "docs/DOCUMENTATION_AUDIT.md",
         "docs/HARNESS_MATRIX.md",
         "docs/INSTALL.md",
+        "docs/MEMORY_MODEL.md",
         "docs/REFERENCE_AUDIT.md",
+        "docs/RELEASE.md",
         "docs/SYMLINKS.md",
         "docs/USAGE.md",
         "docs/DEVELOPMENT.md",
         "docs/SOURCE_BOUNDARIES.md",
+        "PRIVACY.md",
+        "SECURITY.md",
         ".github/workflows/validate.yml",
         ".claude-plugin/plugin.json",
         ".claude-plugin/marketplace.json",
         ".agents/plugins/marketplace.json",
+        "scripts/check_install.py",
         "scripts/install_local.py",
         "scripts/validate_public.py",
     ]
@@ -196,10 +231,79 @@ def validate_docs() -> None:
         if not (ROOT / rel).exists():
             fail(f"missing {rel}")
 
+    readme = read_text(ROOT / "README.md")
+    if "17 searchable `x-*` skills" not in readme:
+        fail("README must state the 17-skill inventory")
+    if "CHANGELOG.md" not in readme:
+        fail("README must link the changelog")
+
+    changelog = read_text(ROOT / "CHANGELOG.md")
+    for phrase in ["## Unreleased", "x-compound", "x-handoff", "scripts/check_install.py"]:
+        if phrase not in changelog:
+            fail(f"CHANGELOG.md missing {phrase}")
+
+    privacy = read_text(ROOT / "PRIVACY.md")
+    for phrase in ["does not include telemetry", "does not save raw session logs by default", "docs/reviews/"]:
+        if phrase not in privacy:
+            fail(f"PRIVACY.md missing {phrase}")
+
+    security = read_text(ROOT / "SECURITY.md")
+    for phrase in ["Reporting A Vulnerability", "praggy.dev@gmail.com", "does not run a hosted backend service"]:
+        if phrase not in security:
+            fail(f"SECURITY.md missing {phrase}")
+
+    release = read_text(ROOT / "docs" / "RELEASE.md")
+    for phrase in ["CHANGELOG.md", "No-Push Default", "scripts/check_install.py --plugin --skill-links"]:
+        if phrase not in release:
+            fail(f"docs/RELEASE.md missing {phrase}")
+
+    doc_audit = read_text(ROOT / "docs" / "DOCUMENTATION_AUDIT.md")
+    for phrase in [
+        "EveryInc/compound-engineering-plugin",
+        "mattpocock/skills",
+        "CHANGELOG.md",
+        "SECURITY.md",
+        "PRIVACY.md",
+        "Patterns Intentionally Deferred",
+    ]:
+        if phrase not in doc_audit:
+            fail(f"docs/DOCUMENTATION_AUDIT.md missing {phrase}")
+
+
+def validate_memory_model() -> None:
+    memory = read_text(ROOT / "docs" / "MEMORY_MODEL.md")
+    required_phrases = [
+        "docs/reviews/",
+        "docs/lessons/",
+        "docs/handoffs/",
+        "Do not save",
+        "does not read raw session logs by default",
+    ]
+    for phrase in required_phrases:
+        if phrase not in memory:
+            fail(f"docs/MEMORY_MODEL.md missing {phrase}")
+
+    for rel in [
+        "skills/x-compound/SKILL.md",
+        "skills/x-handoff/SKILL.md",
+        "README.md",
+        "docs/MEMORY_MODEL.md",
+    ]:
+        text = read_text(ROOT / rel).lower()
+        forbidden = [
+            "session-history",
+            "local jsonl discovery",
+            "extract session logs",
+            "mine session logs",
+        ]
+        for phrase in forbidden:
+            if phrase in text:
+                fail(f"{rel} appears to claim default session-log mining: {phrase}")
+
 
 def validate_hygiene() -> None:
-    for path in ROOT.rglob("*"):
-        if path.is_file() and path.suffix in {".md", ".json", ".yaml", ".yml", ".py"}:
+    for path in repository_files():
+        if path.suffix in TEXT_SUFFIXES:
             text = read_text(path)
             if any(token in text for token in BANNED):
                 fail(f"{path.relative_to(ROOT)} contains placeholder text")
@@ -226,6 +330,7 @@ def main() -> int:
     skill_count = validate_skills()
     validate_references()
     validate_docs()
+    validate_memory_model()
     validate_hygiene()
     optional_codex_validators()
     print(f"Public validation passed: {skill_count} x-prefixed skills")

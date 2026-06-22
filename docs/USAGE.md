@@ -167,3 +167,41 @@ The skill routes across:
 - History.
 - AI and machine learning.
 - Business and economics.
+
+## Save A Reusable Lesson
+
+```text
+Use $x-compound to save the reusable lesson from the review we just did.
+```
+
+Look for:
+
+| Area | Question |
+|---|---|
+| Candidate | Is this useful enough to help a future session? |
+| Type | Is it a concrete review or a reusable lesson? |
+| Duplicate | Does a similar note already exist? |
+| Staleness | Does this contradict an older note? |
+| Retrieval | When should this resurface? |
+
+`x-compound` writes local Markdown only after approval unless the user explicitly
+asks for automation or headless behavior.
+
+## Write A Handoff
+
+```text
+Use $x-handoff to write a continuation handoff for this strategy review.
+```
+
+Expected output:
+
+```text
+X Handoff:
+Saved path:
+Next task:
+Suggested skills:
+Open risks:
+```
+
+Use this before switching sessions, pausing long work, or handing a method
+review to another agent.

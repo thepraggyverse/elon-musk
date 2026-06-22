@@ -15,7 +15,7 @@ The guide's central packaging lesson is simple: a good agent system should make 
 | Explicit inventory | `README.md` lists every top-level `x-*` skill with purpose and use case. |
 | Plugin as product | Install, update, validation, and symlink paths are documented. |
 | Agent-native docs | The repo keeps prompts, examples, references, and validators in predictable places. |
-| Compound step | Maintainers should turn good outputs into examples, references, or tests. |
+| Compound step | `x-compound` turns useful outputs into approved local reviews or lessons. |
 | Safety nets | Validation and unit tests check structure, source boundaries, and skill coverage. |
 
 ## What We Do Differently
@@ -23,7 +23,7 @@ The guide's central packaging lesson is simple: a good agent system should make 
 | Compound Engineering | Elon Musk Methods |
 |---|---|
 | Large workflow system for software development. | Compact method pack for reasoning, building, teams, and company strategy. |
-| Many agents, commands, and skills. | 15 searchable `x-*` skills, with subsections for smaller ideas. |
+| Many agents, commands, and skills. | 17 searchable `x-*` skills: 15 method lenses plus 2 workflow skills. |
 | Creates project execution artifacts. | Produces reviews, lenses, prompts, and decision frames. |
 | Focuses on AI-native engineering loops. | Focuses on book-derived operating methods. |
 
@@ -35,7 +35,7 @@ Use the plugin as a lightweight operating layer:
 1. Route the problem with x-router.
 2. Pick one primary method and at most two support methods.
 3. Produce a concrete review, plan, or decision.
-4. Capture the reusable lesson in examples, references, or project docs.
+4. Capture the reusable lesson with x-compound in examples, references, or project docs.
 5. Add validation when the lesson can be checked automatically.
 ```
 
@@ -44,7 +44,7 @@ Example:
 ```text
 Use $x-router on this product idea.
 Then use $x-purpose and $x-5-step-algo to produce a one-page build/no-build review.
-Afterward, summarize the reusable pattern we should keep for future product reviews.
+Afterward, use $x-compound to save the reusable pattern we should keep for future product reviews.
 ```
 
 ## Project Artifacts
@@ -55,11 +55,12 @@ For a project using this plugin, useful agent-readable artifacts are:
 |---|---|
 | `AGENTS.md` | Project preferences, constraints, verification commands, and lessons. |
 | `docs/plans/` | Written plans before implementation. |
-| `docs/reviews/` | Decision reviews from `x-purpose`, `x-risk`, `x-org`, or `x-teams`. |
-| `docs/lessons/` | Reusable findings after a project finishes. |
+| `docs/reviews/` | Decision reviews from `x-purpose`, `x-risk`, `x-org`, `x-teams`, or another method lens. |
+| `docs/lessons/` | Reusable findings saved by `x-compound` after useful work finishes. |
+| `docs/handoffs/` | Optional repo-local handoffs when the user asks for durable project handoff files. |
 | `examples/` | Stable prompts that show how to use the skills well. |
 
-This repository does not create those folders automatically. It documents them as a recommended pattern for projects that want the plugin to compound over time.
+This repository does not create those folders during install. `x-compound` creates `docs/reviews/` or `docs/lessons/` inside the user's project only after approval.
 
 ## Three Review Questions
 

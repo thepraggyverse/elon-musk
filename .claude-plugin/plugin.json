@@ -1,7 +1,7 @@
 {
   "name": "elon-musk",
   "version": "0.1.0",
-  "description": "Elon Musk method skills for strategy, engineering, teams, risk, and execution.",
+  "description": "Elon Musk method skills for strategy, engineering, teams, risk, execution, memory, and handoff.",
   "author": {
     "name": "Praggy",
     "url": "https://github.com/thepraggyverse"
@@ -34,6 +34,8 @@
     "./skills/x-future",
     "./skills/x-risk",
     "./skills/x-multiplanetary",
-    "./skills/x-reading"
+    "./skills/x-reading",
+    "./skills/x-compound",
+    "./skills/x-handoff"
   ]
 }

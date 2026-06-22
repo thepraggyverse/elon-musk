@@ -1,6 +1,6 @@
 # Harness Matrix
 
-This plugin is intentionally small: 15 `SKILL.md` folders plus plugin metadata. It does not ship MCP servers, custom subagents, or host-specific commands.
+This plugin is intentionally small: 17 `SKILL.md` folders plus plugin metadata. It does not ship MCP servers, custom subagents, or host-specific commands.
 
 ## Support Levels
 
@@ -98,6 +98,12 @@ Preview first:
 python3 scripts/install_local.py --symlink-skills --dry-run
 ```
 
+Verify direct skill links:
+
+```bash
+python3 scripts/check_install.py --skill-links
+```
+
 ## Update Checklist
 
 ```bash
@@ -107,9 +113,25 @@ python3 scripts/install_local.py --marketplace --symlink-skills
 codex plugin add elon-musk@personal
 python3 scripts/validate_public.py
 PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -v
+python3 scripts/check_install.py --plugin --skill-links
 ```
 
 Start a new session in the target harness after updating.
+
+## Codex Skill Budget Check
+
+On machines with many skill roots, Codex can install the plugin but omit late
+skills from the model-visible prompt when the global skill inventory exceeds
+the skill context budget. After installing, check:
+
+```bash
+python3 scripts/check_install.py --prompt-input
+codex debug prompt-input | rg 'x-compound|x-handoff'
+```
+
+If nothing appears, the plugin cache can still be valid while automatic skill
+invocation is unreliable. Disable unused plugins/skill roots or use a slim
+Codex profile for this plugin.
 
 ## Uninstall Checklist
 

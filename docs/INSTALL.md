@@ -147,11 +147,21 @@ The script skips existing destinations unless `--force` is passed.
 
 Use this path for OpenClaw, shared `.agents` homes, and any other harness that can read plain `SKILL.md` folders. Cursor, Gemini CLI, OpenCode, and Pi are not claimed as native integrations in this repo yet.
 
+The direct skill pack includes 15 book-derived method lenses plus `x-compound`
+for approved local memory and `x-handoff` for redacted continuation notes.
+
+Verify direct skill links:
+
+```bash
+python3 scripts/check_install.py --skill-links
+```
+
 ## Option 6: Marketplace Plus Symlinks
 
 ```bash
 python3 scripts/install_local.py --marketplace --symlink-skills
 codex plugin add elon-musk@personal
+python3 scripts/check_install.py --plugin --skill-links
 ```
 
 Use this when you want both:
@@ -189,8 +199,29 @@ python3 scripts/install_local.py \
 ```bash
 python3 scripts/validate_public.py
 PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -v
+python3 scripts/check_install.py
 codex plugin list | grep elon-musk
 ```
+
+Check that the installed Codex cache contains all 17 skills:
+
+```bash
+find ~/.codex/plugins/cache/personal/elon-musk/0.1.0/skills \
+  -maxdepth 2 \
+  -name SKILL.md | wc -l
+```
+
+If a fresh Codex process warns that the skills context budget is exceeded, the
+plugin may be installed but hidden from the model-visible skill list by other
+enabled skill roots. Confirm with either command:
+
+```bash
+python3 scripts/check_install.py --prompt-input
+codex debug prompt-input | rg 'x-compound|x-handoff'
+```
+
+If that returns nothing, reduce the active global skill inventory or run with a
+slim Codex profile before relying on automatic `x-*` skill invocation.
 
 ## Updating
 

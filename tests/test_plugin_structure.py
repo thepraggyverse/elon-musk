@@ -1,5 +1,6 @@
 import json
 import re
+import subprocess
 import unittest
 from pathlib import Path
 
@@ -21,6 +22,8 @@ EXPECTED_SKILLS = [
     "x-risk",
     "x-multiplanetary",
     "x-reading",
+    "x-compound",
+    "x-handoff",
 ]
 NON_ROUTER_SKILLS = [name for name in EXPECTED_SKILLS if name != "x-router"]
 BANNED_PLACEHOLDERS = [
@@ -30,6 +33,7 @@ BANNED_PLACEHOLDERS = [
     "plugin " + "scaffold",
     "Complete and " + "informative",
 ]
+TEXT_SUFFIXES = {".md", ".json", ".yaml", ".yml", ".py"}
 
 
 def read_text(path: Path) -> str:
@@ -51,6 +55,27 @@ def parse_frontmatter(text: str) -> dict[str, str]:
     return result
 
 
+def repository_files() -> list[Path]:
+    try:
+        result = subprocess.run(
+            ["git", "ls-files", "--cached", "--others", "--exclude-standard"],
+            cwd=ROOT,
+            check=True,
+            text=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        )
+    except (FileNotFoundError, subprocess.CalledProcessError):
+        return [path for path in ROOT.rglob("*") if path.is_file()]
+
+    files = []
+    for rel in result.stdout.splitlines():
+        path = ROOT / rel
+        if path.is_file():
+            files.append(path)
+    return files
+
+
 class PluginManifestTests(unittest.TestCase):
     def test_manifest_is_valid_and_specific(self):
         manifest_path = ROOT / ".codex-plugin" / "plugin.json"
@@ -62,6 +87,7 @@ class PluginManifestTests(unittest.TestCase):
         self.assertEqual(data["repository"], "https://github.com/thepraggyverse/elon-musk")
         self.assertEqual(data["interface"]["displayName"], "Elon Musk Methods")
         self.assertTrue(any("x-router" in prompt for prompt in data["interface"]["defaultPrompt"]))
+        self.assertLessEqual(len(data["interface"]["defaultPrompt"]), 3)
         self.assertFalse(any(token in json.dumps(data) for token in BANNED_PLACEHOLDERS))
 
     def test_claude_manifest_lists_public_skills(self):
@@ -193,30 +219,118 @@ class DocumentationCoverageTests(unittest.TestCase):
 
     def test_harness_docs_cover_install_update_and_uninstall(self):
         harness = read_text(ROOT / "docs" / "HARNESS_MATRIX.md")
-        for phrase in ["Codex app", "Codex CLI", "Claude Code", "OpenClaw", "Update Checklist", "Uninstall Checklist"]:
+        for phrase in [
+            "Codex app",
+            "Codex CLI",
+            "Claude Code",
+            "OpenClaw",
+            "Update Checklist",
+            "Uninstall Checklist",
+            "scripts/check_install.py",
+        ]:
             with self.subTest(phrase=phrase):
                 self.assertIn(phrase, harness)
+        self.assertIn("Codex Skill Budget Check", harness)
 
     def test_agents_and_readme_explain_repo_contract(self):
         agents = read_text(ROOT / "AGENTS.md")
         readme = read_text(ROOT / "README.md")
         self.assertIn("canonical authoring contract", agents)
+        self.assertIn("17 searchable `x-*` skills", readme)
         self.assertIn("Skill Inventory", readme)
         self.assertIn("Harness Matrix", readme)
+        self.assertIn("CHANGELOG.md", readme)
+        self.assertIn("SECURITY.md", readme)
+        self.assertIn("PRIVACY.md", readme)
         self.assertIn("Disclaimer", readme)
+
+    def test_public_docs_cover_release_security_privacy_and_audit(self):
+        required = [
+            "CHANGELOG.md",
+            "SECURITY.md",
+            "PRIVACY.md",
+            "docs/RELEASE.md",
+            "docs/DOCUMENTATION_AUDIT.md",
+        ]
+        for rel in required:
+            with self.subTest(path=rel):
+                self.assertTrue((ROOT / rel).is_file())
+
+        changelog = read_text(ROOT / "CHANGELOG.md")
+        for phrase in ["## Unreleased", "x-compound", "x-handoff", "scripts/check_install.py"]:
+            with self.subTest(phrase=phrase):
+                self.assertIn(phrase, changelog)
+
+        security = read_text(ROOT / "SECURITY.md")
+        for phrase in ["Reporting A Vulnerability", "praggy.dev@gmail.com", "does not run a hosted backend service"]:
+            with self.subTest(phrase=phrase):
+                self.assertIn(phrase, security)
+
+        privacy = read_text(ROOT / "PRIVACY.md")
+        for phrase in ["does not include telemetry", "does not save raw session logs by default", "docs/reviews/"]:
+            with self.subTest(phrase=phrase):
+                self.assertIn(phrase, privacy)
+
+        release = read_text(ROOT / "docs" / "RELEASE.md")
+        for phrase in ["CHANGELOG.md", "No-Push Default", "scripts/check_install.py --plugin --skill-links"]:
+            with self.subTest(phrase=phrase):
+                self.assertIn(phrase, release)
+
+        audit = read_text(ROOT / "docs" / "DOCUMENTATION_AUDIT.md")
+        for phrase in [
+            "EveryInc/compound-engineering-plugin",
+            "mattpocock/skills",
+            "CHANGELOG.md",
+            "SECURITY.md",
+            "PRIVACY.md",
+            "Patterns Intentionally Deferred",
+        ]:
+            with self.subTest(phrase=phrase):
+                self.assertIn(phrase, audit)
+
+    def test_memory_model_documents_local_compounding(self):
+        memory = read_text(ROOT / "docs" / "MEMORY_MODEL.md")
+        for phrase in [
+            "docs/reviews/",
+            "docs/lessons/",
+            "docs/handoffs/",
+            "Do not save",
+            "does not read raw session logs by default",
+        ]:
+            with self.subTest(phrase=phrase):
+                self.assertIn(phrase, memory)
+
+    def test_compounding_skills_do_not_claim_session_log_mining(self):
+        combined = "\n".join(
+            read_text(ROOT / rel)
+            for rel in [
+                "skills/x-compound/SKILL.md",
+                "skills/x-handoff/SKILL.md",
+                "README.md",
+                "docs/MEMORY_MODEL.md",
+            ]
+        ).lower()
+        for phrase in [
+            "session-history",
+            "local jsonl discovery",
+            "extract session logs",
+            "mine session logs",
+        ]:
+            with self.subTest(phrase=phrase):
+                self.assertNotIn(phrase, combined)
 
 
 class HygieneTests(unittest.TestCase):
     def test_no_placeholder_or_scaffold_language_remains(self):
-        for path in ROOT.rglob("*"):
-            if path.is_file() and path.suffix in {".md", ".json", ".yaml"}:
+        for path in repository_files():
+            if path.suffix in {".md", ".json", ".yaml"}:
                 with self.subTest(path=path.relative_to(ROOT)):
                     text = read_text(path)
                     self.assertFalse(any(token in text for token in BANNED_PLACEHOLDERS))
 
     def test_ascii_only_for_portable_plugin_files(self):
-        for path in ROOT.rglob("*"):
-            if path.is_file() and path.suffix in {".md", ".json", ".yaml", ".py"}:
+        for path in repository_files():
+            if path.suffix in TEXT_SUFFIXES:
                 with self.subTest(path=path.relative_to(ROOT)):
                     data = path.read_bytes()
                     try:

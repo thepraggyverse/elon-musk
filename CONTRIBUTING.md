@@ -10,6 +10,8 @@ Contributions are welcome if they preserve the purpose of the repository: compac
 - Do not add full book text, long quotes, transcripts, or copyrighted source dumps.
 - Add or update tests when changing skill inventory, references, scripts, or install behavior.
 - Keep `README.md`, `docs/HARNESS_MATRIX.md`, and plugin manifests in sync with supported install paths.
+- Update `CHANGELOG.md` for user-visible changes.
+- Keep `SECURITY.md`, `PRIVACY.md`, and `docs/RELEASE.md` aligned when security, data-handling, or release behavior changes.
 
 ## Validate Before Opening A PR
 
@@ -27,6 +29,7 @@ If you have Codex's local skill/plugin creator helpers installed, the public val
 3. Add `skills/<name>/agents/openai.yaml`.
 4. Add the skill to:
    - `README.md`
+   - `CHANGELOG.md`
    - `references/book-map.md`
    - `references/method-catalog.md`
    - `.claude-plugin/plugin.json`

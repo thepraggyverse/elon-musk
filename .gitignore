@@ -1,2 +1,12 @@
 __pycache__/
 *.py[cod]
+.lavish-axi/
+.lavish/
+*.local-evidence/
+/DESIGN.md
+/MEMORY.md
+/OPINIONS.md
+/VISION.md
+/docs/handoffs/
+/docs/loops/
+/docs/qa/

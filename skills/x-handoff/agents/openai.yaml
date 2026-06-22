@@ -1,0 +1,4 @@
+interface:
+  display_name: "X Handoff"
+  short_description: "Write a redacted continuation handoff"
+  default_prompt: "Use $x-handoff to write a compact handoff for continuing this x-prefixed method workflow."

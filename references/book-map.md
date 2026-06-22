@@ -63,3 +63,10 @@ This file maps the plugin skills to the major sections in the user's local copy 
 
 - The 69 Core Musk Methods: compressed across all `x-` skills and expanded in `method-catalog.md`.
 - Elon's Recommended Reading: `x-reading`.
+
+## Operational Workflow Skills
+
+These skills are plugin workflow helpers, not book-derived method sections:
+
+- `x-compound`: saves approved local reviews or lessons after method work.
+- `x-handoff`: writes redacted continuation notes for future sessions.

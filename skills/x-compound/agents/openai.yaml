@@ -1,0 +1,4 @@
+interface:
+  display_name: "X Compound"
+  short_description: "Save user-approved method lessons"
+  default_prompt: "Use $x-compound to save the reusable lessons from this x-prefixed method review."

@@ -21,6 +21,7 @@ If Codex's local creator helpers are installed, `validate_public.py` also runs:
 ```bash
 python3 scripts/install_local.py --marketplace
 codex plugin add elon-musk@personal
+python3 scripts/check_install.py
 codex plugin list | grep elon-musk
 ```
 
@@ -75,6 +76,8 @@ If install support changes, also update:
 - `docs/HARNESS_MATRIX.md`
 - `docs/INSTALL.md`
 - `docs/SYMLINKS.md`
+- `docs/DOCUMENTATION_AUDIT.md`
+- `CHANGELOG.md`
 - `.codex-plugin/plugin.json`
 - `.claude-plugin/plugin.json` when Claude-compatible behavior changes
 - `.agents/plugins/marketplace.json` when repo-local marketplace behavior changes
@@ -86,7 +89,10 @@ python3 scripts/validate_public.py
 PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -v
 python3 scripts/install_local.py --marketplace
 codex plugin add elon-musk@personal
+python3 scripts/check_install.py
 codex plugin list | grep elon-musk
 ```
 
 Then commit and push.
+
+Do not push, tag, or publish unless the user explicitly approves that release action.

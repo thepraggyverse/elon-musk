@@ -1,6 +1,6 @@
 ---
 name: x-router
-description: "Route a vague project, product, engineering, organization, risk, or learning request to the right x-prefixed Elon Musk method skill. Use when the user asks for Elon Musk methods, asks which x-skill to use, or gives a broad situation that may need purpose, thinking, engineering, teams, urgency, manufacturing, company-building, future, risk, multiplanetary, or reading lenses."
+description: "Route a vague project, product, engineering, organization, risk, learning, memory, or handoff request to the right x-prefixed Elon Musk method or workflow skill. Use when the user asks which x-skill to use or gives a broad situation that may need purpose, thinking, engineering, teams, urgency, manufacturing, company-building, future, risk, multiplanetary, reading, compounding, or handoff lenses."
 ---
 
 # X Router
@@ -23,6 +23,8 @@ Use this skill first when the request is broad, ambiguous, or could benefit from
 - `x-risk`: AI risk, regulation drag, war, population, energy, asteroid/systemic risk.
 - `x-multiplanetary`: moonshots, civilization backup, staged long-horizon execution.
 - `x-reading`: book recommendations by problem type.
+- `x-compound`: save approved method reviews or reusable lessons as local Markdown memory.
+- `x-handoff`: write a redacted continuation handoff for long method work.
 
 Read `../../references/method-catalog.md` when the user wants every underlying method or when routing is uncertain.
 

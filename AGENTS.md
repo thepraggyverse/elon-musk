@@ -1,6 +1,6 @@
 # Agent Instructions
 
-This repository publishes `elon-musk`, a small skill plugin that packages book-derived Elon Musk method patterns into 15 searchable `x-*` skills.
+This repository publishes `elon-musk`, a small skill plugin that packages book-derived Elon Musk method patterns into 17 searchable `x-*` skills: 15 method lenses and 2 workflow skills.
 
 `AGENTS.md` is the canonical authoring contract for this repo. `CLAUDE.md` exists as a compatibility pointer for harnesses that look for it.
 
@@ -26,7 +26,7 @@ python3 scripts/install_local.py --symlink-skills --dry-run
 
 ## Working Agreement
 
-- Keep the plugin compact: 15 top-level `x-*` skills unless a new method family truly needs its own searchable entry.
+- Keep the plugin compact: 15 book-derived method lenses plus focused workflow skills only when they make future work easier.
 - Prefer merging related ideas into an existing skill subsection over adding one-off skills.
 - Keep each skill operational: trigger, process, output, and example should be easy for an agent to apply.
 - Keep skills self-contained. A `SKILL.md` may point to files inside its own skill directory, but should not depend on sibling skill paths.
@@ -65,6 +65,9 @@ examples/            Prompt examples
 docs/                Install, harness, usage, audit, and source-boundary docs
 scripts/             Installer and public validator
 tests/               Unit tests for structure and hygiene
+CHANGELOG.md         User-facing change history
+SECURITY.md          Vulnerability reporting and scope notes
+PRIVACY.md           Data-handling and local memory boundaries
 ```
 
 ## Skill Maintenance
@@ -74,9 +77,11 @@ When editing or adding a skill:
 1. Update `skills/<name>/SKILL.md`.
 2. Update `skills/<name>/agents/openai.yaml`.
 3. Update `references/method-catalog.md` if the method family changes.
-4. Update `references/book-map.md` if the book-derived mapping changes.
-5. Update `README.md` and `docs/USAGE.md` if user-facing behavior changes.
-6. Run validation and tests.
+4. Update `references/book-map.md` if the book-derived mapping changes or if adding a non-book workflow skill that needs an explicit boundary note.
+5. Update `docs/MEMORY_MODEL.md` if memory, review, lesson, or handoff behavior changes.
+6. Update `README.md` and `docs/USAGE.md` if user-facing behavior changes.
+7. Update `CHANGELOG.md` when the change is user-visible.
+8. Run validation and tests.
 
 Every public skill must:
 
@@ -115,3 +120,24 @@ python3 scripts/install_local.py --symlink-skills --dry-run --skill-home /tmp/el
 The public plugin version lives in `.codex-plugin/plugin.json` and `.claude-plugin/plugin.json`.
 
 For routine docs and skill updates, keep the semver version stable unless a user requests a release bump. For local Codex cache refresh, prefer reinstalling from the personal marketplace; do not add public timestamp cachebusters to committed manifests.
+
+## Changelog And Release Notes
+
+- Keep `CHANGELOG.md` in a lightweight Keep a Changelog style with an `Unreleased` section at the top.
+- Include user-visible skill, install, validation, security, privacy, and docs changes.
+- Exclude local-only scratch files, typo-only edits, and generated evidence.
+- Follow `docs/RELEASE.md` before any public release, tag, push, or package publication.
+- Do not push, tag, create GitHub Releases, or publish packages unless the user explicitly asks for that action.
+
+<!-- BEGIN PRAGGY LOOP GUARDRAILS -->
+## Praggy Loop Guardrails
+
+- Treat `VISION.md` as direction, not implementation permission.
+- Treat requirements as product intent and plans as implementation boundaries.
+- Do not implement vision-only ideas until they become requirements, then a plan, then receive user confirmation.
+- Treat lint failures, flaky tests, unrelated broken checks, visual regressions, layout overlap, and accessibility regressions as real signals. Report scope clearly instead of ignoring them.
+- Do not manually edit generated files, generated changelogs, lockfile output, or build artifacts unless this repo explicitly expects that edit.
+- Do not add coauthor trailers, attribution, or public-facing metadata unless the owner asks.
+- In long-form markdown, prefer one complete sentence per physical line so review diffs stay clean.
+- Autoreview, browser proof, lavish artifacts, and no-mistakes gates are evidence, not permission to push, PR, merge, release, publish, or comment publicly.
+<!-- END PRAGGY LOOP GUARDRAILS -->
