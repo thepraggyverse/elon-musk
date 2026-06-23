@@ -1,6 +1,6 @@
 ---
 name: x-router
-description: "Route a vague project, product, engineering, organization, risk, learning, memory, or handoff request to the right x-prefixed Elon Musk method or workflow skill. Use when the user asks which x-skill to use or gives a broad situation that may need purpose, thinking, engineering, teams, urgency, manufacturing, company-building, future, risk, multiplanetary, reading, compounding, or handoff lenses."
+description: "Route a vague setup, project, product, engineering, organization, risk, learning, memory, or handoff request to the right x-prefixed Elon Musk method or workflow skill. Use when the user asks which x-skill to use or gives a broad situation that may need install checking, purpose, thinking, engineering, teams, urgency, manufacturing, company-building, future, risk, multiplanetary, reading, compounding, or handoff lenses."
 ---
 
 # X Router
@@ -9,6 +9,7 @@ Use this skill first when the request is broad, ambiguous, or could benefit from
 
 ## Route
 
+- `x-setup`: install checks, skill visibility, cache state, symlink state, harness setup.
 - `x-purpose`: usefulness, ambition, future worth building, work worth pain.
 - `x-thinking`: truth, assumptions, first principles, thinking in limits, being less wrong.
 - `x-engineering`: engineering leverage, chief engineer mindset, technical value creation.

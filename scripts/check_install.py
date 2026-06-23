@@ -13,6 +13,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 PLUGIN_NAME = "elon-musk"
 EXPECTED_SKILLS = [
+    "x-setup",
     "x-router",
     "x-purpose",
     "x-thinking",
@@ -31,6 +32,7 @@ EXPECTED_SKILLS = [
     "x-compound",
     "x-handoff",
 ]
+PROMPT_VISIBILITY_SENTINELS = ["x-setup", "x-compound", "x-handoff"]
 DEFAULT_SKILL_HOMES = [
     Path.home() / ".agents" / "skills",
     Path.home() / ".codex" / "skills",
@@ -201,12 +203,14 @@ def check_prompt_visibility(state: CheckState, strict: bool) -> None:
         else:
             state.warn(message)
 
-    if "x-compound" in visible and "x-handoff" in visible:
-        state.ok("prompt-input includes x-compound and x-handoff")
+    missing_sentinels = [skill for skill in PROMPT_VISIBILITY_SENTINELS if skill not in visible]
+    if not missing_sentinels:
+        state.ok("prompt-input includes workflow sentinels: " + ", ".join(PROMPT_VISIBILITY_SENTINELS))
         return
 
     message = (
-        "prompt-input does not include x-compound and x-handoff; installed cache may be valid, "
+        "prompt-input does not include workflow sentinels "
+        f"{', '.join(missing_sentinels)}; installed cache may be valid, "
         "but automatic x-* invocation is unreliable in this Codex profile"
     )
     if strict:
@@ -230,7 +234,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--strict-prompt-input",
         action="store_true",
-        help="Fail if prompt-input does not expose x-compound and x-handoff",
+        help="Fail if prompt-input does not expose x-setup, x-compound, and x-handoff",
     )
     parser.add_argument(
         "--skill-links",

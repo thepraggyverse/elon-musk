@@ -1,7 +1,7 @@
 {
   "name": "elon-musk",
   "version": "0.1.0",
-  "description": "Elon Musk method skills for strategy, engineering, teams, risk, execution, memory, and handoff.",
+  "description": "Elon Musk method skills for setup, strategy, engineering, teams, risk, execution, memory, and handoff.",
   "author": {
     "name": "Praggy",
     "url": "https://github.com/thepraggyverse"
@@ -22,8 +22,8 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "Elon Musk Methods",
-    "shortDescription": "x-prefixed skills for strategy, engineering, teams, risk, memory, and handoff.",
-    "longDescription": "A compact skill plugin with 17 searchable x-prefixed skills. Use it to route messy problems, question requirements, simplify plans, review teams and organizations, inspect risk, turn ambitious missions into staged execution, save reusable lessons, and write continuation handoffs.",
+    "shortDescription": "x-prefixed skills for setup, strategy, engineering, teams, risk, memory, and handoff.",
+    "longDescription": "A compact skill plugin with 18 searchable x-prefixed skills. Use it to check installation, route messy problems, question requirements, simplify plans, review teams and organizations, inspect risk, turn ambitious missions into staged execution, save reusable lessons, and write continuation handoffs.",
     "developerName": "Praggy",
     "category": "Productivity",
     "capabilities": [
@@ -32,8 +32,8 @@
       "Write"
     ],
     "defaultPrompt": [
+      "Use $x-setup to check whether this plugin is installed and visible.",
       "Use $x-router on this project idea.",
-      "Use $x-5-step-algo on this feature plan.",
       "Use $x-compound to save the reusable lesson from this review."
     ]
   }

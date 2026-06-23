@@ -9,6 +9,12 @@ the package version is `.codex-plugin/plugin.json` and `.claude-plugin/plugin.js
 
 ### Added
 
+- Added `x-setup` for plugin install checks, direct skill-home verification,
+  Codex cache inspection, and prompt-visibility diagnosis.
+- Added `examples/all-skills.md` as a compact example index covering every
+  public skill.
+- Added a README compatibility quick scan showing output artifact, write
+  behavior, and safe-default status for every skill.
 - Added `x-compound` for saving one to three approved local Markdown reviews or
   lessons after useful method work.
 - Added `x-handoff` for writing compact redacted continuation notes.
@@ -17,12 +23,12 @@ the package version is `.codex-plugin/plugin.json` and `.claude-plugin/plugin.js
 - Added `scripts/check_install.py` to verify Codex plugin cache installs,
   direct skill-home symlinks, and prompt-input visibility.
 - Added expanded harness, install, usage, and reference-audit documentation for
-  the 17-skill package.
+  the 18-skill package.
 - Added public security, privacy, release, and documentation-audit docs.
 
 ### Changed
 
-- Updated Codex and Claude-compatible manifests from 15 to 17 `x-*` skills.
+- Updated Codex and Claude-compatible manifests from 15 to 18 `x-*` skills.
 - Updated `README.md`, `CONCEPTS.md`, `AGENTS.md`, `docs/USAGE.md`, and
   references so workflow skills are described separately from book-derived
   method lenses.

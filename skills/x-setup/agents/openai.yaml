@@ -1,0 +1,4 @@
+interface:
+  display_name: "X Setup"
+  short_description: "Check plugin install and skill visibility"
+  default_prompt: "Use $x-setup to check whether the elon-musk plugin and x-prefixed skills are installed and visible."

@@ -147,8 +147,9 @@ The script skips existing destinations unless `--force` is passed.
 
 Use this path for OpenClaw, shared `.agents` homes, and any other harness that can read plain `SKILL.md` folders. Cursor, Gemini CLI, OpenCode, and Pi are not claimed as native integrations in this repo yet.
 
-The direct skill pack includes 15 book-derived method lenses plus `x-compound`
-for approved local memory and `x-handoff` for redacted continuation notes.
+The direct skill pack includes 15 book-derived method lenses plus `x-setup`
+for install checks, `x-compound` for approved local memory, and `x-handoff`
+for redacted continuation notes.
 
 Verify direct skill links:
 
@@ -203,7 +204,7 @@ python3 scripts/check_install.py
 codex plugin list | grep elon-musk
 ```
 
-Check that the installed Codex cache contains all 17 skills:
+Check that the installed Codex cache contains all 18 skills:
 
 ```bash
 find ~/.codex/plugins/cache/personal/elon-musk/0.1.0/skills \
@@ -217,7 +218,7 @@ enabled skill roots. Confirm with either command:
 
 ```bash
 python3 scripts/check_install.py --prompt-input
-codex debug prompt-input | rg 'x-compound|x-handoff'
+codex debug prompt-input | rg 'x-setup|x-compound|x-handoff'
 ```
 
 If that returns nothing, reduce the active global skill inventory or run with a

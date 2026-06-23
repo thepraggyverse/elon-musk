@@ -7,6 +7,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 EXPECTED_SKILLS = [
+    "x-setup",
     "x-router",
     "x-purpose",
     "x-thinking",
@@ -25,7 +26,7 @@ EXPECTED_SKILLS = [
     "x-compound",
     "x-handoff",
 ]
-NON_ROUTER_SKILLS = [name for name in EXPECTED_SKILLS if name != "x-router"]
+NON_ROUTER_SKILLS = [name for name in EXPECTED_SKILLS if name not in {"x-setup", "x-router"}]
 BANNED_PLACEHOLDERS = [
     "TO" + "DO",
     "[TO" + "DO",
@@ -209,13 +210,25 @@ class DocumentationCoverageTests(unittest.TestCase):
         examples_dir = ROOT / "examples"
         examples = {path.name: read_text(path) for path in examples_dir.glob("*.md")}
         self.assertEqual(
-            {"startup-review.md", "feature-plan-review.md", "org-review.md", "cost-review.md"},
+            {"all-skills.md", "startup-review.md", "feature-plan-review.md", "org-review.md", "cost-review.md"},
             set(examples),
         )
         combined = "\n".join(examples.values())
-        for name in ["x-router", "x-5-step-algo", "x-org", "x-teams", "x-manufacturing", "x-engineering"]:
+        for name in EXPECTED_SKILLS:
             with self.subTest(skill=name):
                 self.assertIn(name, combined)
+
+    def test_readme_has_skill_compatibility_table(self):
+        readme = read_text(ROOT / "README.md")
+        for phrase in [
+            "Compatibility Quick Scan",
+            "Output artifact",
+            "Writes files?",
+            "Safe default?",
+            "x-setup",
+        ]:
+            with self.subTest(phrase=phrase):
+                self.assertIn(phrase, readme)
 
     def test_harness_docs_cover_install_update_and_uninstall(self):
         harness = read_text(ROOT / "docs" / "HARNESS_MATRIX.md")
@@ -236,7 +249,7 @@ class DocumentationCoverageTests(unittest.TestCase):
         agents = read_text(ROOT / "AGENTS.md")
         readme = read_text(ROOT / "README.md")
         self.assertIn("canonical authoring contract", agents)
-        self.assertIn("17 searchable `x-*` skills", readme)
+        self.assertIn("18 searchable `x-*` skills", readme)
         self.assertIn("Skill Inventory", readme)
         self.assertIn("Harness Matrix", readme)
         self.assertIn("CHANGELOG.md", readme)
@@ -257,7 +270,7 @@ class DocumentationCoverageTests(unittest.TestCase):
                 self.assertTrue((ROOT / rel).is_file())
 
         changelog = read_text(ROOT / "CHANGELOG.md")
-        for phrase in ["## Unreleased", "x-compound", "x-handoff", "scripts/check_install.py"]:
+        for phrase in ["## Unreleased", "x-setup", "x-compound", "x-handoff", "scripts/check_install.py"]:
             with self.subTest(phrase=phrase):
                 self.assertIn(phrase, changelog)
 
@@ -306,6 +319,7 @@ class DocumentationCoverageTests(unittest.TestCase):
             for rel in [
                 "skills/x-compound/SKILL.md",
                 "skills/x-handoff/SKILL.md",
+                "skills/x-setup/SKILL.md",
                 "README.md",
                 "docs/MEMORY_MODEL.md",
             ]

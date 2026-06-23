@@ -12,6 +12,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 EXPECTED_SKILLS = [
+    "x-setup",
     "x-router",
     "x-purpose",
     "x-thinking",
@@ -30,6 +31,7 @@ EXPECTED_SKILLS = [
     "x-compound",
     "x-handoff",
 ]
+BOOK_DERIVED_SKILLS = [skill for skill in EXPECTED_SKILLS if skill not in {"x-setup", "x-router", "x-compound", "x-handoff"}]
 BANNED = ["TO" + "DO", "[TO" + "DO", "FIX" + "ME", "Complete and " + "informative"]
 TEXT_SUFFIXES = {".md", ".json", ".yaml", ".yml", ".py"}
 
@@ -191,7 +193,7 @@ def validate_references() -> None:
             fail(f"missing references/{rel}")
     catalog = read_text(ROOT / "references" / "method-catalog.md")
     for skill in EXPECTED_SKILLS:
-        if skill == "x-router":
+        if skill in {"x-setup", "x-router"}:
             continue
         if f"## {skill}" not in catalog:
             fail(f"method catalog missing {skill}")
@@ -232,13 +234,16 @@ def validate_docs() -> None:
             fail(f"missing {rel}")
 
     readme = read_text(ROOT / "README.md")
-    if "17 searchable `x-*` skills" not in readme:
-        fail("README must state the 17-skill inventory")
+    if "18 searchable `x-*` skills" not in readme:
+        fail("README must state the 18-skill inventory")
     if "CHANGELOG.md" not in readme:
         fail("README must link the changelog")
+    for phrase in ["Compatibility Quick Scan", "Output artifact", "Writes files?", "Safe default?"]:
+        if phrase not in readme:
+            fail(f"README compatibility table missing {phrase}")
 
     changelog = read_text(ROOT / "CHANGELOG.md")
-    for phrase in ["## Unreleased", "x-compound", "x-handoff", "scripts/check_install.py"]:
+    for phrase in ["## Unreleased", "x-setup", "x-compound", "x-handoff", "scripts/check_install.py"]:
         if phrase not in changelog:
             fail(f"CHANGELOG.md missing {phrase}")
 
@@ -286,6 +291,7 @@ def validate_memory_model() -> None:
     for rel in [
         "skills/x-compound/SKILL.md",
         "skills/x-handoff/SKILL.md",
+        "skills/x-setup/SKILL.md",
         "README.md",
         "docs/MEMORY_MODEL.md",
     ]:

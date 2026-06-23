@@ -27,6 +27,7 @@ This audit records what was reviewed and what changed in this repository.
 | Validation did not require new metadata/docs. | Docs drift silently without tests. | Expanded `scripts/validate_public.py` and tests. |
 | No implemented compound memory loop. | Reviews could mention reusable lessons, but no skill actually saved them. | Added `x-compound` and `docs/MEMORY_MODEL.md`. |
 | No continuation handoff skill. | Long method reviews need a clean way to resume without copying raw conversation. | Added `x-handoff`. |
+| No setup doctor skill. | Users need a direct way to check install, cache, symlink, and prompt-visible state. | Added `x-setup`. |
 | No changelog. | Reference repos use changelogs or release notes so users can track public changes. | Added `CHANGELOG.md` and `docs/RELEASE.md`. |
 | No explicit security/privacy docs. | Public plugin repos should explain vulnerability reporting and data boundaries. | Added `SECURITY.md` and `PRIVACY.md`. |
 | No file-backed documentation surface audit. | "All docs exist" should be inspectable against the reference repos, not only implied by README. | Added `docs/DOCUMENTATION_AUDIT.md`. |
@@ -37,9 +38,9 @@ This audit records what was reviewed and what changed in this repository.
 
 The reference projects show different sizes, but this plugin should stay compact. More method lenses would make search noisier. Smaller book-derived ideas live as subsections in the existing method skills and in `references/method-catalog.md`.
 
-### Add Only Two Workflow Skills
+### Add Only Three Workflow Skills
 
-`x-compound` and `x-handoff` are not additional book method families. They are operating-layer skills that close the loop: save approved lessons and write redacted continuation notes.
+`x-setup`, `x-compound`, and `x-handoff` are not additional book method families. They are operating-layer skills that check installation, save approved lessons, and write redacted continuation notes.
 
 ### Do Not Add Default Log Mining
 
@@ -67,7 +68,7 @@ The repo still needs to say it is independent and unaffiliated. It should not be
 |---|---|
 | `x-memory-refresh` | After users have enough `docs/reviews/` and `docs/lessons/` files to make stale-note auditing valuable. |
 | Host-specific native manifests for Cursor/Gemini/OpenCode/Pi | Only after testing that each host loads the skills correctly. |
-| Setup skill | If users need a guided project setup flow for `AGENTS.md`, `docs/reviews/`, or `docs/lessons/`. |
+| Guided project bootstrap skill | If users need a repo-specific setup flow for `AGENTS.md`, `docs/reviews/`, or `docs/lessons/` beyond install diagnostics. |
 | More examples | When a repeated prompt pattern proves useful. |
 | Release automation | When public versioned releases matter more than source installs. |
 | Source audit fixture | If the method catalog changes frequently enough to need structured coverage data. |

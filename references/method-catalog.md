@@ -124,6 +124,14 @@ Use this catalog when `x-router` needs a complete view or when deciding whether 
 - AI and machine learning: capability, alignment, control, deep learning.
 - Business and economics: capitalism, startups, wealth creation, strategy.
 
+## x-setup
+
+- Install doctor: check plugin metadata, Codex cache, and direct skill homes.
+- Harness visibility: separate installed-on-disk state from prompt-visible state.
+- Prompt-budget explanation: identify when a large global skill inventory hides newer skills.
+- Update path: recommend reinstall, cache refresh, restart, or symlink repair commands.
+- Safety boundary: do not delete plugins or global skill roots without explicit approval.
+
 ## x-compound
 
 - Capture 1-3 reusable lessons or reviews from a completed method session.

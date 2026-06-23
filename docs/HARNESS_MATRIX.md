@@ -1,6 +1,6 @@
 # Harness Matrix
 
-This plugin is intentionally small: 17 `SKILL.md` folders plus plugin metadata. It does not ship MCP servers, custom subagents, or host-specific commands.
+This plugin is intentionally small: 18 `SKILL.md` folders plus plugin metadata. It does not ship MCP servers, custom subagents, or host-specific commands.
 
 ## Support Levels
 
@@ -126,7 +126,7 @@ the skill context budget. After installing, check:
 
 ```bash
 python3 scripts/check_install.py --prompt-input
-codex debug prompt-input | rg 'x-compound|x-handoff'
+codex debug prompt-input | rg 'x-setup|x-compound|x-handoff'
 ```
 
 If nothing appears, the plugin cache can still be valid while automatic skill

@@ -4,9 +4,10 @@
 
 `elon-musk` is a skill plugin for applying book-derived Elon Musk method patterns to strategy, engineering, teams, risk, company building, execution, and reusable learning.
 
-It ships 17 searchable `x-*` skills: 15 method lenses plus 2 workflow skills for compounding lessons and writing handoffs. Use the router when you are unsure which method fits, or call a specific skill when you already know the lens.
+It ships 18 searchable `x-*` skills: 15 method lenses plus 3 workflow skills for setup, compounding lessons, and writing handoffs. Use `x-setup` when checking installation, use the router when you are unsure which method fits, or call a specific skill when you already know the lens.
 
 ```text
+Use $x-setup to check whether the plugin is installed and visible.
 Use $x-router on this project idea.
 Use $x-5-step-algo on this feature plan.
 Use $x-org and $x-teams on this blocked team workflow.
@@ -28,6 +29,7 @@ Common routes:
 
 | Situation | Useful sequence |
 |---|---|
+| Check install or skill visibility | `x-setup` |
 | New product or startup idea | `x-purpose -> x-thinking -> x-company-building` |
 | Feature or workflow before building | `x-5-step-algo -> x-engineering -> x-urgency` |
 | Slow organization or blocked project | `x-org -> x-teams -> x-urgency` |
@@ -91,6 +93,7 @@ Expected lens:
 
 | Skill | What it does | Use when |
 |---|---|---|
+| `x-setup` | Checks plugin install state, cache, symlinks, and prompt visibility. | Setup, update, or skill discoverability looks wrong. |
 | `x-router` | Chooses the best method lens. | The request is broad or messy. |
 | `x-purpose` | Tests usefulness, ambition, and sustained effort. | Choosing projects, missions, product bets, or career bets. |
 | `x-thinking` | Improves reasoning quality. | Strategy, architecture, impossible claims, expensive claims. |
@@ -132,8 +135,32 @@ Expected lens:
 
 | Workflow skill | What it adds |
 |---|---|
+| `x-setup` | Checks installed-state, direct skill homes, Codex cache, and prompt-visible workflow sentinels. |
 | `x-compound` | Turns a finished method session into 1-3 approved local Markdown notes under `docs/reviews/` or `docs/lessons/`. |
 | `x-handoff` | Writes a compact redacted handoff to OS temp by default, with suggested next skills and exact next actions. |
+
+## Compatibility Quick Scan
+
+| Skill | Output artifact | Writes files? | Safe default? |
+|---|---|---|---|
+| `x-setup` | Install and visibility diagnosis | No | Yes |
+| `x-router` | Skill route and prompt | No | Yes |
+| `x-purpose` | Project or mission review | No | Yes |
+| `x-thinking` | Assumption and reasoning review | No | Yes |
+| `x-engineering` | Engineering leverage review | No | Yes |
+| `x-5-step-algo` | Requirement deletion and simplification plan | No | Yes |
+| `x-teams` | Team capability and ownership review | No | Yes |
+| `x-org` | Organization drag review | No | Yes |
+| `x-urgency` | Timeline compression plan | No | Yes |
+| `x-manufacturing` | Production path and bottleneck review | No | Yes |
+| `x-founder` | Founder commitment review | No | Yes |
+| `x-company-building` | Prototype, sequence, and survival plan | No | Yes |
+| `x-future` | Future-state opportunity review | No | Yes |
+| `x-risk` | Risk map and release gates | No | Yes |
+| `x-multiplanetary` | Moonshot milestone plan | No | Yes |
+| `x-reading` | Reading path by problem type | No | Yes |
+| `x-compound` | Approved Markdown lesson or review | Only after approval | Yes |
+| `x-handoff` | Redacted continuation note | Temp by default | Yes |
 
 ## Install
 
@@ -216,9 +243,9 @@ elon-musk/
   .codex-plugin/plugin.json   native Codex plugin manifest
   .claude-plugin/             Claude-compatible plugin metadata
   .agents/plugins/            repo-local Codex marketplace metadata
-  skills/                     17 x-prefixed skills
+  skills/                     18 x-prefixed skills
   references/                 book map, method catalog, source notes
-  examples/                   practical prompt examples
+  examples/                   practical prompt examples, including all-skills.md
   docs/                       install, harness, usage, audit, source boundaries
   scripts/check_install.py    installed-state checker for cache and symlinks
   scripts/install_local.py    marketplace and skill symlink installer
@@ -262,7 +289,7 @@ The public validator checks:
 | Area | Check |
 |---|---|
 | Plugin manifests | Codex, Claude-compatible, and repo-local marketplace metadata exist and parse. |
-| Skills | Exactly 17 `x-*` skills with matching frontmatter and UI metadata. |
+| Skills | Exactly 18 `x-*` skills with matching frontmatter and UI metadata. |
 | Docs | README, changelog, security, privacy, AGENTS, install, usage, harness, audit, symlink, source-boundary, and CI files exist. |
 | References | Catalog and book map cover every non-router skill. |
 | Hygiene | Placeholder text and non-ASCII drift are rejected. |
@@ -289,8 +316,8 @@ If you also installed loose skill symlinks:
 python3 scripts/check_install.py --plugin --skill-links
 ```
 
-If the prompt-input check warns that `x-compound` and `x-handoff` are not
-visible, your global skill inventory may be over the Codex skill prompt budget.
+If the prompt-input check warns that `x-setup`, `x-compound`, or `x-handoff`
+are not visible, your global skill inventory may be over the Codex skill prompt budget.
 The installed cache can still be valid, but automatic `x-*` invocation is
 unreliable until unused plugins/skill roots are disabled or a slim Codex profile
 is used.

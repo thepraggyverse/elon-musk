@@ -61,6 +61,7 @@ Checked on 2026-06-22.
 | Compound step that saves reusable learning | Every guide, CE, CK | `x-compound`, `docs/MEMORY_MODEL.md`, `docs/COMPOUND_ENGINEERING.md`. |
 | Plain Markdown knowledge with frontmatter | Compound Knowledge | `x-compound` note shape and memory model. |
 | Handoff as a compact continuation artifact | Matt Pocock, agent-scripts | `x-handoff` and temp-first handoff guidance. |
+| Setup/install doctor skill | Matt Pocock, CE | `x-setup` checks plugin install, cache, symlinks, and prompt visibility. |
 | README skill inventory | CE, Matt Pocock | `README.md` skill inventory and workflow skill map. |
 | Harness-specific install matrix | CE | `docs/HARNESS_MATRIX.md` and `docs/INSTALL.md`. |
 | Direct skill-home linking | Matt Pocock, agent-scripts | `scripts/install_local.py --symlink-skills`, `docs/SYMLINKS.md`. |
@@ -79,7 +80,7 @@ Checked on 2026-06-22.
 | Release automation | CE, Matt Pocock | Deferred; current release surface is manual and small. |
 | Session-history mining | CE | Not adopted by default for privacy and complexity. Keep opt-in only if added later. |
 | Custom subagents | CE, CK | Not needed for this compact method pack. |
-| Setup skill | Matt Pocock, CE | Deferred until users need guided project bootstrap. |
+| Guided project bootstrap skill | Matt Pocock, CE | Deferred until users need project-specific bootstrap beyond install diagnostics. |
 
 ## Remaining Known Gaps
 

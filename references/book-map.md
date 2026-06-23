@@ -68,5 +68,6 @@ This file maps the plugin skills to the major sections in the user's local copy 
 
 These skills are plugin workflow helpers, not book-derived method sections:
 
+- `x-setup`: checks plugin install state, direct skill homes, and prompt visibility.
 - `x-compound`: saves approved local reviews or lessons after method work.
 - `x-handoff`: writes redacted continuation notes for future sessions.
