@@ -138,9 +138,36 @@ For routine docs and skill updates, keep the semver version stable unless a user
 - Classify agent automation as a goal, loop, or routine before running it.
 - Every loop must have a verifier, budget or iteration cap, no-progress stop, and owner-help condition.
 - Prefer independent verification over letting the worker grade its own work.
+- Use scout passes for unclear work: inspect, classify, reproduce, estimate, and recommend before editing.
+- Use ship passes for confirmed work: implement the scoped slice, verify it, and report proof.
+- Workers execute. Orchestrators coordinate, verify, and ask owner-level questions. Workers should not recursively spawn more workers.
+- Batch reads and tool calls where possible. Prefer evidence over long narration.
 - Treat lint failures, flaky tests, unrelated broken checks, visual regressions, layout overlap, and accessibility regressions as real signals. Report scope clearly instead of ignoring them.
 - Do not manually edit generated files, generated changelogs, lockfile output, or build artifacts unless this repo explicitly expects that edit.
 - Do not add coauthor trailers, attribution, or public-facing metadata unless the owner asks.
 - In long-form markdown, prefer one complete sentence per physical line so review diffs stay clean.
 - Autoreview, browser proof, lavish artifacts, and no-mistakes gates are evidence, not permission to push, PR, merge, release, publish, or comment publicly.
 <!-- END PRAGGY LOOP GUARDRAILS -->
+
+<!-- BEGIN COMPOUND CODEX TOOL MAP -->
+## Compound Codex Tool Mapping (Claude Compatibility)
+
+This section maps Claude Code plugin tool references to Codex behavior.
+Only this block is managed automatically.
+
+Tool mapping:
+- Read: use shell reads such as `cat` or `sed`, or use `rg`.
+- Write: create files with `apply_patch` for manual edits.
+- Edit/MultiEdit: use `apply_patch`.
+- Bash: use the available shell command tool.
+- Grep: use `rg`, fallback to `grep`.
+- Glob: use `rg --files` or `find`.
+- LS: use `ls` through the shell command tool.
+- WebFetch/WebSearch: use available web tools, `curl`, or configured documentation tools.
+- AskUserQuestion/Question: present choices as a numbered list in chat and wait for a reply number. For multi-select, accept comma-separated numbers. Never skip or auto-configure.
+- Task/Subagent/Parallel: run sequentially in the main thread unless a real multi-agent tool is available; use `multi_tool_use.parallel` only for parallel tool calls.
+- TaskCreate/TaskUpdate/TaskList/TaskGet/TaskStop/TaskOutput: use `update_plan`.
+- TodoWrite/TodoRead: use `update_plan`.
+- Skill: open the referenced `SKILL.md` and follow it.
+- ExitPlanMode: ignore.
+<!-- END COMPOUND CODEX TOOL MAP -->

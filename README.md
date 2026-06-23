@@ -360,8 +360,10 @@ This repo uses a docs-first agent contract:
 - `VISION.md` captures long-term direction, not implementation permission.
 - `OPINIONS.md` captures durable project taste, vocabulary, and tradeoffs.
 - `MEMORY.md` captures stable project facts agents should not rediscover.
+- `VOICE.md` captures communication defaults and owner-voice rules.
 - `DESIGN.md` guides UI and UX decisions when the project has user-facing surfaces.
 - `docs/handoffs/orchestrator.md` is the control-room state for continuation.
+- `docs/handoffs/worker-brief.md` is the bounded scout/ship worker brief.
 - `docs/brainstorms/` stores requirements and product-shape decisions.
 - `docs/plans/` stores implementation plans.
 - `docs/loops/` stores repeatable agent procedures.
