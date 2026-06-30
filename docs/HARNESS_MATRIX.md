@@ -1,6 +1,6 @@
 # Harness Matrix
 
-This plugin is intentionally small: 18 `SKILL.md` folders plus plugin metadata. It does not ship MCP servers, custom subagents, or host-specific commands.
+This plugin is intentionally small: 20 `SKILL.md` folders plus plugin metadata and lightweight harness bridge files. It does not ship MCP servers, custom subagents, or paid-service integrations.
 
 ## Support Levels
 
@@ -14,10 +14,12 @@ This plugin is intentionally small: 18 `SKILL.md` folders plus plugin metadata. 
 | Claude Code loose skills | Direct `SKILL.md` folders | `python3 scripts/install_local.py --symlink-skills --skill-home ~/.claude/skills` | `git pull --ff-only`; restart session |
 | OpenClaw | Direct `SKILL.md` folders | `python3 scripts/install_local.py --symlink-skills --skill-home ~/.openclaw/skills` | `git pull --ff-only`; restart session |
 | Shared `.agents` home | Direct `SKILL.md` folders | `python3 scripts/install_local.py --symlink-skills --skill-home ~/.agents/skills` | `git pull --ff-only`; restart session |
-| Cursor | Not native yet | Use direct skill folders only if your Cursor setup imports `SKILL.md` directories | Pull the repo and refresh that import |
-| Gemini CLI | Not native yet | Use direct skill folders only if your Gemini setup imports `SKILL.md` directories | Pull the repo and refresh that import |
-| OpenCode | Not native yet | Use direct skill folders only if your OpenCode setup imports `SKILL.md` directories | Pull the repo and refresh that import |
-| Pi | Not native yet | Use direct skill folders only if your Pi setup imports `SKILL.md` directories | Pull the repo and refresh that import |
+| Cursor | Bridge file | Use `.cursor/rules/elon-musk-methods.mdc` plus direct skill folders | Pull the repo and refresh Cursor rules |
+| Gemini | Bridge file | Use `GEMINI.md` and `gemini-extension.json` plus direct skill folders | Pull the repo and restart Gemini context |
+| OpenCode | Bridge file | Use `.opencode/AGENTS.md` plus direct skill folders | Pull the repo and restart session |
+| Continue | Bridge file | Use `.continue/rules/elon-musk-methods.md` plus direct skill folders | Pull the repo and refresh Continue rules |
+| Goose | Bridge file | Use `.goosehints` plus direct skill folders | Pull the repo and restart session |
+| Pi | Direct skill folders | Use direct skill folders only if your Pi setup imports `SKILL.md` directories | Pull the repo and refresh that import |
 | Other SKILL.md harnesses | Direct folder import | Point the harness at `skills/` or symlink individual `x-*` folders | Pull the repo and restart the harness |
 
 ## Codex App
@@ -126,7 +128,7 @@ the skill context budget. After installing, check:
 
 ```bash
 python3 scripts/check_install.py --prompt-input
-codex debug prompt-input | rg 'x-setup|x-compound|x-handoff'
+codex debug prompt-input | rg 'x-setup|x-review-pack|x-compound|x-memory-refresh|x-handoff'
 ```
 
 If nothing appears, the plugin cache can still be valid while automatic skill
@@ -162,4 +164,4 @@ Claude Code plugin:
 - It does not install paid services.
 - It does not include book text.
 - It does not claim a native host integration unless this file names one.
-- Cursor, Gemini CLI, OpenCode, and Pi rows are intentionally conservative until native manifests are added and validated.
+- Cursor, Gemini, OpenCode, Continue, and Goose bridge files are lightweight adapters. Host-specific marketplace validation should be added only when each host is available locally.

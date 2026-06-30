@@ -7,8 +7,19 @@ the package version is `.codex-plugin/plugin.json` and `.claude-plugin/plugin.js
 
 ## Unreleased
 
+No unreleased changes.
+
+## 0.2.0 - 2026-06-30
+
 ### Added
 
+- Added `x-review-pack` for bounded close-the-loop reviews that route, apply a
+  primary lens, offer compound candidates, and decide whether a handoff is
+  needed.
+- Added `x-memory-refresh` for auditing approved local lessons and reviews for
+  stale, duplicate, or unsafe saved memory.
+- Added `scripts/build_index.py`, `docs/SKILL_INDEX.md`, and generated
+  per-skill examples so skill docs have one metadata source of truth.
 - Added `x-setup` for plugin install checks, direct skill-home verification,
   Codex cache inspection, and prompt-visibility diagnosis.
 - Added `examples/all-skills.md` as a compact example index covering every
@@ -23,12 +34,12 @@ the package version is `.codex-plugin/plugin.json` and `.claude-plugin/plugin.js
 - Added `scripts/check_install.py` to verify Codex plugin cache installs,
   direct skill-home symlinks, and prompt-input visibility.
 - Added expanded harness, install, usage, and reference-audit documentation for
-  the 18-skill package.
+  the 20-skill package.
 - Added public security, privacy, release, and documentation-audit docs.
 
 ### Changed
 
-- Updated Codex and Claude-compatible manifests from 15 to 18 `x-*` skills.
+- Updated Codex and Claude-compatible manifests from 15 to 20 `x-*` skills.
 - Updated `README.md`, `CONCEPTS.md`, `AGENTS.md`, `docs/USAGE.md`, and
   references so workflow skills are described separately from book-derived
   method lenses.

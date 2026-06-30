@@ -4,10 +4,11 @@
 
 `elon-musk` is a skill plugin for applying book-derived Elon Musk method patterns to strategy, engineering, teams, risk, company building, execution, and reusable learning.
 
-It ships 18 searchable `x-*` skills: 15 method lenses plus 3 workflow skills for setup, compounding lessons, and writing handoffs. Use `x-setup` when checking installation, use the router when you are unsure which method fits, or call a specific skill when you already know the lens.
+It ships 20 searchable `x-*` skills: 15 method lenses plus 5 workflow skills for setup, review packs, compounding lessons, memory refresh, and writing handoffs. Use `x-setup` when checking installation, `x-review-pack` when you want the whole loop, the router when you are unsure which method fits, or a specific skill when you already know the lens.
 
 ```text
 Use $x-setup to check whether the plugin is installed and visible.
+Use $x-review-pack to review this launch plan and close the loop.
 Use $x-router on this project idea.
 Use $x-5-step-algo on this feature plan.
 Use $x-org and $x-teams on this blocked team workflow.
@@ -23,6 +24,7 @@ For broad work, start here:
 
 ```text
 x-router -> selected method -> concrete review -> reusable lesson
+x-review-pack -> route -> review -> compound candidate -> handoff decision
 ```
 
 Common routes:
@@ -30,6 +32,7 @@ Common routes:
 | Situation | Useful sequence |
 |---|---|
 | Check install or skill visibility | `x-setup` |
+| Full close-the-loop review | `x-review-pack` |
 | New product or startup idea | `x-purpose -> x-thinking -> x-company-building` |
 | Feature or workflow before building | `x-5-step-algo -> x-engineering -> x-urgency` |
 | Slow organization or blocked project | `x-org -> x-teams -> x-urgency` |
@@ -37,6 +40,7 @@ Common routes:
 | Risky AI or infrastructure launch | `x-risk -> x-thinking -> x-company-building` |
 | Moonshot or long-horizon mission | `x-multiplanetary -> x-risk -> x-company-building` |
 | Save what a review taught you | `x-compound` |
+| Refresh stale or duplicate saved lessons | `x-memory-refresh` |
 | Continue a long review later | `x-handoff` |
 
 ## Quick Examples
@@ -95,6 +99,7 @@ Expected lens:
 |---|---|---|
 | `x-setup` | Checks plugin install state, cache, symlinks, and prompt visibility. | Setup, update, or skill discoverability looks wrong. |
 | `x-router` | Chooses the best method lens. | The request is broad or messy. |
+| `x-review-pack` | Runs routing, method review, compound candidates, and handoff closeout. | A plan needs a complete close-the-loop review. |
 | `x-purpose` | Tests usefulness, ambition, and sustained effort. | Choosing projects, missions, product bets, or career bets. |
 | `x-thinking` | Improves reasoning quality. | Strategy, architecture, impossible claims, expensive claims. |
 | `x-engineering` | Finds where engineering creates real value. | Technical strategy, build-vs-buy, product architecture. |
@@ -110,7 +115,10 @@ Expected lens:
 | `x-multiplanetary` | Turns moonshots into staged milestones. | Deep-tech, resilience, infrastructure, long-horizon missions. |
 | `x-reading` | Recommends books by problem type. | Learning paths for engineering, history, AI, strategy, science. |
 | `x-compound` | Saves approved lessons and reviews as local Markdown memory. | After a useful method session should guide future work. |
+| `x-memory-refresh` | Audits local lessons and reviews for stale or duplicate memory. | Saved method memory has accumulated and needs pruning. |
 | `x-handoff` | Writes a redacted continuation handoff. | Long reviews, context transitions, or next-session briefs. |
+
+The generated long-form index lives in `docs/SKILL_INDEX.md`; run `python3 scripts/build_index.py` after changing skill metadata.
 
 ## Merged Method Map
 
@@ -136,7 +144,9 @@ Expected lens:
 | Workflow skill | What it adds |
 |---|---|
 | `x-setup` | Checks installed-state, direct skill homes, Codex cache, and prompt-visible workflow sentinels. |
+| `x-review-pack` | Runs the bounded full loop: route, primary review, support checks, compound candidates, and handoff decision. |
 | `x-compound` | Turns a finished method session into 1-3 approved local Markdown notes under `docs/reviews/` or `docs/lessons/`. |
+| `x-memory-refresh` | Audits accumulated local notes for duplicates, stale claims, missing retrieval triggers, and unsafe saved content. |
 | `x-handoff` | Writes a compact redacted handoff to OS temp by default, with suggested next skills and exact next actions. |
 
 ## Compatibility Quick Scan
@@ -145,6 +155,7 @@ Expected lens:
 |---|---|---|---|
 | `x-setup` | Install and visibility diagnosis | No | Yes |
 | `x-router` | Skill route and prompt | No | Yes |
+| `x-review-pack` | Route, review, compound candidates, and handoff decision | Only via `x-compound` or `x-handoff` rules | Yes |
 | `x-purpose` | Project or mission review | No | Yes |
 | `x-thinking` | Assumption and reasoning review | No | Yes |
 | `x-engineering` | Engineering leverage review | No | Yes |
@@ -160,6 +171,7 @@ Expected lens:
 | `x-multiplanetary` | Moonshot milestone plan | No | Yes |
 | `x-reading` | Reading path by problem type | No | Yes |
 | `x-compound` | Approved Markdown lesson or review | Only after approval | Yes |
+| `x-memory-refresh` | Memory audit with proposed edits | Only after approval | Yes |
 | `x-handoff` | Redacted continuation note | Temp by default | Yes |
 
 ## Install
@@ -243,10 +255,12 @@ elon-musk/
   .codex-plugin/plugin.json   native Codex plugin manifest
   .claude-plugin/             Claude-compatible plugin metadata
   .agents/plugins/            repo-local Codex marketplace metadata
-  skills/                     18 x-prefixed skills
+  skills/                     20 x-prefixed skills
   references/                 book map, method catalog, source notes
   examples/                   practical prompt examples, including all-skills.md
   docs/                       install, harness, usage, audit, source boundaries
+  docs/SKILL_INDEX.md         generated skill index and compatibility table
+  scripts/build_index.py      generator for skill index and examples
   scripts/check_install.py    installed-state checker for cache and symlinks
   scripts/install_local.py    marketplace and skill symlink installer
   scripts/validate_public.py  public repository validator
@@ -261,12 +275,14 @@ elon-musk/
 | `CHANGELOG.md` | User-facing change history and unreleased notes. |
 | `CONCEPTS.md` | Plugin philosophy, workflow, and method families. |
 | `docs/MEMORY_MODEL.md` | Local Markdown memory model for reviews, lessons, and handoffs. |
+| `docs/NATIVE_HARNESS_BRIDGES.md` | Lightweight bridge files for Cursor, Continue, Goose, OpenCode, and Gemini. |
 | `docs/DOCUMENTATION_AUDIT.md` | Documentation-surface comparison against the reference repos. |
 | `docs/HARNESS_MATRIX.md` | Harness Matrix for install, update, uninstall, and compatibility notes. |
 | `docs/REFERENCE_AUDIT.md` | What was audited from the reference projects and what changed here. |
 | `docs/COMPOUND_ENGINEERING.md` | How Compound Engineering ideas shaped the plugin packaging. |
 | `docs/INSTALL.md` | Detailed local install and update paths. |
 | `docs/RELEASE.md` | Version, changelog, release, and no-push checklist. |
+| `docs/SKILL_INDEX.md` | Generated skill inventory, workflow map, and compatibility table. |
 | `docs/SYMLINKS.md` | How plugin and skill symlinks work. |
 | `docs/USAGE.md` | More examples and prompt recipes. |
 | `docs/DEVELOPMENT.md` | Maintainer workflow. |
@@ -289,8 +305,8 @@ The public validator checks:
 | Area | Check |
 |---|---|
 | Plugin manifests | Codex, Claude-compatible, and repo-local marketplace metadata exist and parse. |
-| Skills | Exactly 18 `x-*` skills with matching frontmatter and UI metadata. |
-| Docs | README, changelog, security, privacy, AGENTS, install, usage, harness, audit, symlink, source-boundary, and CI files exist. |
+| Skills | Exactly 20 `x-*` skills with matching frontmatter and UI metadata. |
+| Docs | README, changelog, security, privacy, AGENTS, install, usage, harness, generated index, audit, symlink, source-boundary, and CI files exist. |
 | References | Catalog and book map cover every non-router skill. |
 | Hygiene | Placeholder text and non-ASCII drift are rejected. |
 
@@ -301,7 +317,7 @@ After install, a fresh Codex process should be able to see the plugin cache:
 ```bash
 python3 scripts/check_install.py
 codex plugin list | grep 'elon-musk@personal'
-find ~/.codex/plugins/cache/personal/elon-musk/0.1.0/skills -maxdepth 2 -name SKILL.md | wc -l
+find ~/.codex/plugins/cache/personal/elon-musk/0.2.0/skills -maxdepth 2 -name SKILL.md | wc -l
 ```
 
 To also check model-visible skill loading:

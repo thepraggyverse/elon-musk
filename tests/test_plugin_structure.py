@@ -9,6 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 EXPECTED_SKILLS = [
     "x-setup",
     "x-router",
+    "x-review-pack",
     "x-purpose",
     "x-thinking",
     "x-engineering",
@@ -24,9 +25,11 @@ EXPECTED_SKILLS = [
     "x-multiplanetary",
     "x-reading",
     "x-compound",
+    "x-memory-refresh",
     "x-handoff",
 ]
-NON_ROUTER_SKILLS = [name for name in EXPECTED_SKILLS if name not in {"x-setup", "x-router"}]
+NON_METHOD_CATALOG_EXEMPT = {"x-setup", "x-router"}
+NON_ROUTER_SKILLS = [name for name in EXPECTED_SKILLS if name != "x-router"]
 BANNED_PLACEHOLDERS = [
     "TO" + "DO",
     "[TO" + "DO",
@@ -34,7 +37,7 @@ BANNED_PLACEHOLDERS = [
     "plugin " + "scaffold",
     "Complete and " + "informative",
 ]
-TEXT_SUFFIXES = {".md", ".json", ".yaml", ".yml", ".py"}
+TEXT_SUFFIXES = {".md", ".mdc", ".json", ".yaml", ".yml", ".py"}
 
 
 def read_text(path: Path) -> str:
@@ -196,7 +199,9 @@ class DocumentationCoverageTests(unittest.TestCase):
 
     def test_catalog_has_all_non_router_skill_sections(self):
         catalog = read_text(ROOT / "references" / "method-catalog.md")
-        for name in NON_ROUTER_SKILLS:
+        for name in EXPECTED_SKILLS:
+            if name in NON_METHOD_CATALOG_EXEMPT:
+                continue
             with self.subTest(skill=name):
                 self.assertIn(f"## {name}", catalog)
 
@@ -210,7 +215,14 @@ class DocumentationCoverageTests(unittest.TestCase):
         examples_dir = ROOT / "examples"
         examples = {path.name: read_text(path) for path in examples_dir.glob("*.md")}
         self.assertEqual(
-            {"all-skills.md", "startup-review.md", "feature-plan-review.md", "org-review.md", "cost-review.md"},
+            {
+                "all-skills.md",
+                "startup-review.md",
+                "feature-plan-review.md",
+                "org-review.md",
+                "cost-review.md",
+                *(f"{name}.md" for name in EXPECTED_SKILLS),
+            },
             set(examples),
         )
         combined = "\n".join(examples.values())
@@ -249,7 +261,7 @@ class DocumentationCoverageTests(unittest.TestCase):
         agents = read_text(ROOT / "AGENTS.md")
         readme = read_text(ROOT / "README.md")
         self.assertIn("canonical authoring contract", agents)
-        self.assertIn("18 searchable `x-*` skills", readme)
+        self.assertIn("20 searchable `x-*` skills", readme)
         self.assertIn("Skill Inventory", readme)
         self.assertIn("Harness Matrix", readme)
         self.assertIn("CHANGELOG.md", readme)
@@ -264,13 +276,31 @@ class DocumentationCoverageTests(unittest.TestCase):
             "PRIVACY.md",
             "docs/RELEASE.md",
             "docs/DOCUMENTATION_AUDIT.md",
+            "docs/NATIVE_HARNESS_BRIDGES.md",
+            "docs/SKILL_INDEX.md",
+            "GEMINI.md",
+            "gemini-extension.json",
+            ".cursor/rules/elon-musk-methods.mdc",
+            ".continue/rules/elon-musk-methods.md",
+            ".opencode/AGENTS.md",
+            ".goosehints",
+            "scripts/build_index.py",
+            "scripts/check_markdown_links.py",
         ]
         for rel in required:
             with self.subTest(path=rel):
                 self.assertTrue((ROOT / rel).is_file())
 
         changelog = read_text(ROOT / "CHANGELOG.md")
-        for phrase in ["## Unreleased", "x-setup", "x-compound", "x-handoff", "scripts/check_install.py"]:
+        for phrase in [
+            "## Unreleased",
+            "x-review-pack",
+            "x-memory-refresh",
+            "x-setup",
+            "x-compound",
+            "x-handoff",
+            "scripts/check_install.py",
+        ]:
             with self.subTest(phrase=phrase):
                 self.assertIn(phrase, changelog)
 
@@ -318,7 +348,9 @@ class DocumentationCoverageTests(unittest.TestCase):
             read_text(ROOT / rel)
             for rel in [
                 "skills/x-compound/SKILL.md",
+                "skills/x-memory-refresh/SKILL.md",
                 "skills/x-handoff/SKILL.md",
+                "skills/x-review-pack/SKILL.md",
                 "skills/x-setup/SKILL.md",
                 "README.md",
                 "docs/MEMORY_MODEL.md",
@@ -356,6 +388,16 @@ class HygieneTests(unittest.TestCase):
         notes = read_text(ROOT / "references" / "source-notes.md")
         self.assertIn("Do not copy long passages", notes)
         self.assertIn("paraphrased method summaries", notes)
+
+    def test_generated_indexes_are_current(self):
+        result = subprocess.run(
+            ["python3", "scripts/build_index.py", "--check"],
+            cwd=ROOT,
+            text=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        )
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
 
 if __name__ == "__main__":

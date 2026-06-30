@@ -1,0 +1,4 @@
+interface:
+  display_name: "X Review Pack"
+  short_description: "Run the full method review loop"
+  default_prompt: "Use $x-review-pack to route, review, compound, and hand off this plan."

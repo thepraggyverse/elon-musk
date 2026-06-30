@@ -41,7 +41,7 @@ codex plugin list | grep elon-musk
 Expected status:
 
 ```text
-elon-musk@personal   installed, enabled  0.1.0    /Users/<you>/plugins/elon-musk
+elon-musk@personal   installed, enabled  0.2.0    /Users/<you>/plugins/elon-musk
 ```
 
 ## Why The `~/plugins/elon-musk` Path Matters
@@ -145,11 +145,12 @@ Default targets:
 
 The script skips existing destinations unless `--force` is passed.
 
-Use this path for OpenClaw, shared `.agents` homes, and any other harness that can read plain `SKILL.md` folders. Cursor, Gemini CLI, OpenCode, and Pi are not claimed as native integrations in this repo yet.
+Use this path for OpenClaw, shared `.agents` homes, and any other harness that can read plain `SKILL.md` folders. Cursor, Gemini, OpenCode, Goose, and Continue also have lightweight bridge files in this repo; see `docs/NATIVE_HARNESS_BRIDGES.md`.
 
 The direct skill pack includes 15 book-derived method lenses plus `x-setup`
-for install checks, `x-compound` for approved local memory, and `x-handoff`
-for redacted continuation notes.
+for install checks, `x-review-pack` for close-the-loop reviews, `x-compound`
+for approved local memory, `x-memory-refresh` for stale memory audits, and
+`x-handoff` for redacted continuation notes.
 
 Verify direct skill links:
 
@@ -204,10 +205,10 @@ python3 scripts/check_install.py
 codex plugin list | grep elon-musk
 ```
 
-Check that the installed Codex cache contains all 18 skills:
+Check that the installed Codex cache contains all 20 skills:
 
 ```bash
-find ~/.codex/plugins/cache/personal/elon-musk/0.1.0/skills \
+find ~/.codex/plugins/cache/personal/elon-musk/0.2.0/skills \
   -maxdepth 2 \
   -name SKILL.md | wc -l
 ```
@@ -218,7 +219,7 @@ enabled skill roots. Confirm with either command:
 
 ```bash
 python3 scripts/check_install.py --prompt-input
-codex debug prompt-input | rg 'x-setup|x-compound|x-handoff'
+codex debug prompt-input | rg 'x-setup|x-review-pack|x-compound|x-memory-refresh|x-handoff'
 ```
 
 If that returns nothing, reduce the active global skill inventory or run with a

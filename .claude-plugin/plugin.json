@@ -1,6 +1,6 @@
 {
   "name": "elon-musk",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Elon Musk method skills for setup, strategy, engineering, teams, risk, execution, memory, and handoff.",
   "author": {
     "name": "Praggy",
@@ -22,6 +22,7 @@
   "skills": [
     "./skills/x-setup",
     "./skills/x-router",
+    "./skills/x-review-pack",
     "./skills/x-purpose",
     "./skills/x-thinking",
     "./skills/x-engineering",
@@ -37,6 +38,7 @@
     "./skills/x-multiplanetary",
     "./skills/x-reading",
     "./skills/x-compound",
+    "./skills/x-memory-refresh",
     "./skills/x-handoff"
   ]
 }

@@ -132,6 +132,14 @@ Use this catalog when `x-router` needs a complete view or when deciding whether 
 - Update path: recommend reinstall, cache refresh, restart, or symlink repair commands.
 - Safety boundary: do not delete plugins or global skill roots without explicit approval.
 
+## x-review-pack
+
+- Pack: run one bounded loop from route to closeout.
+- Primary lens: choose one method skill that owns the review.
+- Support checks: use at most two supporting skills and state whether they changed the recommendation.
+- Compound candidate: offer one to three reusable lessons only when the review produced durable learning.
+- Handoff decision: write a continuation note only when work remains or context needs to move.
+
 ## x-compound
 
 - Capture 1-3 reusable lessons or reviews from a completed method session.
@@ -139,6 +147,14 @@ Use this catalog when `x-router` needs a complete view or when deciding whether 
 - Search for duplicates before creating a new note.
 - Flag stale contradictions when a new lesson conflicts with older project memory.
 - Store retrieval triggers so future work knows when the note applies.
+
+## x-memory-refresh
+
+- Refresh: audit local Markdown memory without reading raw session logs by default.
+- Folder inventory: inspect existing review, lesson, knowledge, solution, and handoff folders.
+- Duplicate detection: identify notes that should be kept, merged, updated, archived, or deleted.
+- Stale conflict detection: compare older and newer lessons and flag contradictions with paths.
+- Boundary check: flag secrets, private data, long excerpts, or raw transcripts before editing.
 
 ## x-handoff
 

@@ -1,6 +1,6 @@
 # Agent Instructions
 
-This repository publishes `elon-musk`, a small skill plugin that packages book-derived Elon Musk method patterns into 18 searchable `x-*` skills: 15 method lenses and 3 workflow skills.
+This repository publishes `elon-musk`, a small skill plugin that packages book-derived Elon Musk method patterns into 20 searchable `x-*` skills: 15 method lenses and 5 workflow skills.
 
 `AGENTS.md` is the canonical authoring contract for this repo. `CLAUDE.md` exists as a compatibility pointer for harnesses that look for it.
 

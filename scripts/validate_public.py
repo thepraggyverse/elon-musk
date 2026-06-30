@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 EXPECTED_SKILLS = [
     "x-setup",
     "x-router",
+    "x-review-pack",
     "x-purpose",
     "x-thinking",
     "x-engineering",
@@ -29,11 +30,16 @@ EXPECTED_SKILLS = [
     "x-multiplanetary",
     "x-reading",
     "x-compound",
+    "x-memory-refresh",
     "x-handoff",
 ]
-BOOK_DERIVED_SKILLS = [skill for skill in EXPECTED_SKILLS if skill not in {"x-setup", "x-router", "x-compound", "x-handoff"}]
+BOOK_DERIVED_SKILLS = [
+    skill
+    for skill in EXPECTED_SKILLS
+    if skill not in {"x-setup", "x-router", "x-review-pack", "x-compound", "x-memory-refresh", "x-handoff"}
+]
 BANNED = ["TO" + "DO", "[TO" + "DO", "FIX" + "ME", "Complete and " + "informative"]
-TEXT_SUFFIXES = {".md", ".json", ".yaml", ".yml", ".py"}
+TEXT_SUFFIXES = {".md", ".mdc", ".json", ".yaml", ".yml", ".py"}
 
 
 def fail(message: str) -> None:
@@ -203,6 +209,7 @@ def validate_docs() -> None:
     required = [
         "AGENTS.md",
         "CLAUDE.md",
+        "GEMINI.md",
         "README.md",
         "CHANGELOG.md",
         "CONCEPTS.md",
@@ -213,8 +220,10 @@ def validate_docs() -> None:
         "docs/HARNESS_MATRIX.md",
         "docs/INSTALL.md",
         "docs/MEMORY_MODEL.md",
+        "docs/NATIVE_HARNESS_BRIDGES.md",
         "docs/REFERENCE_AUDIT.md",
         "docs/RELEASE.md",
+        "docs/SKILL_INDEX.md",
         "docs/SYMLINKS.md",
         "docs/USAGE.md",
         "docs/DEVELOPMENT.md",
@@ -225,7 +234,14 @@ def validate_docs() -> None:
         ".claude-plugin/plugin.json",
         ".claude-plugin/marketplace.json",
         ".agents/plugins/marketplace.json",
+        ".continue/rules/elon-musk-methods.md",
+        ".cursor/rules/elon-musk-methods.mdc",
+        ".goosehints",
+        ".opencode/AGENTS.md",
+        "gemini-extension.json",
+        "scripts/build_index.py",
         "scripts/check_install.py",
+        "scripts/check_markdown_links.py",
         "scripts/install_local.py",
         "scripts/validate_public.py",
     ]
@@ -234,8 +250,8 @@ def validate_docs() -> None:
             fail(f"missing {rel}")
 
     readme = read_text(ROOT / "README.md")
-    if "18 searchable `x-*` skills" not in readme:
-        fail("README must state the 18-skill inventory")
+    if "20 searchable `x-*` skills" not in readme:
+        fail("README must state the 20-skill inventory")
     if "CHANGELOG.md" not in readme:
         fail("README must link the changelog")
     for phrase in ["Compatibility Quick Scan", "Output artifact", "Writes files?", "Safe default?"]:
@@ -243,7 +259,15 @@ def validate_docs() -> None:
             fail(f"README compatibility table missing {phrase}")
 
     changelog = read_text(ROOT / "CHANGELOG.md")
-    for phrase in ["## Unreleased", "x-setup", "x-compound", "x-handoff", "scripts/check_install.py"]:
+    for phrase in [
+        "## Unreleased",
+        "x-review-pack",
+        "x-memory-refresh",
+        "x-setup",
+        "x-compound",
+        "x-handoff",
+        "scripts/check_install.py",
+    ]:
         if phrase not in changelog:
             fail(f"CHANGELOG.md missing {phrase}")
 
@@ -290,7 +314,9 @@ def validate_memory_model() -> None:
 
     for rel in [
         "skills/x-compound/SKILL.md",
+        "skills/x-memory-refresh/SKILL.md",
         "skills/x-handoff/SKILL.md",
+        "skills/x-review-pack/SKILL.md",
         "skills/x-setup/SKILL.md",
         "README.md",
         "docs/MEMORY_MODEL.md",
@@ -330,6 +356,18 @@ def optional_codex_validators() -> None:
             subprocess.run([sys.executable, str(skill_validator), str(ROOT / "skills" / skill)], check=True)
 
 
+def validate_generated_files() -> None:
+    result = subprocess.run(
+        [sys.executable, str(ROOT / "scripts" / "build_index.py"), "--check"],
+        cwd=ROOT,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
+    if result.returncode != 0:
+        fail((result.stdout + result.stderr).strip())
+
+
 def main() -> int:
     validate_plugin_json()
     validate_auxiliary_manifests()
@@ -338,6 +376,7 @@ def main() -> int:
     validate_docs()
     validate_memory_model()
     validate_hygiene()
+    validate_generated_files()
     optional_codex_validators()
     print(f"Public validation passed: {skill_count} x-prefixed skills")
     return 0

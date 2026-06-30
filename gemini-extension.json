@@ -1,0 +1,9 @@
+{
+  "name": "elon-musk",
+  "displayName": "Elon Musk Methods",
+  "version": "0.2.0",
+  "description": "Portable x-prefixed skill pack for setup, strategy, engineering, teams, risk, review packs, memory, and handoff.",
+  "contextFile": "GEMINI.md",
+  "skillsPath": "skills",
+  "repository": "https://github.com/thepraggyverse/elon-musk"
+}

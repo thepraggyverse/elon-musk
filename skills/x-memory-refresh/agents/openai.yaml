@@ -1,0 +1,4 @@
+interface:
+  display_name: "X Memory Refresh"
+  short_description: "Audit local lessons and reviews"
+  default_prompt: "Use $x-memory-refresh to audit local x-prefixed lessons and reviews for stale or duplicate memory."

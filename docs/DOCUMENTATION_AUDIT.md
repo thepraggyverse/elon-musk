@@ -62,6 +62,10 @@ Checked on 2026-06-22.
 | Plain Markdown knowledge with frontmatter | Compound Knowledge | `x-compound` note shape and memory model. |
 | Handoff as a compact continuation artifact | Matt Pocock, agent-scripts | `x-handoff` and temp-first handoff guidance. |
 | Setup/install doctor skill | Matt Pocock, CE | `x-setup` checks plugin install, cache, symlinks, and prompt visibility. |
+| Full-loop review pack | Every guide, CE | `x-review-pack` runs route, method review, compound candidates, and handoff decision. |
+| Memory refresh pass | CE, CK | `x-memory-refresh` audits approved local Markdown memory. |
+| Generated skill index and examples | Matt Pocock, agent-scripts | `scripts/build_index.py`, `docs/SKILL_INDEX.md`, and `examples/x-*.md`. |
+| Lightweight harness bridge files | CE | Cursor, Continue, Goose, OpenCode, and Gemini bridge files. |
 | README skill inventory | CE, Matt Pocock | `README.md` skill inventory and workflow skill map. |
 | Harness-specific install matrix | CE | `docs/HARNESS_MATRIX.md` and `docs/INSTALL.md`. |
 | Direct skill-home linking | Matt Pocock, agent-scripts | `scripts/install_local.py --symlink-skills`, `docs/SYMLINKS.md`. |
@@ -73,10 +77,8 @@ Checked on 2026-06-22.
 
 | Pattern | Source | Decision |
 |---|---|---|
-| Native Cursor plugin manifest | CE | Deferred until it can be tested in Cursor. Direct skill-folder guidance remains documented. |
-| Native OpenCode plugin package | CE | Deferred; would require a real OpenCode package and validation path. |
+| Host-specific marketplace packages | CE | Deferred until each host can be tested. Bridge files are present. |
 | Native Pi extension | CE | Deferred; no local proof yet. |
-| Native Gemini extension | CE | Deferred; do not claim native Gemini support without a manifest and test. |
 | Release automation | CE, Matt Pocock | Deferred; current release surface is manual and small. |
 | Session-history mining | CE | Not adopted by default for privacy and complexity. Keep opt-in only if added later. |
 | Custom subagents | CE, CK | Not needed for this compact method pack. |
@@ -87,8 +89,7 @@ Checked on 2026-06-22.
 | Gap | Status | Rationale |
 |---|---|---|
 | Automatic `$x-*` visibility in this local Codex profile | environment warning | Install is valid, but the user's global skill inventory can exceed Codex prompt visibility. `scripts/check_install.py --prompt-input` reports this. |
-| Native Cursor/OpenCode/Pi/Gemini support | deferred | The repo should not overclaim untested host formats. |
-| `x-memory-refresh` | deferred | Useful after real `docs/reviews/` and `docs/lessons/` files accumulate. |
+| Host-specific marketplace certification | deferred | Bridge files exist, but each host should be tested before stronger claims. |
 
 ## Documentation Completeness Rule
 

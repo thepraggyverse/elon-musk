@@ -69,5 +69,7 @@ This file maps the plugin skills to the major sections in the user's local copy 
 These skills are plugin workflow helpers, not book-derived method sections:
 
 - `x-setup`: checks plugin install state, direct skill homes, and prompt visibility.
+- `x-review-pack`: runs a bounded full-loop review using method skills, compounding, and handoff checks.
 - `x-compound`: saves approved local reviews or lessons after method work.
+- `x-memory-refresh`: audits approved local reviews and lessons for stale or duplicate memory.
 - `x-handoff`: writes redacted continuation notes for future sessions.

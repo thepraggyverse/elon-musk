@@ -30,8 +30,12 @@ Only bump when preparing a real public release or when the user asks for it.
 
 ```bash
 python3 scripts/validate_public.py
+python3 scripts/build_index.py --check
 PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -v
 git diff --check
+python3 -m py_compile scripts/build_index.py scripts/check_install.py scripts/check_markdown_links.py scripts/install_local.py scripts/validate_public.py
+python3 scripts/check_markdown_links.py
+python3 scripts/install_local.py --symlink-skills --dry-run --skill-home /tmp/elon-musk-skills-test
 python3 scripts/install_local.py --marketplace --symlink-skills
 codex plugin add elon-musk@personal
 python3 scripts/check_install.py --plugin --skill-links

@@ -18,6 +18,11 @@ save two kinds of durable notes in the project where the work happened:
 `x-handoff` writes to OS temp by default instead of the repo. Use repo-local
 handoffs only when the user explicitly asks for durable project handoff files.
 
+Use `x-memory-refresh` after several approved notes accumulate. It audits
+existing local Markdown for duplicates, stale contradictions, missing retrieval
+triggers, and unsafe saved content. It does not read raw session logs by
+default.
+
 ## What Never Gets Saved
 
 Do not save:

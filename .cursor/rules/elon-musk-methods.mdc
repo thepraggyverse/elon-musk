@@ -1,0 +1,22 @@
+---
+description: Elon Musk Methods skill pack usage guide
+globs:
+  - "**/*"
+alwaysApply: false
+---
+
+# Elon Musk Methods
+
+Use this repository's `skills/x-*/SKILL.md` folders as the source of truth.
+
+Common entry points:
+
+- `x-setup`: check install, cache, symlinks, and prompt visibility.
+- `x-review-pack`: run a bounded close-the-loop review.
+- `x-router`: choose the right method lens.
+- `x-compound`: save approved reusable lessons.
+- `x-memory-refresh`: audit stale or duplicate local method memory.
+- `x-handoff`: write a redacted continuation note.
+
+Do not copy long book passages, raw transcripts, secrets, or private data into
+generated docs. Prefer the exact output shape from the selected `SKILL.md`.

@@ -15,6 +15,7 @@ PLUGIN_NAME = "elon-musk"
 EXPECTED_SKILLS = [
     "x-setup",
     "x-router",
+    "x-review-pack",
     "x-purpose",
     "x-thinking",
     "x-engineering",
@@ -30,9 +31,10 @@ EXPECTED_SKILLS = [
     "x-multiplanetary",
     "x-reading",
     "x-compound",
+    "x-memory-refresh",
     "x-handoff",
 ]
-PROMPT_VISIBILITY_SENTINELS = ["x-setup", "x-compound", "x-handoff"]
+PROMPT_VISIBILITY_SENTINELS = ["x-setup", "x-review-pack", "x-compound", "x-memory-refresh", "x-handoff"]
 DEFAULT_SKILL_HOMES = [
     Path.home() / ".agents" / "skills",
     Path.home() / ".codex" / "skills",
@@ -234,7 +236,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--strict-prompt-input",
         action="store_true",
-        help="Fail if prompt-input does not expose x-setup, x-compound, and x-handoff",
+        help="Fail if prompt-input does not expose workflow sentinel skills",
     )
     parser.add_argument(
         "--skill-links",

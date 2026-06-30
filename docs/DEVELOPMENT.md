@@ -28,7 +28,7 @@ codex plugin list | grep elon-musk
 Expected:
 
 ```text
-elon-musk@personal   installed, enabled  0.1.0
+elon-musk@personal   installed, enabled  0.2.0
 ```
 
 ## Editing A Skill
