@@ -11,7 +11,7 @@ Use this skill when the system is slow because people cannot talk, decide, learn
 
 - Remove organizational boundaries.
 - Let people talk directly when it helps the company.
-- Use simple language.
+- Use simple, clear, humble language.
 - Permit non-catastrophic failure and fast learning.
 - Delete meetings, approvals, and handoffs that do not improve the product or service.
 
@@ -35,6 +35,10 @@ Delete / keep / change:
 Failure boundaries:
 Simplified path:
 ```
+
+## Completion Gate
+
+Complete only when every material handoff and control is accounted for, protected controls remain justified, stale process is named, and direct owners and next actions are clear.
 
 ## Example
 

@@ -4,7 +4,7 @@
 
 `elon-musk` is a skill plugin for applying book-derived Elon Musk method patterns to strategy, engineering, teams, risk, company building, execution, and reusable learning.
 
-It ships 20 searchable `x-*` skills: 15 method lenses plus 5 workflow skills for setup, review packs, compounding lessons, memory refresh, and writing handoffs. Use `x-setup` when checking installation, `x-review-pack` when you want the whole loop, the router when you are unsure which method fits, or a specific skill when you already know the lens.
+It ships 20 searchable `x-*` skills: 14 book-derived method lenses, 1 router, and 5 workflow skills for setup, review packs, compounding lessons, memory refresh, and writing handoffs. Use `x-setup` when checking installation, `x-review-pack` when you want the whole loop, the router when you are unsure which method fits, or a specific skill when you already know the lens.
 
 ```text
 Use $x-setup to check whether the plugin is installed and visible.
@@ -17,6 +17,7 @@ Use $x-compound to save the reusable lesson from this review.
 ```
 
 The skills are paraphrased operating methods. They are not a quote archive and they do not include the book text.
+Direct, near-primary, book-derived, and original plugin material are separated in `docs/SOURCES.md`.
 
 ## Skill Loop
 
@@ -98,24 +99,24 @@ Expected lens:
 | Skill | What it does | Use when |
 |---|---|---|
 | `x-setup` | Checks plugin install state, cache, symlinks, and prompt visibility. | Setup, update, or skill discoverability looks wrong. |
-| `x-router` | Chooses the best method lens. | The request is broad or messy. |
+| `x-router` | Chooses the best method or workflow skill. | The request is broad, messy, or spans several method families. |
 | `x-review-pack` | Runs routing, method review, compound candidates, and handoff closeout. | A plan needs a complete close-the-loop review. |
-| `x-purpose` | Tests usefulness, ambition, and sustained effort. | Choosing projects, missions, product bets, or career bets. |
-| `x-thinking` | Improves reasoning quality. | Strategy, architecture, impossible claims, expensive claims. |
-| `x-engineering` | Finds where engineering creates real value. | Technical strategy, build-vs-buy, product architecture. |
+| `x-purpose` | Tests usefulness, ambition, originality, and sustained effort. | Choosing projects, missions, product bets, or career bets. |
+| `x-thinking` | Improves reasoning through facts, direct sources, first principles, limits, and updates. | Strategy, architecture, impossible claims, expensive claims, or inherited assumptions. |
+| `x-engineering` | Finds engineering leverage using ideal limits, cost structure, integration, and product taste. | Technical strategy, build-vs-buy, architecture, cost, design, or engineering leadership. |
 | `x-5-step-algo` | Questions, deletes, simplifies, accelerates, then automates. | Feature specs, workflows, migrations, refactors, automations. |
-| `x-teams` | Reviews talent density, ownership, and builder culture. | Hiring, founding teams, performance, team health. |
-| `x-org` | Removes organizational drag. | Meetings, approvals, cross-team work, unclear ownership. |
-| `x-urgency` | Shortens timelines and feedback loops. | Launches, blocked projects, roadmaps, crisis work. |
-| `x-manufacturing` | Treats production and delivery as the product. | Operations, CI/CD, support, fulfillment, physical production. |
-| `x-founder` | Tests conviction, pain tolerance, and all-in decisions. | Startup commitment, pivots, runway, hard personal bets. |
-| `x-company-building` | Turns mission into prototype, survival, sequence, and scale. | Startup roadmaps, product strategy, capital allocation. |
-| `x-future` | Applies abundance, AI, robotics, autonomy, and energy lenses. | Long-term technology bets and future-state planning. |
-| `x-risk` | Reviews systemic and civilization-scale downside. | AI systems, safety, infrastructure, policy, broad downside. |
+| `x-teams` | Reviews talent, ownership, builder culture, feedback, and fair people-process boundaries. | Hiring, founding teams, performance, team health, or consequential people decisions. |
+| `x-org` | Removes organizational drag while preserving controls that protect real risks. | Meetings, approvals, cross-team work, communication, or unclear ownership. |
+| `x-urgency` | Shortens timelines and feedback loops after direction and safety boundaries are valid. | Launches, blocked projects, roadmaps, migrations, or crisis work. |
+| `x-manufacturing` | Treats production and delivery as the product and attacks the throughput constraint. | Operations, CI/CD, support, fulfillment, data pipelines, or physical production. |
+| `x-founder` | Tests conviction, responsibility, runway, protected constraints, and commitment level. | Startup commitment, pivots, runway, leadership, or hard personal bets. |
+| `x-company-building` | Turns mission into prototype, proof, survival, sequence, trust, and scale. | Startup roadmaps, product strategy, capital allocation, launches, or customer trust. |
+| `x-future` | Applies abundance, emerging possibility, AI, robotics, autonomy, interfaces, and energy lenses. | Long-term technology bets, future-state planning, automation, robotics, or energy ideas. |
+| `x-risk` | Reviews systemic downside, affected parties, controls, release gates, and stop conditions. | AI systems, safety, infrastructure, policy, compliance, or plans with broad downside. |
 | `x-multiplanetary` | Turns moonshots into staged milestones. | Deep-tech, resilience, infrastructure, long-horizon missions. |
-| `x-reading` | Recommends books by problem type. | Learning paths for engineering, history, AI, strategy, science. |
-| `x-compound` | Saves approved lessons and reviews as local Markdown memory. | After a useful method session should guide future work. |
-| `x-memory-refresh` | Audits local lessons and reviews for stale or duplicate memory. | Saved method memory has accumulated and needs pruning. |
+| `x-reading` | Builds source-labeled reading paths by problem type and learning goal. | Learning engineering, rockets, history, AI, strategy, science, economics, or worldview. |
+| `x-compound` | Saves explicitly authorized lessons and reviews as local Markdown memory. | A completed method session produced learning that should guide future work. |
+| `x-memory-refresh` | Audits local lessons and reviews for stale, duplicate, unsafe, or weakly retrievable memory. | Saved method memory has accumulated and needs pruning or reconciliation. |
 | `x-handoff` | Writes a redacted continuation handoff. | Long reviews, context transitions, or next-session briefs. |
 
 The generated long-form index lives in `docs/SKILL_INDEX.md`; run `python3 scripts/build_index.py` after changing skill metadata.
@@ -155,7 +156,7 @@ The generated long-form index lives in `docs/SKILL_INDEX.md`; run `python3 scrip
 |---|---|---|---|
 | `x-setup` | Install and visibility diagnosis | No | Yes |
 | `x-router` | Skill route and prompt | No | Yes |
-| `x-review-pack` | Route, review, compound candidates, and handoff decision | Only via `x-compound` or `x-handoff` rules | Yes |
+| `x-review-pack` | Route, review, compound candidates, and handoff decision | Only with explicit write authorization | Yes |
 | `x-purpose` | Project or mission review | No | Yes |
 | `x-thinking` | Assumption and reasoning review | No | Yes |
 | `x-engineering` | Engineering leverage review | No | Yes |
@@ -170,8 +171,8 @@ The generated long-form index lives in `docs/SKILL_INDEX.md`; run `python3 scrip
 | `x-risk` | Risk map and release gates | No | Yes |
 | `x-multiplanetary` | Moonshot milestone plan | No | Yes |
 | `x-reading` | Reading path by problem type | No | Yes |
-| `x-compound` | Approved Markdown lesson or review | Only after approval | Yes |
-| `x-memory-refresh` | Memory audit with proposed edits | Only after approval | Yes |
+| `x-compound` | Authorized Markdown lesson or review | Only with explicit write authorization | Yes |
+| `x-memory-refresh` | Memory audit with proposed or authorized edits | Only with explicit write authorization | Yes |
 | `x-handoff` | Redacted continuation note | Temp by default | Yes |
 
 ## Install
@@ -218,18 +219,16 @@ claude --plugin-dir "$PWD"
 For harnesses that read `SKILL.md` folders directly:
 
 ```bash
-python3 scripts/install_local.py --symlink-skills
+python3 scripts/install_local.py --symlink-skills --profile openclaw
 ```
 
-Default homes:
+Other profiles:
 
 ```text
-~/.agents/skills
-~/.codex/skills
-~/.claude/skills
-~/.openclaw/skills
-~/.openclaw/acpx/codex-home/skills
+agents, codex, claude, openclaw-codex
 ```
+
+Use `--profile all` only when every supported skill home is intentional.
 
 See `docs/HARNESS_MATRIX.md`, `docs/INSTALL.md`, and `docs/SYMLINKS.md`.
 
@@ -238,7 +237,7 @@ See `docs/HARNESS_MATRIX.md`, `docs/INSTALL.md`, and `docs/SYMLINKS.md`.
 ```bash
 cd ~/plugins/elon-musk
 git pull --ff-only
-python3 scripts/install_local.py --marketplace --symlink-skills
+python3 scripts/install_local.py --marketplace
 codex plugin add elon-musk@personal
 python3 scripts/validate_public.py
 ```
@@ -262,7 +261,9 @@ elon-musk/
   docs/SKILL_INDEX.md         generated skill index and compatibility table
   scripts/build_index.py      generator for skill index and examples
   scripts/check_install.py    installed-state checker for cache and symlinks
+  scripts/run_behavior_smoke.py source-blind fixture validator and optional live runner
   scripts/install_local.py    marketplace and skill symlink installer
+  scripts/uninstall_local.py  targeted safe removal of this checkout's links
   scripts/validate_public.py  public repository validator
   tests/                      unit tests for structure and install assumptions
 ```
@@ -287,10 +288,12 @@ elon-musk/
 | `docs/USAGE.md` | More examples and prompt recipes. |
 | `docs/DEVELOPMENT.md` | Maintainer workflow. |
 | `docs/SOURCE_BOUNDARIES.md` | Copyright and source-use boundaries. |
+| `docs/SOURCES.md` | Public source bibliography and attribution-strength ledger. |
 | `SECURITY.md` | Private vulnerability reporting and security scope. |
 | `PRIVACY.md` | Local data-handling and memory boundaries. |
 | `references/book-map.md` | Maps book sections to skills. |
 | `references/method-catalog.md` | Full merged method catalog. |
+| `references/CORE_METHODS.md` | Generated human-readable map of all 69 paraphrased core methods. |
 | `references/source-notes.md` | Source-use guardrails. |
 
 ## Validate
@@ -298,6 +301,7 @@ elon-musk/
 ```bash
 python3 scripts/validate_public.py
 PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -v
+python3 scripts/run_behavior_smoke.py
 ```
 
 The public validator checks:
@@ -307,8 +311,20 @@ The public validator checks:
 | Plugin manifests | Codex, Claude-compatible, and repo-local marketplace metadata exist and parse. |
 | Skills | Exactly 20 `x-*` skills with matching frontmatter and UI metadata. |
 | Docs | README, changelog, security, privacy, AGENTS, install, usage, harness, generated index, audit, symlink, source-boundary, and CI files exist. |
-| References | Catalog and book map cover every non-router skill. |
+| References | Canonical taxonomy, book map, all 69 core-method anchors, and bundled reading bibliography are validated. |
 | Hygiene | Placeholder text and non-ASCII drift are rejected. |
+| Behavior contracts | Source-blind fixtures cover routing, review, algorithm order, people decisions, founder constraints, stop-worthy risk, and attribution. |
+
+Optional live smoke tests run selected fixtures in fresh harness processes:
+
+```bash
+python3 scripts/run_behavior_smoke.py --harness codex --fixture team-decision-fair-process
+python3 scripts/run_behavior_smoke.py --harness claude --fixture risk-do-not-proceed
+python3 scripts/run_behavior_smoke.py --harness codex --invoke-mode named --fixture review-pack-stop-check
+```
+
+Path mode validates skill behavior even in crowded harness profiles.
+Named mode separately validates whether the harness can discover `$x-*` by name.
 
 ## Loaded Skill Check
 
@@ -329,7 +345,7 @@ python3 scripts/check_install.py --prompt-input
 If you also installed loose skill symlinks:
 
 ```bash
-python3 scripts/check_install.py --plugin --skill-links
+python3 scripts/check_install.py --plugin --skill-links --profile all
 ```
 
 If the prompt-input check warns that `x-setup`, `x-compound`, or `x-handoff`
@@ -354,7 +370,7 @@ See `docs/REFERENCE_AUDIT.md` for the detailed gap list and decisions.
 
 This repository contains paraphrased operating methods, workflows, and metadata. It does not contain the full text of *The Book of Elon*, long excerpts, transcripts, EPUB files, or extracted chapters.
 
-See `docs/SOURCE_BOUNDARIES.md`.
+See `docs/SOURCE_BOUNDARIES.md` and `docs/SOURCES.md`.
 
 ## Disclaimer
 
@@ -374,6 +390,7 @@ This repo uses a docs-first agent contract:
 - `README.md` explains the current project, commands, and how to run it.
 - `AGENTS.md` defines the rules future agents must obey.
 - `VISION.md` captures long-term direction, not implementation permission.
+- `PLAN.md` tracks the full project roadmap from start to end as versions, slices, gates, active worker state, and next action.
 - `OPINIONS.md` captures durable project taste, vocabulary, and tradeoffs.
 - `MEMORY.md` captures stable project facts agents should not rediscover.
 - `VOICE.md` captures communication defaults and owner-voice rules.
@@ -383,7 +400,21 @@ This repo uses a docs-first agent contract:
 - `docs/brainstorms/` stores requirements and product-shape decisions.
 - `docs/plans/` stores implementation plans.
 - `docs/loops/` stores repeatable agent procedures.
+- `docs/templates/` stores reusable control-room, worker, heartbeat, and template-builder prompts.
 - `docs/qa/` stores feature, test case, defect, and regression ledgers.
+
+Use a V0...Vn version map in `PLAN.md`.
+Expand only the next eligible version or slice before starting a worker.
+The default approved watchdog cadence is 10 minutes.
+The timer wakes the orchestrator; it does not directly spawn workers.
+
+GStack and GBrain are optional local helpers, not required project dependencies.
+Use gstack as workflow and skill guidance when installed.
+Use GBrain as searchable long-term memory when gbrain is installed and healthy.
+Repo docs remain the source of truth for current project state.
+Do not import raw chats by default.
+Prefer curated GBrain captures after accepted slices, owner decisions, failure postmortems, major handoffs, and release/readiness milestones.
+Never sync secrets, credentials, raw private data, public mutation logs, or sensitive runtime data without explicit approval.
 
 Vision ideas must become requirements, then a plan, then receive owner confirmation before implementation.
 <!-- END PRAGGY PROJECT DOCS -->

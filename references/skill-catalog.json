@@ -1,0 +1,229 @@
+{
+  "taxonomy": {
+    "method": 14,
+    "router": 1,
+    "workflow": 5
+  },
+  "skills": [
+    {
+      "name": "x-setup",
+      "kind": "workflow",
+      "does": "Checks plugin install state, cache, symlinks, and prompt visibility.",
+      "when": "Setup, update, or skill discoverability looks wrong.",
+      "artifact": "Install and visibility diagnosis",
+      "writes": "No",
+      "safe": "Yes",
+      "prompt": "Use x-setup to check whether the plugin is installed and visible.",
+      "output": "Install state, prompt visibility, issues, and one next command."
+    },
+    {
+      "name": "x-router",
+      "kind": "router",
+      "does": "Chooses the best method or workflow skill.",
+      "when": "The request is broad, messy, or spans several method families.",
+      "artifact": "Skill route and prompt",
+      "writes": "No",
+      "safe": "Yes",
+      "prompt": "Use x-router on this messy startup idea.",
+      "output": "Primary skill, supporting skills, specialist boundaries, why, and a ready-to-use follow-up prompt."
+    },
+    {
+      "name": "x-review-pack",
+      "kind": "workflow",
+      "does": "Runs routing, method review, compound candidates, and handoff closeout.",
+      "when": "A plan needs a complete close-the-loop review.",
+      "artifact": "Route, review, compound candidates, and handoff decision",
+      "writes": "Only with explicit write authorization",
+      "safe": "Yes",
+      "prompt": "Use x-review-pack on this launch plan and close the loop.",
+      "output": "Bounded route, primary review, specialist and stop-condition checks, reusable lesson candidates, and handoff status."
+    },
+    {
+      "name": "x-purpose",
+      "kind": "method",
+      "does": "Tests usefulness, ambition, originality, and sustained effort.",
+      "when": "Choosing projects, missions, product bets, or career bets.",
+      "artifact": "Project or mission review",
+      "writes": "No",
+      "safe": "Yes",
+      "prompt": "Use x-purpose on this product bet before I spend a month on it.",
+      "output": "Usefulness, originality, future value, effort price, and a pursue-or-stop decision."
+    },
+    {
+      "name": "x-thinking",
+      "kind": "method",
+      "does": "Improves reasoning through facts, direct sources, first principles, limits, and updates.",
+      "when": "Strategy, architecture, impossible claims, expensive claims, or inherited assumptions.",
+      "artifact": "Assumption and reasoning review",
+      "writes": "No",
+      "safe": "Yes",
+      "prompt": "Use x-thinking on this architecture claim: this must be realtime.",
+      "output": "Facts, sources, assumptions, first-principles rebuild, constraints, and uncertainty."
+    },
+    {
+      "name": "x-engineering",
+      "kind": "method",
+      "does": "Finds engineering leverage using ideal limits, cost structure, integration, and product taste.",
+      "when": "Technical strategy, build-vs-buy, architecture, cost, design, or engineering leadership.",
+      "artifact": "Engineering leverage review",
+      "writes": "No",
+      "safe": "Yes",
+      "prompt": "Use x-engineering on this build-vs-buy decision.",
+      "output": "Theoretical ideal, cost leverage, integration risks, engineering value, and recommendation."
+    },
+    {
+      "name": "x-5-step-algo",
+      "kind": "method",
+      "does": "Questions, deletes, simplifies, accelerates, then automates.",
+      "when": "Feature specs, workflows, migrations, refactors, automations, or operations.",
+      "artifact": "Requirement deletion and simplification plan",
+      "writes": "No",
+      "safe": "Yes",
+      "prompt": "Use x-5-step-algo on this feature spec.",
+      "output": "Question, delete, simplify, accelerate, automate sequence with an add-back trigger."
+    },
+    {
+      "name": "x-teams",
+      "kind": "method",
+      "does": "Reviews talent, ownership, builder culture, feedback, and fair people-process boundaries.",
+      "when": "Hiring, founding teams, performance, team health, or consequential people decisions.",
+      "artifact": "Team capability and ownership review",
+      "writes": "No",
+      "safe": "Yes",
+      "prompt": "Use x-teams on this founding team plan.",
+      "output": "Job-relevant evidence, system factors, feedback, protected-process checks, and human approvals."
+    },
+    {
+      "name": "x-org",
+      "kind": "method",
+      "does": "Removes organizational drag while preserving controls that protect real risks.",
+      "when": "Meetings, approvals, cross-team work, communication, or unclear ownership.",
+      "artifact": "Organization drag review",
+      "writes": "No",
+      "safe": "Yes",
+      "prompt": "Use x-org on this approval-heavy workflow.",
+      "output": "Direct communication path, justified controls, stale process, owner map, and simpler language."
+    },
+    {
+      "name": "x-urgency",
+      "kind": "method",
+      "does": "Shortens timelines and feedback loops after direction and safety boundaries are valid.",
+      "when": "Launches, blocked projects, roadmaps, migrations, or crisis work.",
+      "artifact": "Timeline compression plan",
+      "writes": "No",
+      "safe": "Yes",
+      "prompt": "Use x-urgency on this slipping launch.",
+      "output": "Critical path, parallel work, review cadence, scoreboard, stop conditions, and next moves."
+    },
+    {
+      "name": "x-manufacturing",
+      "kind": "method",
+      "does": "Treats production and delivery as the product and attacks the throughput constraint.",
+      "when": "Operations, CI/CD, support, fulfillment, data pipelines, or physical production.",
+      "artifact": "Production path and bottleneck review",
+      "writes": "No",
+      "safe": "Yes",
+      "prompt": "Use x-manufacturing on this weekly reporting pipeline.",
+      "output": "Production path, constraint, throughput, quality, cost, and dependency bottlenecks."
+    },
+    {
+      "name": "x-founder",
+      "kind": "method",
+      "does": "Tests conviction, responsibility, runway, protected constraints, and commitment level.",
+      "when": "Startup commitment, pivots, runway, leadership, or hard personal bets.",
+      "artifact": "Founder commitment review",
+      "writes": "No",
+      "safe": "Yes",
+      "prompt": "Use x-founder on whether I should commit to this startup.",
+      "output": "Conviction, protected constraints, runway, staged options, maximum loss, and stop conditions."
+    },
+    {
+      "name": "x-company-building",
+      "kind": "method",
+      "does": "Turns mission into prototype, proof, survival, sequence, trust, and scale.",
+      "when": "Startup roadmaps, product strategy, capital allocation, launches, or customer trust.",
+      "artifact": "Prototype, sequence, and survival plan",
+      "writes": "No",
+      "safe": "Yes",
+      "prompt": "Use x-company-building on this first product roadmap.",
+      "output": "Prototype proof, sequence, allies, survival constraints, trust, and public reality check."
+    },
+    {
+      "name": "x-future",
+      "kind": "method",
+      "does": "Applies abundance, emerging possibility, AI, robotics, autonomy, interfaces, and energy lenses.",
+      "when": "Long-term technology bets, future-state planning, automation, robotics, or energy ideas.",
+      "artifact": "Future-state opportunity review",
+      "writes": "No",
+      "safe": "Yes",
+      "prompt": "Use x-future on this robotics and AI opportunity.",
+      "output": "Abundance, emerging capability, autonomy, energy, human-machine, and transition lenses."
+    },
+    {
+      "name": "x-risk",
+      "kind": "method",
+      "does": "Reviews systemic downside, affected parties, controls, release gates, and stop conditions.",
+      "when": "AI systems, safety, infrastructure, policy, compliance, or plans with broad downside.",
+      "artifact": "Risk map and release gates",
+      "writes": "No",
+      "safe": "Yes",
+      "prompt": "Use x-risk on this AI agent release.",
+      "output": "Downside map, affected parties, independent review, release gates, stop conditions, and a proceed-or-stop decision."
+    },
+    {
+      "name": "x-multiplanetary",
+      "kind": "method",
+      "does": "Turns moonshots into staged capability thresholds, gateway proofs, and resilience milestones.",
+      "when": "Deep-tech, resilient systems, infrastructure, or long-horizon missions.",
+      "artifact": "Moonshot milestone plan",
+      "writes": "No",
+      "safe": "Yes",
+      "prompt": "Use x-multiplanetary on this moonshot infrastructure plan.",
+      "output": "Staged milestones, gateway proofs, mission metric, resilience value, and next proof."
+    },
+    {
+      "name": "x-reading",
+      "kind": "method",
+      "does": "Builds source-labeled reading paths by problem type and learning goal.",
+      "when": "Learning engineering, rockets, history, AI, strategy, science, economics, or worldview.",
+      "artifact": "Reading path by problem type",
+      "writes": "No",
+      "safe": "Yes",
+      "prompt": "Use x-reading to build a learning list for hard-tech company building.",
+      "output": "Books by problem type, why each helps, source basis, attribution strength, and reading sequence."
+    },
+    {
+      "name": "x-compound",
+      "kind": "workflow",
+      "does": "Saves explicitly authorized lessons and reviews as local Markdown memory.",
+      "when": "A completed method session produced learning that should guide future work.",
+      "artifact": "Authorized Markdown lesson or review",
+      "writes": "Only with explicit write authorization",
+      "safe": "Yes",
+      "prompt": "Use x-compound to save the reusable lesson from this review.",
+      "output": "Candidate notes, duplicate check, authorization state, and saved Markdown path."
+    },
+    {
+      "name": "x-memory-refresh",
+      "kind": "workflow",
+      "does": "Audits local lessons and reviews for stale, duplicate, unsafe, or weakly retrievable memory.",
+      "when": "Saved method memory has accumulated and needs pruning or reconciliation.",
+      "artifact": "Memory audit with proposed or authorized edits",
+      "writes": "Only with explicit write authorization",
+      "safe": "Yes",
+      "prompt": "Use x-memory-refresh on this repo's docs/lessons and docs/reviews.",
+      "output": "Folders checked, notes reviewed, duplicate and stale findings, authorization state, and edits."
+    },
+    {
+      "name": "x-handoff",
+      "kind": "workflow",
+      "does": "Writes a compact redacted continuation handoff.",
+      "when": "Long reviews, context transitions, or next-session briefs need exact continuation state.",
+      "artifact": "Redacted continuation note",
+      "writes": "Temporary file when explicitly invoked",
+      "safe": "Yes",
+      "prompt": "Use x-handoff to write a continuation note for this strategy review.",
+      "output": "Redacted state, decisions, verification, next steps, risks, and suggested next skills."
+    }
+  ]
+}

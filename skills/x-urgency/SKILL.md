@@ -11,10 +11,14 @@ Use this skill to make progress faster after the direction is worth pursuing. If
 
 - Do not waste time.
 - Speed is offense and defense.
-- Do things in parallel when dependencies allow.
+- Preserve the innovation rate by shortening useful feedback cycles.
+- Use a 24-hour algorithm cadence for genuinely critical work.
+- Use maniacal urgency only after direction, safety, and ownership are valid.
+- Do parallel work when dependencies allow.
 - Break down the impossible.
 - Set aggressive timelines while admitting uncertainty.
-- Use a visible scoreboard for progress.
+- Use one key metric as a visible scoreboard for progress.
+- Compete on speed of innovation, not activity volume.
 
 ## Workflow
 
@@ -22,7 +26,7 @@ Use this skill to make progress faster after the direction is worth pursuing. If
 2. Find serial work that can become parallel.
 3. Identify the real dependency chain.
 4. Break the "impossible" into parts, resources, constraints, and first proof.
-5. Set a shorter learning loop with a clear score.
+5. Set a shorter learning loop with one key metric; use daily review only when the criticality justifies it.
 6. Define rollback or stop conditions.
 
 ## Output
@@ -37,6 +41,10 @@ Scoreboard:
 Timeline:
 Stop / rollback:
 ```
+
+## Completion Gate
+
+Complete only when the critical path, parallelizable work, one key metric, review cadence, uncertainty, rollback or stop conditions, and next moves are explicit.
 
 ## Example
 

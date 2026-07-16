@@ -58,8 +58,9 @@ Rules:
 3. Add it to `README.md`.
 4. Add it to `references/method-catalog.md`.
 5. Add it to `references/book-map.md`.
-6. Add it to `EXPECTED_SKILLS` in `tests/test_plugin_structure.py`.
-7. Run validation.
+6. Add its metadata to `references/skill-catalog.json`.
+7. Run `python3 scripts/build_index.py`.
+8. Run validation.
 
 ## Updating Install Behavior
 
@@ -67,7 +68,8 @@ Update `scripts/install_local.py`, then test:
 
 ```bash
 python3 scripts/install_local.py --marketplace --dry-run
-python3 scripts/install_local.py --symlink-skills --dry-run
+python3 scripts/install_local.py --symlink-skills --profile codex --dry-run
+python3 scripts/uninstall_local.py --skill-links --profile codex --dry-run
 python3 scripts/validate_public.py
 ```
 

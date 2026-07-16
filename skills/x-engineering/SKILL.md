@@ -13,15 +13,22 @@ Use this skill when the important question is not what should be imagined, but w
 - Engineering creates value by making new things real.
 - Engineering wins when technology changes the competitive field.
 - Chief engineer mindset: understand product, cost, design, manufacturing, and operations together.
+- Estimate the theoretical ideal before accepting the current design.
+- Use the idiot index to compare raw component cost with finished-system cost.
+- Push for radical breakthroughs when incremental improvement cannot close the gap.
+- Prefer integrated design, engineering, and manufacturing ownership.
+- Treat product taste as learnable through close observation and iteration.
+- Combine engineering and financial fluency in technical decisions.
 
 ## Workflow
 
 1. Name the product or outcome.
 2. Identify the hardest engineering problem that controls value.
-3. Separate invention, integration, production, and maintenance work.
+3. Estimate the theoretical ideal and cost structure, then separate invention, integration, production, and maintenance work.
 4. Ask what the accountable chief engineer must understand directly.
 5. Find where engineering can reduce cost, improve quality, increase speed, or unlock a new capability.
-6. Recommend the highest-leverage engineering focus.
+6. Check whether organization boundaries separate design, engineering, manufacturing, or financial reality.
+7. Recommend the highest-leverage engineering focus.
 
 ## Output
 
@@ -34,6 +41,10 @@ Chief engineer questions:
 Build / buy / delete:
 Recommendation:
 ```
+
+## Completion Gate
+
+Complete only when the theoretical ideal, cost structure, hardest engineering problem, integration boundary, leverage point, and recommendation are all explicit.
 
 ## Example
 

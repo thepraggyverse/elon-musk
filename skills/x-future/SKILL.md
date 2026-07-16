@@ -10,6 +10,7 @@ Use this skill when the question is what future the work creates.
 ## Covers
 
 - Build a future worth getting excited about.
+- Work on what is just becoming possible, not only what is already fashionable.
 - Age of abundance from AI, robotics, and automation.
 - End of scarcity as a directional lens, not a guarantee.
 - Human-machine upgrades and interface expansion.
@@ -36,6 +37,10 @@ Beneficiaries / disruption:
 Transition step:
 Recommendation:
 ```
+
+## Completion Gate
+
+Complete only when the future state, emerging capability, abundance effect, affected parties, enabling constraints, transition step, and next experiment are explicit.
 
 ## Example
 

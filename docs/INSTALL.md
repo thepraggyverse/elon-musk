@@ -130,40 +130,39 @@ Claude-compatible metadata lives in:
 ## Option 5: Symlink Skills Directly
 
 ```bash
-python3 scripts/install_local.py --symlink-skills
+python3 scripts/install_local.py --symlink-skills --profile openclaw
 ```
 
-Default targets:
+Available named profiles:
 
 ```text
-~/.agents/skills
-~/.codex/skills
-~/.claude/skills
-~/.openclaw/skills
-~/.openclaw/acpx/codex-home/skills
+agents          ~/.agents/skills
+codex           ~/.codex/skills
+claude          ~/.claude/skills
+openclaw        ~/.openclaw/skills
+openclaw-codex  ~/.openclaw/acpx/codex-home/skills
+all             every profile above, only when deliberately requested
 ```
 
+`--symlink-skills` requires `--profile` or `--skill-home` so the installer cannot modify every harness home accidentally.
 The script skips existing destinations unless `--force` is passed.
 
 Use this path for OpenClaw, shared `.agents` homes, and any other harness that can read plain `SKILL.md` folders. Cursor, Gemini, OpenCode, Goose, and Continue also have lightweight bridge files in this repo; see `docs/NATIVE_HARNESS_BRIDGES.md`.
 
-The direct skill pack includes 15 book-derived method lenses plus `x-setup`
-for install checks, `x-review-pack` for close-the-loop reviews, `x-compound`
-for approved local memory, `x-memory-refresh` for stale memory audits, and
-`x-handoff` for redacted continuation notes.
+The direct skill pack includes 14 book-derived method lenses, `x-router`, and five workflow skills.
 
 Verify direct skill links:
 
 ```bash
-python3 scripts/check_install.py --skill-links
+python3 scripts/check_install.py --skill-links --profile openclaw
 ```
 
 ## Option 6: Marketplace Plus Symlinks
 
 ```bash
-python3 scripts/install_local.py --marketplace --symlink-skills
+python3 scripts/install_local.py --marketplace --symlink-skills --profile openclaw
 codex plugin add elon-musk@personal
-python3 scripts/check_install.py --plugin --skill-links
+python3 scripts/check_install.py --plugin --skill-links --profile openclaw
 ```
 
 Use this when you want both:
@@ -176,7 +175,7 @@ Use this when you want both:
 Preview writes:
 
 ```bash
-python3 scripts/install_local.py --marketplace --symlink-skills --dry-run
+python3 scripts/install_local.py --marketplace --symlink-skills --profile openclaw --dry-run
 ```
 
 ## Custom Marketplace Path
@@ -232,7 +231,7 @@ slim Codex profile before relying on automatic `x-*` skill invocation.
 ```bash
 cd ~/plugins/elon-musk
 git pull --ff-only
-python3 scripts/install_local.py --marketplace --symlink-skills
+python3 scripts/install_local.py --marketplace --symlink-skills --profile openclaw
 codex plugin add elon-musk@personal
 python3 scripts/validate_public.py
 ```
@@ -253,7 +252,7 @@ Restart Claude Code after plugin updates so the skill loader reads the current c
 ```bash
 cd ~/plugins/elon-musk
 git pull --ff-only
-python3 scripts/install_local.py --symlink-skills
+python3 scripts/install_local.py --symlink-skills --profile openclaw
 ```
 
 Symlinked skill homes read the updated checkout once the harness starts a new session.
@@ -266,11 +265,20 @@ Codex local personal plugin:
 codex plugin remove elon-musk@personal
 ```
 
-Remove local loose-skill symlinks from one skill home:
+Remove only links that resolve to this checkout:
 
 ```bash
-find ~/.codex/skills -maxdepth 1 -type l -name 'x-*' -delete
+python3 scripts/uninstall_local.py --skill-links --profile codex
+python3 scripts/uninstall_local.py --skill-links --profile claude
 ```
+
+Preview plugin-link and marketplace cleanup before requesting either explicitly:
+
+```bash
+python3 scripts/uninstall_local.py --plugin-link --marketplace --dry-run
+```
+
+The uninstaller skips regular files, directories, and symlinks owned by another checkout.
 
 Claude Code:
 

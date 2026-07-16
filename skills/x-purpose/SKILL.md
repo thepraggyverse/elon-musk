@@ -10,11 +10,19 @@ Use this skill to decide whether a project should exist and whether the user sho
 ## Covers
 
 - Be useful.
+- Assume people are capable of more and can choose extraordinary standards.
+- Prefer a useful life and meaningful work over glory.
+- Recognize that useful products and services create wealth.
 - Fight for a future worth being excited about.
-- Start before the world is ready when the thing should obviously exist.
+- Improve future odds through concrete action.
+- Start before consensus when the thing should obviously exist.
+- Build what others are not building when the unmet value is real.
 - Create more than you consume.
-- Work intensely only when the work is important enough.
-- Feel fear directly, then decide.
+- Ask whether effort creates a better product or service; stop when it does not.
+- Work like hell only when the work is important enough and the cost is bounded.
+- Feel fear and act only after inspecting the evidence.
+- Use playful framing when it helps sustained progress; humor differentiates when it serves the work.
+- Treat the idea that ultra-hardcore is bounded, optional, and rare as a safety rule, not a badge.
 
 ## Workflow
 
@@ -23,7 +31,14 @@ Use this skill to decide whether a project should exist and whether the user sho
 3. Identify whether the work adds value or merely captures attention/money.
 4. Check whether the idea is early because it is wrong or early because it is important.
 5. Estimate the pain required and whether the mission justifies it.
-6. Choose: pursue, narrow, pause, or delete.
+6. Check originality, product or service improvement, and whether intensity remains safe and sustainable.
+7. Choose: pursue, narrow, pause, or delete.
+
+## Boundaries
+
+- Ambition does not justify preventable harm, unsafe work, sleep deprivation, unlawful conduct, or neglect of essential duties.
+- Humor must not become harassment, exclusion, or a substitute for truth.
+- A game frame is a motivational tool, not permission to treat affected people as pieces.
 
 ## Output
 
@@ -37,6 +52,10 @@ Pain required:
 Verdict:
 Next action:
 ```
+
+## Completion Gate
+
+Complete only when the beneficiary, useful change, originality test, evidence, bounded effort price, and pursue/narrow/pause/delete decision are all explicit.
 
 ## Example
 

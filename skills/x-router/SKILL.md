@@ -29,7 +29,12 @@ Use this skill first when the request is broad, ambiguous, or could benefit from
 - `x-memory-refresh`: audit local lessons and reviews for stale or duplicate memory.
 - `x-handoff`: write a redacted continuation handoff for long method work.
 
-Read `../../references/method-catalog.md` when the user wants every underlying method or when routing is uncertain.
+When routing is uncertain, summarize the ambiguity and ask for the decision or output the user needs.
+Do not depend on files outside this skill folder because each skill must remain installable on its own.
+
+Routing selects a bounded method lens.
+It does not replace legal, security, safety, medical, financial, HR, accessibility, compliance, or other qualified specialist review.
+An omitted skill means only that it is outside this method pass, not that its risks are absent.
 
 ## Output
 
@@ -38,8 +43,13 @@ X Router:
 Primary skill:
 Supporting skills:
 Why:
+Specialist review still required:
 Use it like:
 ```
+
+## Completion Gate
+
+Complete only when one primary skill, no more than two supporting skills, the reason for each, specialist boundaries, and a ready-to-run follow-up prompt are explicit.
 
 ## Example
 

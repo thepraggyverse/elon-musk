@@ -37,6 +37,10 @@ Stages:
 Next proof:
 ```
 
+## Completion Gate
+
+Complete only when the mission metric, gateway proof, every capability threshold, survival infrastructure, resilience value, and immediate next proof are explicit.
+
 ## Example
 
 Use `x-multiplanetary` on a personal knowledge system: "How do we make this survive one machine, one app, or one vendor failing?"

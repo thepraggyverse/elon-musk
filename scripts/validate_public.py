@@ -11,33 +11,9 @@ import sys
 
 
 ROOT = Path(__file__).resolve().parents[1]
-EXPECTED_SKILLS = [
-    "x-setup",
-    "x-router",
-    "x-review-pack",
-    "x-purpose",
-    "x-thinking",
-    "x-engineering",
-    "x-5-step-algo",
-    "x-teams",
-    "x-org",
-    "x-urgency",
-    "x-manufacturing",
-    "x-founder",
-    "x-company-building",
-    "x-future",
-    "x-risk",
-    "x-multiplanetary",
-    "x-reading",
-    "x-compound",
-    "x-memory-refresh",
-    "x-handoff",
-]
-BOOK_DERIVED_SKILLS = [
-    skill
-    for skill in EXPECTED_SKILLS
-    if skill not in {"x-setup", "x-router", "x-review-pack", "x-compound", "x-memory-refresh", "x-handoff"}
-]
+SKILL_CATALOG = json.loads((ROOT / "references" / "skill-catalog.json").read_text(encoding="ascii"))
+EXPECTED_SKILLS = [item["name"] for item in SKILL_CATALOG["skills"]]
+BOOK_DERIVED_SKILLS = [item["name"] for item in SKILL_CATALOG["skills"] if item["kind"] == "method"]
 BANNED = ["TO" + "DO", "[TO" + "DO", "FIX" + "ME", "Complete and " + "informative"]
 TEXT_SUFFIXES = {".md", ".mdc", ".json", ".yaml", ".yml", ".py"}
 
@@ -181,6 +157,11 @@ def validate_skills() -> int:
             fail(f"{skill_name} description too short")
         if any(token in text for token in BANNED):
             fail(f"{skill_name} contains placeholder text")
+        for section in ["## Output", "## Completion Gate", "## Example"]:
+            if section not in text:
+                fail(f"{skill_name} missing {section}")
+        if "Complete only when" not in text:
+            fail(f"{skill_name} completion gate is not checkable")
         yaml_text = read_text(openai_yaml)
         if f"${skill_name}" not in yaml_text:
             fail(f"{skill_name} openai.yaml default prompt must mention ${skill_name}")
@@ -192,6 +173,9 @@ def validate_references() -> None:
         "book-map.md",
         "method-catalog.md",
         "source-notes.md",
+        "skill-catalog.json",
+        "core-methods.json",
+        "CORE_METHODS.md",
     ]
     for rel in required:
         path = ROOT / "references" / rel
@@ -203,6 +187,34 @@ def validate_references() -> None:
             continue
         if f"## {skill}" not in catalog:
             fail(f"method catalog missing {skill}")
+
+    expected_taxonomy = {"method": 14, "router": 1, "workflow": 5}
+    actual_taxonomy = {
+        kind: sum(item["kind"] == kind for item in SKILL_CATALOG["skills"])
+        for kind in expected_taxonomy
+    }
+    if SKILL_CATALOG.get("taxonomy") != expected_taxonomy or actual_taxonomy != expected_taxonomy:
+        fail(f"skill taxonomy mismatch: {actual_taxonomy}")
+
+    ledger = json.loads(read_text(ROOT / "references" / "core-methods.json"))
+    methods = ledger.get("methods")
+    if ledger.get("count") != 69 or not isinstance(methods, list) or len(methods) != 69:
+        fail("core-methods.json must contain exactly 69 methods")
+    if [item.get("id") for item in methods] != list(range(1, 70)):
+        fail("core-methods.json IDs must be consecutive from 1 through 69")
+    covered = {item.get("skill") for item in methods}
+    omitted = set(ledger.get("book_method_skills_without_core_summary_item", []))
+    if covered | omitted != set(BOOK_DERIVED_SKILLS) or covered & omitted:
+        fail("core-methods.json coverage and explicit omissions must account for all 14 method skills")
+    for item in methods:
+        skill = item.get("skill")
+        anchor = item.get("anchor")
+        if not isinstance(anchor, str) or anchor.lower() not in read_text(ROOT / "skills" / skill / "SKILL.md").lower():
+            fail(f"core method {item.get('id')} anchor missing from {skill}: {anchor!r}")
+
+    reading_ref = ROOT / "skills" / "x-reading" / "references" / "recommended-reading.md"
+    if not reading_ref.exists() or len(re.findall(r"^- \*", read_text(reading_ref), flags=re.MULTILINE)) < 50:
+        fail("x-reading must bundle a substantial book-derived bibliography")
 
 
 def validate_docs() -> None:
@@ -228,6 +240,7 @@ def validate_docs() -> None:
         "docs/USAGE.md",
         "docs/DEVELOPMENT.md",
         "docs/SOURCE_BOUNDARIES.md",
+        "docs/SOURCES.md",
         "PRIVACY.md",
         "SECURITY.md",
         ".github/workflows/validate.yml",
@@ -243,7 +256,11 @@ def validate_docs() -> None:
         "scripts/check_install.py",
         "scripts/check_markdown_links.py",
         "scripts/install_local.py",
+        "scripts/install_profiles.py",
+        "scripts/run_behavior_smoke.py",
+        "scripts/uninstall_local.py",
         "scripts/validate_public.py",
+        "tests/behavior_fixtures.json",
     ]
     for rel in required:
         if not (ROOT / rel).exists():
@@ -282,7 +299,7 @@ def validate_docs() -> None:
             fail(f"SECURITY.md missing {phrase}")
 
     release = read_text(ROOT / "docs" / "RELEASE.md")
-    for phrase in ["CHANGELOG.md", "No-Push Default", "scripts/check_install.py --plugin --skill-links"]:
+    for phrase in ["CHANGELOG.md", "No-Push Default", "scripts/check_install.py --plugin --skill-links --profile codex"]:
         if phrase not in release:
             fail(f"docs/RELEASE.md missing {phrase}")
 
@@ -332,6 +349,21 @@ def validate_memory_model() -> None:
             if phrase in text:
                 fail(f"{rel} appears to claim default session-log mining: {phrase}")
 
+    authorization_text = "\n".join(
+        read_text(ROOT / rel).lower()
+        for rel in [
+            "skills/x-compound/SKILL.md",
+            "skills/x-memory-refresh/SKILL.md",
+            "skills/x-review-pack/SKILL.md",
+            "docs/MEMORY_MODEL.md",
+        ]
+    )
+    if "automation or headless" in authorization_text:
+        fail("memory workflows must not contain a generic automation/headless write bypass")
+    for phrase in ["preauthorize", "authorization basis"]:
+        if phrase not in authorization_text:
+            fail(f"memory workflows missing exact authorization concept: {phrase}")
+
 
 def validate_hygiene() -> None:
     for path in repository_files():
@@ -368,6 +400,18 @@ def validate_generated_files() -> None:
         fail((result.stdout + result.stderr).strip())
 
 
+def validate_behavior_fixtures() -> None:
+    result = subprocess.run(
+        [sys.executable, str(ROOT / "scripts" / "run_behavior_smoke.py")],
+        cwd=ROOT,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
+    if result.returncode != 0:
+        fail((result.stdout + result.stderr).strip())
+
+
 def main() -> int:
     validate_plugin_json()
     validate_auxiliary_manifests()
@@ -377,6 +421,7 @@ def main() -> int:
     validate_memory_model()
     validate_hygiene()
     validate_generated_files()
+    validate_behavior_fixtures()
     optional_codex_validators()
     print(f"Public validation passed: {skill_count} x-prefixed skills")
     return 0

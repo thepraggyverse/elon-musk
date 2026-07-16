@@ -7,7 +7,22 @@ the package version is `.codex-plugin/plugin.json` and `.claude-plugin/plugin.js
 
 ## Unreleased
 
-No unreleased changes.
+### Added
+
+- Added `docs/SOURCES.md` to distinguish direct, near-primary, book-derived, and original plugin material.
+- Added source-blind behavior fixtures and an optional live Codex or Claude smoke runner.
+- Added a canonical skill taxonomy, a paraphrased 69-method coverage ledger, and a bundled book-derived reading bibliography.
+- Added targeted install profiles and a safe uninstaller that removes only links owned by this checkout.
+
+### Changed
+
+- Hardened routing, review packs, team decisions, founder commitment, systemic risk, and reading attribution with explicit specialist and human-approval boundaries.
+- Made `x-router` and `x-reading` standalone by removing dependencies on repository-parent references.
+- Defined the package as 14 method skills, 1 router, and 5 workflow skills across generated metadata and documentation.
+- Replaced generic automation write bypasses with exact authorization rules for compounding and memory cleanup.
+- Expanded each method skill so every item in the book's 69-method summary has a tested runtime anchor, with safety qualifications for harmful literal readings.
+- Added checkable completion gates to all 20 skills to prevent partial, plausible-looking outputs from passing as complete.
+- Kept the 20-skill book-derived `x-*` collection independent from the focused `em-*` collection in the separate `agent-skills` repository.
 
 ## 0.2.0 - 2026-06-30
 
@@ -59,8 +74,8 @@ No unreleased changes.
 
 ### Added
 
-- Published the initial compact skill plugin with 15 book-derived `x-*` method
-  lenses.
+- Published the initial compact skill plugin with 14 book-derived method lenses
+  and one router.
 - Added Codex and Claude-compatible plugin metadata.
 - Added install, harness, usage, source-boundary, reference, example, and
   validation docs.

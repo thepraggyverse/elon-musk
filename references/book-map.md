@@ -61,7 +61,7 @@ This file maps the plugin skills to the major sections in the user's local copy 
 
 ## Bonus
 
-- The 69 Core Musk Methods: compressed across all `x-` skills and expanded in `method-catalog.md`.
+- The 69 Core Musk Methods: mapped one-to-one in paraphrased form in `core-methods.json` and applied across the 14 method skills.
 - Elon's Recommended Reading: `x-reading`.
 
 ## Operational Workflow Skills

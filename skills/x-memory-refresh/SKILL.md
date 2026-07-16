@@ -22,12 +22,13 @@ turning it into raw transcript storage.
 2. Read Markdown frontmatter and headings. Completion criterion: every note considered has path, type, methods, tags, confidence, created date when present, and resurfacing triggers recorded or marked missing.
 3. Detect duplicates and stale conflicts. Completion criterion: each finding cites the affected paths and gives one action: keep, merge, update, archive, or delete.
 4. Check boundaries. Completion criterion: flag any raw transcripts, secrets, long book excerpts, or private data instead of copying them into the answer.
-5. Ask before editing. Completion criterion: proposed edits are shown first unless the user explicitly requested automated cleanup.
+5. Check authorization before editing. Completion criterion: proposed edits are shown first unless the current request explicitly authorizes cleanup of the named folders, or a scheduled run has a preauthorized target, path, and scope.
 
 ## Boundaries
 
 - Do not read raw harness logs or session histories by default.
-- Do not save new memory unless the user approves the proposed change.
+- A request to audit or refresh memory authorizes inspection, not deletion or rewriting, unless it explicitly asks to clean, merge, update, archive, or delete.
+- Modify notes only when the current request authorizes cleanup of the named scope or a scheduled run has equivalent preauthorization.
 - Prefer small Markdown edits over new tooling until memory volume justifies automation.
 - If no memory folders exist, report that no refresh is needed and suggest `x-compound` after future reviews.
 
@@ -41,8 +42,14 @@ Duplicate findings:
 Stale findings:
 Boundary findings:
 Proposed edits:
+Authorization basis:
+Edits made:
 Next action:
 ```
+
+## Completion Gate
+
+Complete only when every existing memory folder and reviewed note is accounted for, findings cite paths, authorization is explicit, and each proposed or completed edit has one disposition.
 
 ## Example
 

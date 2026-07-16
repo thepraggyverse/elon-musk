@@ -9,39 +9,14 @@ from pathlib import Path
 import subprocess
 import sys
 
+from install_profiles import PROFILE_CHOICES, resolve_skill_homes
+
 
 ROOT = Path(__file__).resolve().parents[1]
 PLUGIN_NAME = "elon-musk"
-EXPECTED_SKILLS = [
-    "x-setup",
-    "x-router",
-    "x-review-pack",
-    "x-purpose",
-    "x-thinking",
-    "x-engineering",
-    "x-5-step-algo",
-    "x-teams",
-    "x-org",
-    "x-urgency",
-    "x-manufacturing",
-    "x-founder",
-    "x-company-building",
-    "x-future",
-    "x-risk",
-    "x-multiplanetary",
-    "x-reading",
-    "x-compound",
-    "x-memory-refresh",
-    "x-handoff",
-]
+CATALOG_PATH = ROOT / "references" / "skill-catalog.json"
+EXPECTED_SKILLS = [item["name"] for item in json.loads(CATALOG_PATH.read_text(encoding="ascii"))["skills"]]
 PROMPT_VISIBILITY_SENTINELS = ["x-setup", "x-review-pack", "x-compound", "x-memory-refresh", "x-handoff"]
-DEFAULT_SKILL_HOMES = [
-    Path.home() / ".agents" / "skills",
-    Path.home() / ".codex" / "skills",
-    Path.home() / ".claude" / "skills",
-    Path.home() / ".openclaw" / "skills",
-    Path.home() / ".openclaw" / "acpx" / "codex-home" / "skills",
-]
 
 
 class CheckState:
@@ -241,8 +216,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--skill-links",
         action="store_true",
-        help="Check the default direct skill-home symlinks",
+        help="Check direct skill-home symlinks selected by --profile or --skill-home",
     )
+    parser.add_argument("--profile", choices=PROFILE_CHOICES, action="append", default=[])
     parser.add_argument(
         "--skill-home",
         type=Path,
@@ -257,7 +233,11 @@ def main() -> int:
     args = parse_args()
     state = CheckState()
     version = repo_version()
-    check_plugin = args.plugin or not (args.skill_links or args.skill_home)
+    check_plugin = args.plugin or not (args.skill_links or args.skill_home or args.profile)
+
+    if (args.skill_links or args.profile or args.skill_home) and not (args.profile or args.skill_home):
+        print("check failed: --skill-links requires --profile or --skill-home", file=sys.stderr)
+        return 2
 
     if check_plugin:
         check_marketplace(state)
@@ -267,8 +247,8 @@ def main() -> int:
     else:
         state.ok("Codex plugin check skipped; pass --plugin to validate marketplace/cache")
 
-    if args.skill_links or args.skill_home:
-        check_skill_homes(state, [p.expanduser() for p in args.skill_home] or DEFAULT_SKILL_HOMES)
+    if args.skill_links or args.profile or args.skill_home:
+        check_skill_homes(state, resolve_skill_homes(args.profile, args.skill_home))
     else:
         state.ok("direct skill-home link check skipped; pass --skill-links to validate symlinks")
 

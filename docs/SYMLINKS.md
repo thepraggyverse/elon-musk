@@ -29,20 +29,17 @@ This keeps the source of truth wherever you cloned it while satisfying Codex mar
 For tools that scan loose skill folders, run:
 
 ```bash
-python3 scripts/install_local.py --symlink-skills
+python3 scripts/install_local.py --symlink-skills --profile codex
 ```
 
-Default homes:
+Available profiles:
 
 ```text
-~/.agents/skills
-~/.codex/skills
-~/.claude/skills
-~/.openclaw/skills
-~/.openclaw/acpx/codex-home/skills
+agents, codex, claude, openclaw, openclaw-codex, all
 ```
 
-These homes cover common Codex, Claude Code, OpenClaw, and shared `.agents` setups. Other harnesses can use the same pattern if they expose a directory of `SKILL.md` folders.
+Select only the harnesses you intend to modify.
+The installer refuses `--symlink-skills` without a named profile or explicit `--skill-home`.
 
 Example result:
 
@@ -63,30 +60,25 @@ The installer is conservative:
 Preview before replacing:
 
 ```bash
-python3 scripts/install_local.py --symlink-skills --dry-run
+python3 scripts/install_local.py --symlink-skills --profile codex --dry-run
 ```
 
 Replace intentionally:
 
 ```bash
-python3 scripts/install_local.py --symlink-skills --force
+python3 scripts/install_local.py --symlink-skills --profile codex --force
 ```
 
 ## Remove Symlinks
 
-The installer does not remove skill symlinks automatically. To remove one:
+Use the targeted uninstaller to remove only links owned by this checkout:
 
 ```bash
-rm ~/.codex/skills/x-router
+python3 scripts/uninstall_local.py --skill-links --profile codex --dry-run
+python3 scripts/uninstall_local.py --skill-links --profile codex
 ```
 
-To remove all `x-*` symlinks from one home:
-
-```bash
-find ~/.codex/skills -maxdepth 1 -type l -name 'x-*' -delete
-```
-
-Check targets before deleting if you have other `x-*` skills.
+Foreign links, regular files, and directories are skipped.
 
 ## Update Symlinks
 
@@ -100,5 +92,5 @@ git pull --ff-only
 If you added a new skill home or want to repair missing links:
 
 ```bash
-python3 scripts/install_local.py --symlink-skills
+python3 scripts/install_local.py --symlink-skills --profile codex
 ```

@@ -10,6 +10,8 @@ Use this skill to convert a big mission into an executable sequence.
 ## Covers
 
 - Start with proof, not a perfect company.
+- Treat a prototype as proof, not merely a presentation.
+- Let allies assemble around proof as the work advances.
 - Listen well and correct fast.
 - Sequence strategy: niche proof, better product, scale, broader mission.
 - Keep the company alive through hard phases.
@@ -24,7 +26,8 @@ Use this skill to convert a big mission into an executable sequence.
 3. Sequence the roadmap: first beachhead, second proof, scale path, mission expansion.
 4. Map survival constraints: money, time, trust, talent, distribution, regulation.
 5. Separate reality metrics from public narrative.
-6. Choose the next company-building move.
+6. Identify which customers, suppliers, investors, or partners could become allies after the next proof.
+7. Choose the next company-building move.
 
 ## Output
 
@@ -38,6 +41,10 @@ Reality vs perception:
 More-for-less opportunity:
 Next move:
 ```
+
+## Completion Gate
+
+Complete only when the prototype proof, sequence, survival constraints, reality metric, trust or ally path, more-for-less opportunity, and next move are explicit.
 
 ## Example
 

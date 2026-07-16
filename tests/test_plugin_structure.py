@@ -1,33 +1,17 @@
 import json
+import importlib.util
 import re
 import subprocess
+import tempfile
 import unittest
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-EXPECTED_SKILLS = [
-    "x-setup",
-    "x-router",
-    "x-review-pack",
-    "x-purpose",
-    "x-thinking",
-    "x-engineering",
-    "x-5-step-algo",
-    "x-teams",
-    "x-org",
-    "x-urgency",
-    "x-manufacturing",
-    "x-founder",
-    "x-company-building",
-    "x-future",
-    "x-risk",
-    "x-multiplanetary",
-    "x-reading",
-    "x-compound",
-    "x-memory-refresh",
-    "x-handoff",
-]
+SKILL_CATALOG = json.loads((ROOT / "references" / "skill-catalog.json").read_text(encoding="ascii"))
+EXPECTED_SKILLS = [item["name"] for item in SKILL_CATALOG["skills"]]
+METHOD_SKILLS = [item["name"] for item in SKILL_CATALOG["skills"] if item["kind"] == "method"]
+STANDALONE_SKILLS = METHOD_SKILLS + ["x-router"]
 NON_METHOD_CATALOG_EXEMPT = {"x-setup", "x-router"}
 NON_ROUTER_SKILLS = [name for name in EXPECTED_SKILLS if name != "x-router"]
 BANNED_PLACEHOLDERS = [
@@ -38,6 +22,16 @@ BANNED_PLACEHOLDERS = [
     "Complete and " + "informative",
 ]
 TEXT_SUFFIXES = {".md", ".mdc", ".json", ".yaml", ".yml", ".py"}
+
+
+def load_behavior_module():
+    path = ROOT / "scripts" / "run_behavior_smoke.py"
+    spec = importlib.util.spec_from_file_location("run_behavior_smoke", path)
+    if spec is None or spec.loader is None:
+        raise AssertionError("could not load behavior smoke module")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
 
 def read_text(path: Path) -> str:
@@ -137,6 +131,14 @@ class PluginManifestTests(unittest.TestCase):
 
 
 class SkillInventoryTests(unittest.TestCase):
+    def test_catalog_taxonomy_is_exact(self):
+        counts = {
+            kind: sum(item["kind"] == kind for item in SKILL_CATALOG["skills"])
+            for kind in ("method", "router", "workflow")
+        }
+        self.assertEqual({"method": 14, "router": 1, "workflow": 5}, counts)
+        self.assertEqual(SKILL_CATALOG["taxonomy"], counts)
+
     def test_skill_inventory_is_exact_and_searchable(self):
         actual = sorted(path.name for path in (ROOT / "skills").iterdir() if path.is_dir())
         self.assertEqual(sorted(EXPECTED_SKILLS), actual)
@@ -171,6 +173,8 @@ class SkillContentTests(unittest.TestCase):
                 body = text.split("---\n", 2)[-1]
                 self.assertIn("# ", body)
                 self.assertIn("## Output", body)
+                self.assertIn("## Completion Gate", body)
+                self.assertIn("Complete only when", body)
                 self.assertIn("## Example", body)
                 self.assertLess(len(body.splitlines()), 500)
                 self.assertFalse(any(token in body for token in BANNED_PLACEHOLDERS))
@@ -188,6 +192,38 @@ class SkillContentTests(unittest.TestCase):
                 self.assertIn("interface:", yaml_text)
                 self.assertIn(f"${name}", yaml_text)
                 self.assertFalse(any(token in yaml_text for token in BANNED_PLACEHOLDERS))
+
+    def test_method_and_router_skills_are_standalone(self):
+        for name in STANDALONE_SKILLS:
+            with self.subTest(skill=name):
+                text = read_text(ROOT / "skills" / name / "SKILL.md")
+                self.assertNotIn("../../", text)
+                self.assertNotIn("../" + name, text)
+
+    def test_all_69_core_methods_have_runtime_anchors(self):
+        ledger = json.loads(read_text(ROOT / "references" / "core-methods.json"))
+        methods = ledger["methods"]
+        self.assertEqual(69, ledger["count"])
+        self.assertEqual(list(range(1, 70)), [item["id"] for item in methods])
+        covered = {item["skill"] for item in methods}
+        omitted = set(ledger["book_method_skills_without_core_summary_item"])
+        self.assertEqual(set(METHOD_SKILLS), covered | omitted)
+        self.assertFalse(covered & omitted)
+        for item in methods:
+            with self.subTest(method=item["id"], skill=item["skill"]):
+                body = read_text(ROOT / "skills" / item["skill"] / "SKILL.md").lower()
+                self.assertIn(item["anchor"].lower(), body)
+
+    def test_reading_skill_bundles_book_derived_bibliography(self):
+        bibliography = ROOT / "skills" / "x-reading" / "references" / "recommended-reading.md"
+        text = read_text(bibliography)
+        self.assertGreaterEqual(len(re.findall(r"^- \*", text, flags=re.M)), 50)
+        self.assertIn("book-derived", text)
+
+    def test_human_readable_core_method_map_has_69_rows(self):
+        text = read_text(ROOT / "references" / "CORE_METHODS.md")
+        rows = re.findall(r"^\| (\d+) \|", text, flags=re.M)
+        self.assertEqual([str(number) for number in range(1, 70)], rows)
 
 
 class DocumentationCoverageTests(unittest.TestCase):
@@ -315,7 +351,7 @@ class DocumentationCoverageTests(unittest.TestCase):
                 self.assertIn(phrase, privacy)
 
         release = read_text(ROOT / "docs" / "RELEASE.md")
-        for phrase in ["CHANGELOG.md", "No-Push Default", "scripts/check_install.py --plugin --skill-links"]:
+        for phrase in ["CHANGELOG.md", "No-Push Default", "scripts/check_install.py --plugin --skill-links --profile codex"]:
             with self.subTest(phrase=phrase):
                 self.assertIn(phrase, release)
 
@@ -365,6 +401,20 @@ class DocumentationCoverageTests(unittest.TestCase):
             with self.subTest(phrase=phrase):
                 self.assertNotIn(phrase, combined)
 
+    def test_memory_writes_require_exact_authorization(self):
+        combined = "\n".join(
+            read_text(ROOT / rel)
+            for rel in [
+                "skills/x-compound/SKILL.md",
+                "skills/x-memory-refresh/SKILL.md",
+                "skills/x-review-pack/SKILL.md",
+                "docs/MEMORY_MODEL.md",
+            ]
+        ).lower()
+        self.assertNotIn("automation or headless", combined)
+        self.assertIn("preauthorize", combined)
+        self.assertIn("authorization basis", combined)
+
 
 class HygieneTests(unittest.TestCase):
     def test_no_placeholder_or_scaffold_language_remains(self):
@@ -398,6 +448,176 @@ class HygieneTests(unittest.TestCase):
             stderr=subprocess.PIPE,
         )
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+
+class InstallScriptTests(unittest.TestCase):
+    def test_symlink_install_requires_explicit_target(self):
+        result = subprocess.run(
+            ["python3", "scripts/install_local.py", "--symlink-skills", "--dry-run"],
+            cwd=ROOT,
+            text=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        )
+        self.assertEqual(2, result.returncode)
+        self.assertIn("requires --profile or --skill-home", result.stderr)
+
+    def test_profile_install_dry_run_is_targeted(self):
+        result = subprocess.run(
+            ["python3", "scripts/install_local.py", "--symlink-skills", "--profile", "codex", "--dry-run"],
+            cwd=ROOT,
+            text=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        )
+        self.assertEqual(0, result.returncode, result.stdout + result.stderr)
+        self.assertIn(".codex/skills", result.stdout)
+        self.assertNotIn(".claude/skills", result.stdout)
+
+    def test_installer_and_uninstaller_round_trip_custom_home(self):
+        with tempfile.TemporaryDirectory(prefix="elon-musk-install-test-") as temp:
+            home = Path(temp) / "skills"
+            install = subprocess.run(
+                ["python3", "scripts/install_local.py", "--symlink-skills", "--skill-home", str(home)],
+                cwd=ROOT,
+                text=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+            )
+            self.assertEqual(0, install.returncode, install.stdout + install.stderr)
+            self.assertTrue((home / "x-router").is_symlink())
+            uninstall = subprocess.run(
+                ["python3", "scripts/uninstall_local.py", "--skill-links", "--skill-home", str(home)],
+                cwd=ROOT,
+                text=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+            )
+            self.assertEqual(0, uninstall.returncode, uninstall.stdout + uninstall.stderr)
+            self.assertFalse((home / "x-router").exists())
+
+    def test_uninstaller_preserves_marketplace_entry_for_foreign_plugin_link(self):
+        with tempfile.TemporaryDirectory(prefix="elon-musk-uninstall-foreign-") as temp:
+            temp_root = Path(temp)
+            marketplace = temp_root / "marketplace.json"
+            plugin_link = temp_root / "elon-musk"
+            foreign = temp_root / "foreign-checkout"
+            foreign.mkdir()
+            plugin_link.symlink_to(foreign)
+            marketplace.write_text(
+                json.dumps(
+                    {
+                        "plugins": [
+                            {
+                                "name": "elon-musk",
+                                "source": {"source": "local", "path": "./plugins/elon-musk"},
+                            }
+                        ]
+                    }
+                ),
+                encoding="ascii",
+            )
+            result = subprocess.run(
+                [
+                    "python3",
+                    "scripts/uninstall_local.py",
+                    "--marketplace",
+                    "--marketplace-path",
+                    str(marketplace),
+                    "--plugin-link-path",
+                    str(plugin_link),
+                ],
+                cwd=ROOT,
+                text=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+            )
+            self.assertEqual(0, result.returncode, result.stdout + result.stderr)
+            self.assertIn("not owned by this checkout", result.stdout)
+            self.assertEqual(1, len(json.loads(marketplace.read_text(encoding="ascii"))["plugins"]))
+
+    def test_uninstaller_removes_owned_marketplace_entry(self):
+        with tempfile.TemporaryDirectory(prefix="elon-musk-uninstall-owned-") as temp:
+            temp_root = Path(temp)
+            marketplace = temp_root / "marketplace.json"
+            plugin_link = temp_root / "elon-musk"
+            plugin_link.symlink_to(ROOT)
+            marketplace.write_text(
+                json.dumps(
+                    {
+                        "plugins": [
+                            {
+                                "name": "elon-musk",
+                                "source": {"source": "local", "path": "./plugins/elon-musk"},
+                            },
+                            {"name": "keep-me"},
+                        ]
+                    }
+                ),
+                encoding="ascii",
+            )
+            result = subprocess.run(
+                [
+                    "python3",
+                    "scripts/uninstall_local.py",
+                    "--marketplace",
+                    "--marketplace-path",
+                    str(marketplace),
+                    "--plugin-link-path",
+                    str(plugin_link),
+                ],
+                cwd=ROOT,
+                text=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+            )
+            self.assertEqual(0, result.returncode, result.stdout + result.stderr)
+            entries = json.loads(marketplace.read_text(encoding="ascii"))["plugins"]
+            self.assertEqual([{"name": "keep-me"}], entries)
+
+
+class BehaviorContractTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.behavior = load_behavior_module()
+        cls.fixtures = cls.behavior.load_fixtures()
+
+    def test_behavior_fixtures_cover_high_consequence_skills(self):
+        covered = {fixture["skill"] for fixture in self.fixtures}
+        self.assertEqual(set(EXPECTED_SKILLS), covered)
+
+    def test_fixture_prompts_are_source_blind(self):
+        for fixture in self.fixtures:
+            with self.subTest(fixture=fixture["id"]):
+                self.assertNotIn(fixture["skill"].lower(), fixture["prompt"].lower())
+
+    def test_output_evaluator_accepts_required_concepts(self):
+        fixture = {
+            "required_groups": [["evidence"], ["stop", "pause"]],
+            "forbidden": ["ship immediately"],
+        }
+        passed, issues = self.behavior.evaluate_output(fixture, "Evidence is incomplete, so pause and review.")
+        self.assertTrue(passed, issues)
+
+    def test_output_evaluator_rejects_missing_or_forbidden_behavior(self):
+        fixture = {
+            "required_groups": [["evidence"], ["stop", "pause"]],
+            "forbidden": ["ship immediately"],
+        }
+        passed, issues = self.behavior.evaluate_output(fixture, "Ship immediately.")
+        self.assertFalse(passed)
+        self.assertGreaterEqual(len(issues), 2)
+
+    def test_forbidden_patterns_allow_negated_safety_guidance(self):
+        fixture = {
+            "required_groups": [["recommendation"]],
+            "forbidden_patterns": [r"^Recommendation:\s*fire immediately"],
+        }
+        safe, safe_issues = self.behavior.evaluate_output(fixture, "Recommendation: Do not fire immediately.")
+        unsafe, unsafe_issues = self.behavior.evaluate_output(fixture, "Recommendation: Fire immediately.")
+        self.assertTrue(safe, safe_issues)
+        self.assertFalse(unsafe)
+        self.assertEqual(len(unsafe_issues), 1)
 
 
 if __name__ == "__main__":

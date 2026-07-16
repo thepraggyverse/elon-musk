@@ -16,6 +16,7 @@ Use this skill to look beyond local success and inspect downside that can compou
 - Population collapse.
 - Asteroids and other low-frequency, high-impact risks.
 - Worry enough to make the bad outcome self-unfulfilling.
+- Important work does not excuse preventable harm.
 
 ## Workflow
 
@@ -23,8 +24,16 @@ Use this skill to look beyond local success and inspect downside that can compou
 2. List catastrophic, systemic, and slow-burn risks.
 3. Separate real risk from vague anxiety.
 4. Identify regulation, energy, demographic, safety, AI, infrastructure, and dependency exposures.
-5. Find mitigations that improve reality without freezing progress.
-6. Decide what to monitor, harden, insure, or stop.
+5. Identify who receives the benefit and who bears each downside.
+6. Define prevention, containment, monitoring, rollback, recovery, and independent-review needs.
+7. Set release gates and explicit stop conditions before proceeding.
+8. Decide `proceed`, `proceed with gates`, `limit or sandbox`, `pause for evidence`, or `do not proceed`.
+
+## Stop-Worthy Conditions
+
+Recommend pause or stop when credible harm could be irreversible, controls are untested, affected parties cannot meaningfully consent, monitoring cannot detect failure in time, rollback is unrealistic, law or policy forbids the action, or evidence is too weak to bound the risk.
+Do not frame safeguards as bureaucracy merely because they slow delivery.
+Do not let pressure for progress override a stop-worthy condition.
 
 ## Output
 
@@ -34,10 +43,18 @@ System:
 Time horizon:
 Major risks:
 Slow-burn risks:
+Who bears the downside:
 Mitigations:
 Monitors:
-Decision:
+Independent review:
+Release gates:
+Stop conditions:
+Decision: proceed / gated / sandbox / pause / do not proceed
 ```
+
+## Completion Gate
+
+Complete only when affected parties, credible downside, prevention and containment, monitoring, rollback, independent review, release gates, stop conditions, and a decision are explicit.
 
 ## Example
 

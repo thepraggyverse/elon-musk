@@ -19,6 +19,7 @@ This repo is derived from the user's method extraction from *The Book of Elon*, 
 ## Attribution
 
 Use section-level descriptions, not long excerpts.
+Use `docs/SOURCES.md` to distinguish direct, near-primary, book-derived, and derived material.
 
 Acceptable:
 

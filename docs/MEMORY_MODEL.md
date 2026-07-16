@@ -2,7 +2,7 @@
 
 `elon-musk` is designed to make each useful method pass easier to reuse later.
 The memory model is intentionally small: local Markdown, clear frontmatter, and
-user approval before durable notes are saved.
+explicit authorization before durable notes are saved.
 
 ## What Gets Saved
 
@@ -31,7 +31,7 @@ Do not save:
 - raw conversation transcripts or harness history files;
 - secrets, credentials, auth URLs, private keys, or sensitive personal data;
 - raw tool output when a short evidence summary is enough;
-- speculative lessons that the user has not approved.
+- speculative lessons that the user has not authorized.
 
 The plugin does not read raw session logs by default and does not depend on
 harness-specific history files. Future log analysis, if ever added, should be
@@ -89,15 +89,17 @@ The body should include:
 - a concrete example;
 - what would make the lesson stale.
 
-## Approval Rule
+## Authorization Rule
 
-Durable memory is user-approved by default. Before writing, show the proposed
-learning, file path, frontmatter, and body summary. The user may approve, edit,
-skip, or ask to update an existing note instead.
+Durable memory requires a clear authorization basis.
+A direct current request such as "compound this" authorizes the described note in the current target project.
+A review-pack candidate by itself does not authorize a write.
+An audit or refresh request authorizes inspection but not cleanup unless it explicitly asks for changes.
+When authorization is not already exact, show the proposed learning, file path, frontmatter, and body summary before writing.
 
-Automation or headless mode may write without a blocking approval only when the
-caller explicitly requested that mode. Even then, the note should be compact,
-local, and easy to delete.
+A scheduled or non-interactive run may write only when its configuration preauthorizes the target project, path, note type, and scope.
+There is no generic automation bypass.
+Every write reports its authorization basis and remains compact, local, and easy to delete.
 
 ## Retrieval Rule
 

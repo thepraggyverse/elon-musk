@@ -50,6 +50,8 @@ Checked on 2026-06-22.
 | `docs/SOURCE_BOUNDARIES.md` | yes | Copyright/source-use guardrails. |
 | `references/book-map.md` | yes | Book-derived method mapping. |
 | `references/method-catalog.md` | yes | Full method catalog and merged subsections. |
+| `references/core-methods.json` | yes | Paraphrased one-to-one ledger for the 69-method summary chapter. |
+| `references/skill-catalog.json` | yes | Canonical 14 method, 1 router, and 5 workflow taxonomy. |
 | `references/source-notes.md` | yes | Source-use notes and anti-copying rules. |
 | `examples/` | yes | Practical prompt examples. |
 
@@ -68,7 +70,7 @@ Checked on 2026-06-22.
 | Lightweight harness bridge files | CE | Cursor, Continue, Goose, OpenCode, and Gemini bridge files. |
 | README skill inventory | CE, Matt Pocock | `README.md` skill inventory and workflow skill map. |
 | Harness-specific install matrix | CE | `docs/HARNESS_MATRIX.md` and `docs/INSTALL.md`. |
-| Direct skill-home linking | Matt Pocock, agent-scripts | `scripts/install_local.py --symlink-skills`, `docs/SYMLINKS.md`. |
+| Direct skill-home linking | Matt Pocock, agent-scripts | Targeted `scripts/install_local.py --symlink-skills --profile <harness>` plus safe uninstall. |
 | Changelog as user-facing release surface | CE, CK, Matt Pocock, agent-scripts | `CHANGELOG.md` and `docs/RELEASE.md`. |
 | Security/privacy docs | CE, CK | `SECURITY.md` and `PRIVACY.md`. |
 | Validation-backed docs | CE, agent-scripts | `scripts/validate_public.py` and `tests/test_plugin_structure.py`. |

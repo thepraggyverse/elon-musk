@@ -23,7 +23,7 @@ The guide's central packaging lesson is simple: a good agent system should make 
 | Compound Engineering | Elon Musk Methods |
 |---|---|
 | Large workflow system for software development. | Compact method pack for reasoning, building, teams, and company strategy. |
-| Many agents, commands, and skills. | 20 searchable `x-*` skills: 15 method lenses plus 5 workflow skills. |
+| Many agents, commands, and skills. | 20 searchable `x-*` skills: 14 method lenses, 1 router, and 5 workflow skills. |
 | Creates project execution artifacts. | Produces reviews, lenses, prompts, and decision frames. |
 | Focuses on AI-native engineering loops. | Focuses on book-derived operating methods. |
 

@@ -38,9 +38,9 @@ This audit records what was reviewed and what changed in this repository.
 
 ## Decisions
 
-### Keep 15 Book-Derived Method Lenses
+### Keep 14 Book-Derived Method Lenses And One Router
 
-The reference projects show different sizes, but this plugin should stay compact. More method lenses would make search noisier. Smaller book-derived ideas live as subsections in the existing method skills and in `references/method-catalog.md`.
+The reference projects show different sizes, but this plugin should stay compact. More method lenses would make search noisier. Smaller book-derived ideas live as subsections in the existing method skills, with exact summary-chapter coverage in `references/core-methods.json`.
 
 ### Add Only Five Workflow Skills
 
@@ -56,7 +56,7 @@ Compound Engineering and Compound Knowledge both use agents where workflows need
 
 ### Use Direct Skill Symlinks For Broad Harness Support
 
-Not every harness supports the same plugin marketplace format. Direct `SKILL.md` folders are the most portable surface, so `scripts/install_local.py --symlink-skills` remains the broad compatibility path.
+Not every harness supports the same plugin marketplace format. Direct `SKILL.md` folders are the most portable surface, so `scripts/install_local.py --symlink-skills --profile all` remains the explicit broad compatibility path.
 
 ### Add Bridge Files, But Do Not Overclaim Marketplace Support
 
@@ -73,7 +73,7 @@ The repo still needs to say it is independent and unaffiliated. It should not be
 | Host-specific marketplace validation for Cursor/Gemini/OpenCode/Pi | Only after testing that each host loads the bridge or manifest correctly. |
 | Guided project bootstrap skill | If users need a repo-specific setup flow for `AGENTS.md`, `docs/reviews/`, or `docs/lessons/` beyond install diagnostics. |
 | Release automation | When public versioned releases matter more than source installs. |
-| Source audit fixture | If the method catalog changes frequently enough to need structured coverage data. |
+| Native host discovery fixtures | When each additional host is locally available for a real named-invocation test. |
 
 ## Documentation Surfaces Now Covered
 

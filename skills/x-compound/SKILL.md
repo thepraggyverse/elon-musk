@@ -21,7 +21,10 @@ faster or clearer.
 - Save local Markdown only.
 - Do not save book text, long quotes, EPUB contents, transcripts, secrets, or raw session logs.
 - Do not create more than three durable notes from one session.
-- Do not write durable memory without user approval unless the user explicitly requested automation or headless mode.
+- A direct current request such as "compound this" or "save this lesson" authorizes only the described note in the current target project.
+- A candidate emitted by `x-review-pack` is not write authorization.
+- A scheduled or non-interactive run may write only when its configuration preauthorizes the target project, path, note type, and scope.
+- If authorization is absent or ambiguous, show the draft and do not write.
 - Prefer updating an existing note when the new learning replaces or sharpens it.
 
 ## Workflow
@@ -36,8 +39,9 @@ faster or clearer.
 4. Draft frontmatter with `type`, `methods`, `tags`, `confidence`, `created`, `source`, and `resurfaces_when`.
 5. Search for duplicates before writing. Check `docs/reviews/`, `docs/lessons/`, `docs/knowledge/`, and `docs/solutions/` when they exist.
 6. Check for stale contradictions. If an older note conflicts with the new lesson, show the conflict and recommend update, keep both, or skip.
-7. Present the draft and wait for user approval unless the caller explicitly requested automation or headless mode.
-8. Write the approved note, then report the saved path, tags, and future retrieval triggers.
+7. Record the authorization basis: direct current request, approved draft, or preauthorized scheduled scope.
+8. If the authorization does not cover this exact target and note, present the draft and wait.
+9. Write the authorized note, then report the saved path, tags, and future retrieval triggers.
 
 ## Note Shape
 
@@ -65,11 +69,16 @@ X Compound:
 Candidates:
 Duplicate/stale check:
 Approved notes:
+Authorization basis:
 Saved paths:
 Tags:
 Resurfaces when:
 Next action:
 ```
+
+## Completion Gate
+
+Complete only when every candidate has a type, duplicate and stale check, target path, retrieval trigger, authorization basis, and either a saved path or an explicit no-write result.
 
 ## Example
 

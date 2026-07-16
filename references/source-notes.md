@@ -34,4 +34,7 @@ Avoid language like:
 
 ## Safe Source Use
 
-When the user asks where a method came from, refer to `book-map.md`. When the user asks for the full set of ideas, refer to `method-catalog.md`. When the user asks for reading recommendations, use `x-reading`.
+When the full repository is available and the user asks where a method came from, use `docs/SOURCES.md` and `book-map.md`.
+When the user asks for the full set of ideas, use `method-catalog.md`.
+When the user asks for reading recommendations, use `x-reading`.
+Standalone skill behavior must not depend on these shared repository references.

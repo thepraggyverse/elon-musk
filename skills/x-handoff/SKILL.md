@@ -60,6 +60,10 @@ Suggested skills:
 Open risks:
 ```
 
+## Completion Gate
+
+Complete only when the handoff is redacted, names current state and evidence, references rather than duplicates artifacts, lists open risks and exact next actions, and reports its path.
+
 ## Example
 
 User: "Write a handoff for continuing this company-building review tomorrow."

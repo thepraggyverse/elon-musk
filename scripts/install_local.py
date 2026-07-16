@@ -13,18 +13,13 @@ from pathlib import Path
 import shutil
 import sys
 
+from install_profiles import PROFILE_CHOICES, resolve_skill_homes
+
 
 ROOT = Path(__file__).resolve().parents[1]
 PLUGIN_NAME = "elon-musk"
 DEFAULT_MARKETPLACE = Path.home() / ".agents" / "plugins" / "marketplace.json"
 DEFAULT_PLUGIN_LINK = Path.home() / "plugins" / PLUGIN_NAME
-DEFAULT_SKILL_HOMES = [
-    Path.home() / ".agents" / "skills",
-    Path.home() / ".codex" / "skills",
-    Path.home() / ".claude" / "skills",
-    Path.home() / ".openclaw" / "skills",
-    Path.home() / ".openclaw" / "acpx" / "codex-home" / "skills",
-]
 
 
 def load_json(path: Path) -> dict:
@@ -169,11 +164,18 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--symlink-skills", action="store_true", help="Symlink x-* skills into skill homes")
     parser.add_argument(
+        "--profile",
+        choices=PROFILE_CHOICES,
+        action="append",
+        default=[],
+        help="Named skill-home profile. Repeat to target several harnesses; use all deliberately for every profile.",
+    )
+    parser.add_argument(
         "--skill-home",
         type=Path,
         action="append",
         default=[],
-        help="Skill home to link into. Repeat for multiple homes. Defaults to common homes.",
+        help="Explicit skill home to link into. Repeat for multiple homes.",
     )
     parser.add_argument("--force", action="store_true", help="Replace existing destinations")
     parser.add_argument("--dry-run", action="store_true", help="Print actions without writing")
@@ -185,13 +187,20 @@ def main() -> int:
     if not args.marketplace and not args.symlink_skills:
         print("Nothing to do. Pass --marketplace, --symlink-skills, or both.")
         return 2
+    if args.symlink_skills and not (args.profile or args.skill_home):
+        print(
+            "install failed: --symlink-skills requires --profile or --skill-home; "
+            "use --profile all only when every supported home is intentional",
+            file=sys.stderr,
+        )
+        return 2
 
     try:
         if args.marketplace:
             ensure_plugin_link(args.plugin_link, force=args.force, dry_run=args.dry_run)
             update_marketplace(args.marketplace_path.expanduser(), dry_run=args.dry_run)
         if args.symlink_skills:
-            homes = [p.expanduser() for p in args.skill_home] or DEFAULT_SKILL_HOMES
+            homes = resolve_skill_homes(args.profile, args.skill_home)
             symlink_skills(homes, force=args.force, dry_run=args.dry_run)
     except Exception as exc:
         print(f"install failed: {exc}", file=sys.stderr)

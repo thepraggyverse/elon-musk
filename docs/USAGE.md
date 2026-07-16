@@ -184,8 +184,9 @@ Look for:
 | Staleness | Does this contradict an older note? |
 | Retrieval | When should this resurface? |
 
-`x-compound` writes local Markdown only after approval unless the user explicitly
-asks for automation or headless behavior.
+The direct request above authorizes that described save in the current project.
+A lesson candidate produced by `x-review-pack` does not authorize a write.
+Scheduled runs require a preauthorized target, path, note type, and scope.
 
 ## Write A Handoff
 

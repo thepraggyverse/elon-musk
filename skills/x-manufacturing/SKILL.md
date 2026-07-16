@@ -9,12 +9,14 @@ Use this skill when success depends on making the thing repeatedly, cheaply, qui
 
 ## Covers
 
-- We must make stuff.
+- Make real things: without production, supply does not exist.
 - The real work is production, not only design.
 - The factory is the product.
-- Attack the constraint.
+- Use twice-speed throughput as a capacity lens.
+- Attack the bottleneck that controls the whole rate.
 - Manufacturing is the moat.
-- Supplier and dependency bottlenecks can set the whole rate.
+- A supplier bottleneck or dependency can set the whole rate.
+- Compete through speed, quality, and cost.
 
 ## Workflow
 
@@ -23,7 +25,8 @@ Use this skill when success depends on making the thing repeatedly, cheaply, qui
 3. Find supplier, dependency, setup, tolerance, or quality bottlenecks.
 4. Delete unnecessary parts, variants, steps, and checks.
 5. Simplify the production path before automating.
-6. Choose the next throughput experiment.
+6. Measure the experiment against throughput, speed, quality, and cost.
+7. Choose the next throughput experiment.
 
 ## Output
 
@@ -34,8 +37,13 @@ Constraint:
 Supplier/dependency risks:
 Delete candidates:
 Simplified path:
+Quality/cost guardrails:
 Throughput experiment:
 ```
+
+## Completion Gate
+
+Complete only when the end-to-end production path, active constraint, dependency risk, deletion candidates, quality and cost guardrails, and next throughput experiment are explicit.
 
 ## Example
 

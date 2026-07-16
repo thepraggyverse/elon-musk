@@ -18,11 +18,11 @@ Use this skill when the user wants to verify, repair, or understand an
 ## Workflow
 
 1. Locate the plugin checkout. Prefer the current repository if it contains `.codex-plugin/plugin.json`.
-2. Read `README.md`, `docs/INSTALL.md`, and `docs/HARNESS_MATRIX.md` only as needed.
+2. When this skill is inside the complete plugin, read `README.md`, `docs/INSTALL.md`, and `docs/HARNESS_MATRIX.md` only as needed. If those files are unavailable, continue with this contract and report that plugin-level docs were not loaded.
 3. Run the local checker when available:
 
 ```bash
-python3 scripts/check_install.py --plugin --skill-links
+python3 scripts/check_install.py --plugin
 ```
 
 4. If the user asks about model-visible skill loading, also run:
@@ -35,7 +35,8 @@ python3 scripts/check_install.py --prompt-input
    - Installed state: marketplace, plugin link, cache, direct skill homes.
    - Prompt visibility: whether Codex injected the skill into prompt context.
    - Next action: reinstall, refresh cache, restart harness, reduce skill roots, or use direct skill invocation.
-6. Do not delete plugins, edit global config, or remove skill roots unless the user explicitly asks.
+6. For direct skill links, require an explicit profile such as `--profile codex`, `--profile claude`, or `--profile openclaw`; never assume all homes.
+7. Do not delete plugins, edit global config, or remove skill roots unless the user explicitly asks.
 
 ## Output
 
@@ -48,11 +49,15 @@ Recommended command:
 What this means:
 ```
 
+## Completion Gate
+
+Complete only when installed-on-disk state, prompt-visible state, the exact issue, and one targeted next command are distinguished explicitly.
+
 ## Example
 
 User: "Use x-setup to check whether the new skills are loaded."
 
-Answer: run `scripts/check_install.py --plugin --skill-links`, optionally run
+Answer: run `scripts/check_install.py --plugin`, optionally run
 `scripts/check_install.py --prompt-input`, then explain whether the plugin cache
 and direct symlinks are correct and whether the current Codex profile can see
 the skills in prompt context.

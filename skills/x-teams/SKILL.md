@@ -10,10 +10,12 @@ Use this skill to inspect whether a team can actually build the thing it claims 
 ## Covers
 
 - A company is a group with a goal.
-- Recruit for exceptional ability.
+- Treat exceptional engineers as a scarce resource and recruit using evidence of exceptional ability.
 - Create a culture of builders.
 - Retain only high-ownership contributors for critical work.
-- Give bad news loudly and often; keep feedback direct and useful.
+- Prefer ability over ego.
+- Make bad news travel fast; keep feedback direct and useful.
+- Empathy does not replace evidence, but evidence does not excuse inhumane treatment.
 
 ## Workflow
 
@@ -22,7 +24,17 @@ Use this skill to inspect whether a team can actually build the thing it claims 
 3. Check evidence of exceptional ability and ownership.
 4. Find culture signals: building, debating reality, shipping, hiding, waiting, or politicking.
 5. Review feedback loops: whether bad news reaches decision makers quickly.
-6. Recommend hiring, role changes, coaching, or team cuts.
+6. Separate role, process, resource, expectation, and individual-performance causes.
+7. Recommend proportionate options such as clearer expectations, process repair, coaching, role changes, hiring, or a documented human-led personnel review.
+
+## Boundaries
+
+- Use specific job-relevant evidence rather than reputation, style, visibility, similarity, or unsupported labels.
+- Direct feedback must remain specific, respectful, timely, and focused on work or behavior.
+- Do not recommend humiliation, retaliation, harassment, or forced public criticism.
+- Before recommending demotion, termination, or team reduction, require fair process, an opportunity to respond where appropriate, and the HR or legal review required by the organization and jurisdiction.
+- Account for disability accommodations, protected leave, discrimination, retaliation, contracts, and worker safety.
+- A human owner must make consequential employment decisions.
 
 ## Output
 
@@ -33,9 +45,16 @@ Critical roles:
 Talent density:
 Builder culture:
 Feedback quality:
+Evidence and system factors:
+Protected-process checks:
 Risks:
 Recommendation:
+Human approvals required:
 ```
+
+## Completion Gate
+
+Complete only when the team goal, job-relevant evidence, system factors, feedback path, protected-process checks, proportionate recommendation, and human approvals are explicit.
 
 ## Example
 

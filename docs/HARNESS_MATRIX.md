@@ -8,12 +8,12 @@ This plugin is intentionally small: 20 `SKILL.md` folders plus plugin metadata a
 |---|---|---|---|
 | Codex app | Native plugin marketplace | Add `thepraggyverse/elon-musk` as a custom marketplace, install `elon-musk`, restart Codex | Update marketplace/plugin in the app, restart Codex |
 | Codex CLI local | Personal marketplace | `python3 scripts/install_local.py --marketplace` then `codex plugin add elon-musk@personal` | `git pull --ff-only`, rerun installer, rerun `codex plugin add` |
-| Codex loose skills | Direct `SKILL.md` folders | `python3 scripts/install_local.py --symlink-skills --skill-home ~/.codex/skills` | `git pull --ff-only`; symlinks keep pointing at the checkout |
+| Codex loose skills | Direct `SKILL.md` folders | `python3 scripts/install_local.py --symlink-skills --profile codex` | `git pull --ff-only`; symlinks keep pointing at the checkout |
 | Claude Code plugin | Claude-compatible plugin metadata | `/plugin marketplace add thepraggyverse/elon-musk` then `/plugin install elon-musk` | `/plugin marketplace update elon-musk-methods` then `/plugin update elon-musk` |
 | Claude Code local dev | Plugin directory | `claude --plugin-dir "$PWD"` | Restart Claude Code after edits |
-| Claude Code loose skills | Direct `SKILL.md` folders | `python3 scripts/install_local.py --symlink-skills --skill-home ~/.claude/skills` | `git pull --ff-only`; restart session |
-| OpenClaw | Direct `SKILL.md` folders | `python3 scripts/install_local.py --symlink-skills --skill-home ~/.openclaw/skills` | `git pull --ff-only`; restart session |
-| Shared `.agents` home | Direct `SKILL.md` folders | `python3 scripts/install_local.py --symlink-skills --skill-home ~/.agents/skills` | `git pull --ff-only`; restart session |
+| Claude Code loose skills | Direct `SKILL.md` folders | `python3 scripts/install_local.py --symlink-skills --profile claude` | `git pull --ff-only`; restart session |
+| OpenClaw | Direct `SKILL.md` folders | `python3 scripts/install_local.py --symlink-skills --profile openclaw` | `git pull --ff-only`; restart session |
+| Shared `.agents` home | Direct `SKILL.md` folders | `python3 scripts/install_local.py --symlink-skills --profile agents` | `git pull --ff-only`; restart session |
 | Cursor | Bridge file | Use `.cursor/rules/elon-musk-methods.mdc` plus direct skill folders | Pull the repo and refresh Cursor rules |
 | Gemini | Bridge file | Use `GEMINI.md` and `gemini-extension.json` plus direct skill folders | Pull the repo and restart Gemini context |
 | OpenCode | Bridge file | Use `.opencode/AGENTS.md` plus direct skill folders | Pull the repo and restart session |
@@ -72,17 +72,13 @@ The Claude-compatible manifest is `.claude-plugin/plugin.json`.
 Use loose skill symlinks when a harness reads `SKILL.md` folders directly or when plugin marketplace support is unavailable.
 
 ```bash
-python3 scripts/install_local.py --symlink-skills
+python3 scripts/install_local.py --symlink-skills --profile openclaw
 ```
 
-Default homes:
+Named profiles:
 
 ```text
-~/.agents/skills
-~/.codex/skills
-~/.claude/skills
-~/.openclaw/skills
-~/.openclaw/acpx/codex-home/skills
+agents, codex, claude, openclaw, openclaw-codex, all
 ```
 
 Custom homes:
@@ -97,13 +93,13 @@ python3 scripts/install_local.py \
 Preview first:
 
 ```bash
-python3 scripts/install_local.py --symlink-skills --dry-run
+python3 scripts/install_local.py --symlink-skills --profile openclaw --dry-run
 ```
 
 Verify direct skill links:
 
 ```bash
-python3 scripts/check_install.py --skill-links
+python3 scripts/check_install.py --skill-links --profile openclaw
 ```
 
 ## Update Checklist
@@ -111,11 +107,11 @@ python3 scripts/check_install.py --skill-links
 ```bash
 cd ~/plugins/elon-musk
 git pull --ff-only
-python3 scripts/install_local.py --marketplace --symlink-skills
+python3 scripts/install_local.py --marketplace --symlink-skills --profile openclaw
 codex plugin add elon-musk@personal
 python3 scripts/validate_public.py
 PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -v
-python3 scripts/check_install.py --plugin --skill-links
+python3 scripts/check_install.py --plugin --skill-links --profile openclaw
 ```
 
 Start a new session in the target harness after updating.
@@ -143,12 +139,12 @@ Codex local plugin:
 codex plugin remove elon-musk@personal
 ```
 
-Loose skill symlinks:
+Loose skill symlinks owned by this checkout:
 
 ```bash
-find ~/.codex/skills -maxdepth 1 -type l -name 'x-*' -delete
-find ~/.claude/skills -maxdepth 1 -type l -name 'x-*' -delete
-find ~/.agents/skills -maxdepth 1 -type l -name 'x-*' -delete
+python3 scripts/uninstall_local.py --skill-links --profile codex
+python3 scripts/uninstall_local.py --skill-links --profile claude
+python3 scripts/uninstall_local.py --skill-links --profile agents
 ```
 
 Claude Code plugin:
